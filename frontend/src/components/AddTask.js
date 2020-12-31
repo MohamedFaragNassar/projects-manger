@@ -83,7 +83,6 @@ if(task){
     }
     return <>
         <div ref={node}  className="add-task">
-            <h3>Adding new task</h3>
             <div className="single assign-users">
                 <div className="group-search-panel" >
                     <GroupSearch isOpen={isOpen} users={project.group} taskID = {task._id} projectID ={project._id} />

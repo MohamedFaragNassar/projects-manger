@@ -7,7 +7,7 @@ import {useClickToClose} from '../helpers/CTC'
 
 const AddUsers = (props) => {
     const [users,setUsers] = useState([])
-    const [user,setUser] = useState([])
+    const [showUsers,setShowUsers] = useState([])
     const [result,setResult] = useState([])
     
     
@@ -55,10 +55,15 @@ const AddUsers = (props) => {
          } 
         },200)
 
-   
+    const handleAddUser = (e) => {
+        setUsers([...new Set([...users,e.target.attributes.value.value])])
+        setShowUsers([...new Set([...showUsers,e.target.attributes.userName.value])])
+    }
 
     const handleDelUser = (e)=>{
-
+        const user = e.target.previousElementSibling.textContent
+        console.log(user)
+        setShowUsers(showUsers.filter(name => {return name != user}))
     }
 
     
@@ -74,26 +79,19 @@ const AddUsers = (props) => {
     }
     return <>
         <div className="overlay"></div>
-        <div className="new-project add-users">
+        <div className="add-users new-project ">
         <div className="stages users" >
             <div>
                 <label>Users</label>
-                <div className="list-stages">
-                   {users.map(user => 
-                        <div>
-                            <span className="stage">{user.userName}</span>
-                            <button onClick={(e)=>handleDelUser(e)} >-</button>
-                        </div>
-                    )}  
-                             
-                 </div>
                     <div ref={domNode} className="add-stages users-add">
-                        <input ref={domNode} className="search-input" onKeyUp={(e)=>searchResult(e.target.value)} type="text" placeholder="Search for users with email" ></input>
-                        <button onClick={()=>setUsers([...users,user])}>+</button> 
+                        <input ref={domNode} className="search-input"
+                         onChange={(e)=>searchResult(e.target.value)} type="text" placeholder="Search for users with email" >
+                        </input>
                         <div  className="search-result hide-search">
                                 <ul>
                                     {data&&data.searchUsers.map(user => 
-                                        <li value={user._id} onClick={(e)=>setUsers([...users,e.target.parentElement.attributes.value.value])}>
+                                        <li value={user._id} userName={user.userName}
+                                        onClick={(e)=> handleAddUser(e)}>
                                             <span>{user.userName}</span>
                                             <div>{user.email}</div>
                                         </li>    
@@ -101,11 +99,19 @@ const AddUsers = (props) => {
                                 </ul>
                             </div>
                     </div>
+                    <div className="list-users list-stages">
+                        {showUsers.map(user => 
+                            <div>
+                                <span className="stage">{user}</span>
+                                <button onClick={(e)=>handleDelUser(e)} >-</button>
+                            </div>
+                        )}  
+                    </div>
                         
                  </div>
             </div>
-            <div className="add-project-btns" >
-                    <button onClick={()=> handleAddGroup()} className="confirm" >Add Users</button>
+            <div className=" add-project-btns" >
+                    <button onClick={()=> handleAddGroup()} className="confirm" >Add Members</button>
                     <button onClick={props.close} className="cancel">Cancel</button>
             </div>
         </div>

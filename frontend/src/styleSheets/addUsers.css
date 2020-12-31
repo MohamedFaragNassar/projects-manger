@@ -1,18 +1,25 @@
+.add-users {
+  min-height: 350px;
+}
 .users-add {
   position: relative;
-  min-height: 250px;
   align-items: flex-start;
 }
 .users {
   min-height: 250px;
 }
+
 .search-result {
   width: 75%;
   height: 200px;
   border: 1px solid black;
   position: absolute;
-  top: 40px;
+  top: 45px;
   left: 75px;
+  overflow-y: scroll;
+  padding: 15px 0;
+  z-index: 20000;
+  background: white;
 }
 
 .hide-search {
@@ -21,4 +28,26 @@
 
 .search-result li {
   border-bottom: 1px solid var(--color-d2);
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.search-result li:hover {
+  background: var(--color-d4);
+}
+
+.search-result li div,
+.search-result li span {
+  pointer-events: none;
+}
+
+.search-result li div {
+  width: 50%;
+  text-align: left;
+}
+
+.list-users {
+  max-height: 200px;
 }

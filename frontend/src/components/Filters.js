@@ -5,7 +5,6 @@ const Filters = (props) => {
             ,filterByUser,clearFilters,filters,setFrom,setTo} = props
     const [filter,setFilter] = useState()
     const appliedFilters = filters.map(filt => filt.filter)
-    
     const options = ["Bucket","Completion","Duration","Group member"].filter(item => {return !appliedFilters.includes(item)})
     console.log(filters)
     return (

@@ -100,6 +100,7 @@ type Mutation  {
         addDependaciesForTask(id:String,field:String,taskID:String): taskType
         deleteDependaciesForTask(id:String,field:String,taskID:String): taskType
         leaveProject(id:String): projectType
+        deleteTask(id:String): taskType
 
     }
 

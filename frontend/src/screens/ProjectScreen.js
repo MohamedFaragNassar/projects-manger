@@ -11,6 +11,7 @@ import AddUsers from '../components/AddUsers'
 import GroupSearch from '../components/GroupSearch'
 import {useClickToClose} from '../helpers/CTC'
 import Filters from '../components/Filters'
+import Status from '../components/Status'
 
 
 
@@ -93,7 +94,11 @@ const ProjectScreen = (props) => {
     }, [data])
     
     return <>
-       { loading ? <div>loading</div>: error ?<div>error</div>:data? 
+       { loading ? 
+            <div>loading</div>
+        : error ?
+            <Status isOpen={true} message={error.message} />
+       :data? 
        <div className="project-page" >
            <div className="proj-header">
                 <div>

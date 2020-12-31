@@ -5,6 +5,8 @@ import {addTaskMutation,getProjectDetailsQuery,updateTaskMutation} from '../quer
 import AddTask from '../components/AddTask'
 import {useClickToClose} from '../helpers/CTC'
 import {getDragAfterElement} from '../helpers/dragAndDrop'
+import TaskMenu from '../components/TaskMenu'
+import {hideOrShow} from '../helpers/helpers'
 
 
 
@@ -48,25 +50,19 @@ const Grid = (props) => {
 
     const addColNode = useClickToClose(()=>hideAndShow("select-col","add-col"),"#select-col")
 
+    const hideMenu = ()=>{
+        const menu = document.querySelector(".task-menu:not(.hide)")
+        if(menu){
+            menu.classList.add("hide")
+        }
+    }
+ 
+    const taskMenuNode = useClickToClose(hideMenu,".task-menu:not(.hide)")
 
     const handleHideColumn = (e,col)=>{
         const filteredCols = columns.filter(column => {return column != col })
         setColumns(filteredCols)
         localStorage.setItem("columns",JSON.stringify([...filteredCols]))
-    }
-
-    const showDel = (e)=>{
-        const icon = e.target.firstElementChild
-        if(icon){
-            icon.classList.remove("hide")
-        }
-    }
-   
-    const hideDel = (e)=>{
-        const icon = e.target.firstElementChild
-        if(icon){
-            icon.classList.add("hide")
-        }
     }
 
     const handleShowTaskForm = () =>{
@@ -118,6 +114,10 @@ console.log(userData)
         })
     }
 
+    const handleShowMenu = (e) => {
+        hideOrShow(e.target.offsetParent,"task-menu","show")
+      }
+
 
     useEffect(()=>{
         
@@ -151,12 +151,19 @@ console.log(userData)
             <div onDragOver={(e)=>handledragOver(e)} id="table-body">
                 {tasks&&tasks.map(task => 
                     <div key={task._id} draggable={true} className="task-row draggable" onDragStart={(e)=>handleDrageStart(e)} >
-                        <span className="finish-icon" >{userID&&userID==project.owner._id?<button onClick={()=>handleFinishTask(task._id)} 
+                        <span className="finish-icon" >{userID&&userID==project.owner._id?
+                        <button onClick={()=>handleFinishTask(task._id)} 
                         className="check">{task.completion < 100 ?<i className="far fa-circle"></i>:
                         <i className="fas fa-check-circle"></i>}</button>:null}</span>
-                            <span className="task-name" >
-                                <section>{task.name}</section>
-                                <i onClick={()=>handleTaskDetails(task._id)} id="task-details-icon" className="fal fa-info-circle"></i>
+                            <span ref={taskMenuNode} className="task-name" >
+                               <section>{task.name}</section>
+                                <div className="task-icons">
+                                    <i onClick={()=>handleTaskDetails(task._id)} id="task-details-icon"
+                                         className="fal fa-info-circle"></i>
+                                    <i  onClick={(e)=>handleShowMenu(e)}  class="far fa-ellipsis-v"></i>
+                                    <TaskMenu task={task} handleFinishTask={handleFinishTask} 
+                                    handleTaskDetails={handleTaskDetails} projectID={project._id} />
+                                </div>
                             </span>
                             <span>{task.assignedTo.map(user =>
                                 <span>{user.userName}</span>

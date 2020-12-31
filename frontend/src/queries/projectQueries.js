@@ -211,9 +211,16 @@ mutation leaveProject($id:String!){
     }
 }
 `
+const deleteeTaskMutation = gql`
+mutation deleteTask($id:String!){
+    deleteTask(id:$id){
+        _id
+    }
+}
+`
 
 export {getProjectsQuery,addProjectMutation,getProjectDetailsQuery
-    ,addTaskMutation,deleteProjectMutation
+    ,addTaskMutation,deleteProjectMutation,deleteeTaskMutation
     ,addUsersGroupMutation,addBucketMutation,addTaskToBucketMutation
     ,updateTaskMutation,assignTaskToUserMutation,addFavoritesMutation
     ,deleteFavoritesMutation,deleteBucketmutation,leaveProjectMutation

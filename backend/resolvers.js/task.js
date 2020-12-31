@@ -148,7 +148,16 @@ const deleteDependaciesForTask = async (args,{user})=>{
     }
 }
 
+const deleteTask = ({id}) => {
+    try{
+        return Task.findByIdAndDelete(id)
+    }catch(error){
+        console.log(error)
+        throw new Error(error)
+    }
+} 
+
 module.exports = {
     addTask,updateTask,taskDetails,addTaskToBucket,assignTaskToUser,
-    addDependaciesForTask,deleteDependaciesForTask
+    addDependaciesForTask,deleteDependaciesForTask,deleteTask
 }

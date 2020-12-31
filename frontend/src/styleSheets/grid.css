@@ -46,7 +46,7 @@
   border-bottom: 1px solid #d4d4d8;
   min-width: 100%;
 }
-.grid-main span:not(.task-name, .finish-icon) {
+.grid-main span:not(.task-name, .finish-icon, .task-menu-item) {
   text-align: center;
   min-width: 150px;
   overflow: hidden;
@@ -60,7 +60,6 @@
   align-items: center;
   min-width: 300px;
   max-width: 300px;
-  overflow: hidden;
 }
 
 .finish-icon {
@@ -77,10 +76,15 @@
   margin: 25px 0 15px 45px;
 }
 
-.task-row i:nth-child(2) {
+.task-icons {
+  position: relative;
+}
+
+.task-icons i:not(.task-menu i) {
   display: none;
 }
-.task-row:hover i:nth-child(2) {
+
+.task-row:hover .task-icons i {
   display: block;
 }
 
@@ -132,4 +136,50 @@
   font-weight: 550;
   width: 150px;
   z-index: 2000;
+}
+.task-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.task-icons i {
+  margin-right: 10px;
+}
+/*task menu*/
+
+.task-menu {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  width: 250px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 -2px 5px 0 rgba(0, 0, 0, 0.07);
+  padding: 20px 0;
+  z-index: 20000;
+}
+
+.task-menu button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.task-menu button:hover {
+  background: var(--color-d4);
+}
+
+.task-menu button i,
+.task-menu-item {
+  font-size: 20px;
+}
+.task-menu-item {
+  text-align: left;
+  width: 70%;
 }
