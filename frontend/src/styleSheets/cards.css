@@ -1,0 +1,97 @@
+.project-card {
+  min-width: 200px;
+  height: 120px;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 -2px 5px 0 rgba(0, 0, 0, 0.07);
+  margin-bottom: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 10px;
+  margin-left: 10px;
+  position: relative;
+  background: white;
+}
+.project-menu {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  border: 1px solid var(--color-d2);
+  background: white;
+  z-index: 1000;
+  border-radius: 5px;
+  padding: 10px 0px;
+}
+.project-menu li {
+  padding: 10px 10px;
+  cursor: pointer;
+}
+.project-menu li:hover {
+  background: var(--color-d4);
+}
+.project-menu li i {
+  margin-left: 10px;
+  color: var(--color-d2);
+}
+.project-card button {
+  margin-left: auto;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.project-card .top-sec {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-sec a {
+  font-size: 20px;
+  font-weight: 700;
+}
+.pr-date {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 550;
+}
+.pr-date i {
+  margin-right: 10px;
+  color: var(--color-d2);
+}
+/*task card */
+.task-card {
+  width: 200px;
+  height: 120px;
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1),
+    2px 3px 4px 2px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.tc-top {
+  display: flex;
+  align-items: center;
+}
+.tc-top h3 {
+  margin-left: 10px;
+}
+
+.tc-mid {
+  width: 50%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tc-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

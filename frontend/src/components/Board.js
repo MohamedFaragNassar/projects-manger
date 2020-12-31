@@ -1,0 +1,160 @@
+import React, { useEffect, useState } from 'react'
+import TaskCard from './TaskCard'
+import {useMutation} from '@apollo/client'
+import {addBucketMutation,addTaskToBucketMutation
+        ,getProjectDetailsQuery,deleteBucketmutation} from '../queries/projectQueries'
+import {getDragAfterElement} from '../helpers/dragAndDrop'
+
+const Board = (props) => {
+    const project = props.project;
+    const filter = props.filter
+
+    const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
+    let userID 
+    if(userData){
+        userID = userData.login.id
+    }
+    
+    const [bucket,setBucket] = useState()
+    const [addBucket] = useMutation(addBucketMutation)
+    const [addTaskToBucket] = useMutation(addTaskToBucketMutation)
+    const [deleteBucket] = useMutation(deleteBucketmutation)
+   
+   
+    const handleAddBucket = (e)=>{
+        e.preventDefault()
+        addBucket({variables:{
+            id:project._id,
+            bucket
+        },
+        refetchQueries:[{query:getProjectDetailsQuery,variables:{
+            id:project._id
+        }}]
+    })
+        const bucketInput = document.querySelector("#bucket-input")
+        bucketInput.value = null
+        bucketInput.classList.add("hide")
+    }
+    const showInput = (e) =>{
+        const bucketInput = document.querySelector("#bucket-input")
+        bucketInput.classList.remove("hide")
+      
+    }
+    const showSelect = (e)=>{
+        const selectTask = e.target.previousElementSibling
+        selectTask.classList.remove("hide")
+        e.target.classList.add("hide")
+    }
+    const handleAddTaskToBucket = (e)=>{
+        const taskID = e.target.value
+        const bucket = e.target.attributes.bucket.value
+        const select = e.target.parentElement
+        const btn = select.nextElementSibling
+        addTaskToBucket({variables:{
+            projectID:project._id,
+            taskID,
+            bucket
+        },
+        refetchQueries:[{query:getProjectDetailsQuery,variables:{
+            id:project._id
+        }}]
+    })
+
+        select.classList.add("hide")
+        btn.classList.remove("hide")
+    }
+
+
+
+
+
+    const handledragOver = (e,bucket)=>{
+        const container = document.getElementById(bucket)
+        e.preventDefault()
+        const afterElement = getDragAfterElement(container, e.clientY)
+        const draggingElemnet = document.querySelector('.dragging')
+        const taskID = draggingElemnet.attributes.taskID.value
+        
+        draggingElemnet.addEventListener("dragend",()=>{
+            if(!afterElement){
+                container.appendChild(draggingElemnet)
+            }else{
+                container.insertBefore(draggingElemnet,afterElement)
+            }
+             addTaskToBucket({variables:{
+                    projectID:project._id,
+                    taskID,
+                    bucket
+                },
+                
+            }) 
+            draggingElemnet.classList.remove("dragging")
+        })
+    }
+
+    
+    const handleDeleteBucket = (bucket)=>{
+       deleteBucket({
+           variables:{
+               id:project._id,
+               bucket
+           },
+           refetchQueries:[{query:getProjectDetailsQuery,variables:{id:project._id}}]
+       })
+    }
+
+
+
+    return (
+        <div className="board" >
+            <div className="board-body">
+                { filter==="bucket" && project ? 
+                    project.buckets.map(bucket => 
+                    <div id={bucket}  bucket={bucket}  onDragOver={(e)=>handledragOver(e,bucket)} className="board-bucket drag-container drg" >
+                        <h4>
+                            {bucket} 
+                            {project.owner._id==userID?<i onClick={(e)=>handleDeleteBucket(bucket)} className="fal fa-times-circle"></i>:null} 
+                        </h4>
+                        <select id="board-select"  className="hide" >{project.tasks.map(task => 
+                            <option  bucket={bucket} value={task._id} onClick={(e)=>handleAddTaskToBucket(e)} >{task.name}</option>    
+                        )}</select>
+                        {project.owner._id == userID ?<button id="add-task-to-bucket" bucket={bucket} onClick={(e)=>showSelect(e)}>
+                            add task
+                        </button> :null}
+                        {project.tasks.filter(task => task.bucket === bucket).map(task => 
+                            <TaskCard task = {task} />
+                            )}
+                    </div>)
+                    :
+                    <>
+                        <div>
+                            <h4>Not Started</h4>
+                            {project.tasks.filter(task => {return task.completion ==0 }).map(task => 
+                                <TaskCard task={task}  />
+                            )}
+                        </div>
+                        <div>
+                            <h4>In progress</h4>
+                            {project.tasks.filter(task => {return task.completion > 0 && task.completion < 100  }).map(task => 
+                                <TaskCard task={task}  />
+                            )}
+                        </div>
+                        <div>
+                            <h4>Finished</h4>
+                            {project.tasks.filter(task => {return task.completion == 100 }).map(task => 
+                                <TaskCard task={task}  />
+                            )}
+                        </div>
+                    </>
+                }
+            </div>
+           {filter==="bucket" && project.owner._id==userID?<form onSubmit={(e)=>handleAddBucket(e)} className="add-new-bucket">
+                <input className="hide" id="bucket-input" required={true} type="text" onChange={(e)=>setBucket(e.target.value)} />
+                <button onClick={(e)=>showInput(e)}>+ New Bucket</button>
+            </form>:null}
+           
+        </div>
+    )
+}
+
+export default Board

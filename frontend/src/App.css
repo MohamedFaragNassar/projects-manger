@@ -1,0 +1,88 @@
+@import "./styleSheets/navigation.css";
+@import "./styleSheets/sidebar.css";
+@import "./styleSheets/maniPage.css";
+@import "./styleSheets/cards.css";
+@import "./styleSheets/project.css";
+@import "./styleSheets/userNav.css";
+@import "./styleSheets/register.css";
+@import "./styleSheets/newproject.css";
+@import "./styleSheets/addTask.css";
+@import "./styleSheets/addUsers.css";
+@import "./styleSheets/grid.css";
+@import "./styleSheets/board.css";
+@import "./styleSheets/groupSearch.css";
+@import "./styleSheets/timline.css";
+@import "./styleSheets/status.css";
+@import "./styleSheets/spinner.css";
+
+:root {
+  --color-d1: #222831;
+  --color-d2: #30475e;
+  --color-d3: #f05454;
+  --color-d4: #e8e8e8;
+  --green: #16c79a;
+  --border: #51adcf;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+body {
+  background: #f3f9fb;
+}
+
+ul {
+  list-style: none;
+}
+
+a,
+i {
+  text-decoration: none;
+  cursor: pointer;
+}
+button {
+  cursor: pointer;
+  background: transparent;
+  border-style: none;
+}
+
+a,
+li,
+button {
+  outline: none;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 60px auto;
+}
+.main-v2 {
+  grid-template-columns: 300px auto;
+}
+
+.main-section {
+  height: auto;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dragging {
+  opacity: 0.7;
+}
+
+.hide {
+  display: none;
+}
+
+input {
+  padding: 5px;
+  font-size: 18px;
+  border: 3px solid var(--border);
+  border-radius: 5px;
+}
+input:focus {
+  border: 3px solid var(--green);
+}

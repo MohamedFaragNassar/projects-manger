@@ -1,0 +1,80 @@
+/* add task */
+
+.add-task-panel {
+  position: fixed;
+  top: 100px;
+  right: 25px;
+  width: 40%;
+  height: 80%;
+  pointer-events: none;
+}
+
+.add-task {
+  background: var(--color-d4);
+  padding: 10px;
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1),
+    2px 3px 4px 2px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  border-radius: 10px;
+  z-index: 10000;
+  position: relative;
+  pointer-events: all;
+}
+
+.add-task h3 {
+  text-align: center;
+}
+.add-task label {
+  margin-right: 5px;
+}
+.add-task div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+}
+
+.single input,
+.single select {
+  width: 70%;
+  padding: 7px;
+  border-radius: 5px;
+  border: 2px solid var(--color-d1);
+}
+.double div {
+  width: 50%;
+}
+.double input {
+  width: 50%;
+  padding: 7px;
+  border-radius: 5px;
+  border: 2px solid var(--color-d1);
+}
+.trible div {
+  width: 33%;
+}
+.trible input {
+  width: 40%;
+  padding: 7px;
+  border-radius: 5px;
+  border: 2px solid var(--color-d1);
+}
+
+.add-task-btns {
+  margin-top: 20px;
+}
+
+/*group search */
+
+.assign-users {
+  position: relative;
+}
+
+.group-search-panel {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  width: 250px;
+  height: 500px;
+  pointer-events: none;
+}

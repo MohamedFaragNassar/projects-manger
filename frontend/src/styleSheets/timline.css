@@ -1,0 +1,97 @@
+.timeline {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  position: relative;
+}
+
+.changing-date {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+}
+
+.timeline-side {
+  width: 20%;
+  max-width: 20%;
+  height: 100%;
+  border: 1px solid black;
+}
+
+.timeline-main {
+  width: 80%;
+  max-width: 80%;
+  height: 100%;
+  z-index: 10000;
+}
+
+.timline-task {
+  width: 100%;
+  height: 40px;
+  border: 1px solid black;
+  display: flex;
+  position: relative;
+  margin-top: 25px;
+}
+
+.bar {
+  background: var(--color-d2);
+  position: relative;
+  z-index: 500;
+  pointer-events: none;
+}
+.bar-btn {
+  pointer-events: all;
+}
+.empty {
+  background: white;
+}
+
+.fill {
+  background: var(--color-d2);
+}
+
+#start {
+  position: absolute;
+  left: -15px;
+  top: 15px;
+}
+
+#end {
+  position: absolute;
+  right: -15px;
+  top: 15px;
+}
+
+.node {
+  width: 20px;
+  height: 100%;
+}
+
+.row-grid {
+  display: flex;
+  position: absolute;
+  left: 0;
+  height: 100%;
+}
+
+.compeletion-state {
+  position: absolute;
+  height: 100%;
+  background: #79a3b1;
+  top: 0;
+}
+.draw {
+  position: absolute;
+  top: 20px;
+  height: 600px;
+  width: 600px;
+  z-index: -1;
+}
+.drawv2 {
+  position: absolute;
+  bottom: 20px;
+  height: 600px;
+  width: 600px;
+  z-index: -1;
+}

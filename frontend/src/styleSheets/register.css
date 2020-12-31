@@ -1,0 +1,207 @@
+/*sign in */
+
+.register {
+  background: var(--color-d4);
+  width: 70%;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 3px 5px 0 rgba(0, 0, 0, 0.07);
+  margin: auto;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  height: 550px;
+  background: #16c79a;
+}
+
+.img-container {
+  width: 50%;
+  min-height: 98.5%;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.register img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.register form {
+  width: 50%;
+  height: 98%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form h3 {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.login-form div:not(#status) {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 25px;
+  color: white;
+  font-size: 20px;
+  font-weight: 550;
+}
+
+.register div label {
+  margin-bottom: 10px;
+}
+
+.login-form input {
+  width: 100%;
+  height: 25px;
+  border-radius: 5px;
+  padding: 10px;
+  border: 2px solid #0f3057;
+  outline: none;
+  font-size: 18px;
+}
+
+.register form input:focus {
+  border: 2px solid #51adcf;
+}
+.login-form section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.register button {
+  padding: 10px 40px;
+  border-radius: 30px;
+  border: 2px solid white;
+  font-size: 25px;
+  font-weight: 550;
+  color: white;
+  margin-bottom: 10px;
+}
+.register a {
+  color: var(--color-d2);
+  font-size: 20px;
+  font-weight: 550;
+}
+.register button:hover {
+  background: white;
+  color: var(--color-d2);
+}
+.register a:hover {
+  color: white;
+}
+.signup {
+  width: 40%;
+}
+.register-form {
+  padding: 5px;
+}
+.register-form h3 {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  margin-top: 15px;
+}
+.register-form div:not(#status) {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-top: 15px;
+  color: white;
+  font-size: 18px;
+}
+.register-form input {
+  width: 60%;
+  height: 15px;
+  border-radius: 5px;
+  padding: 10px;
+  border: 2px solid #0f3057;
+  outline: none;
+  font-size: 18px;
+}
+
+.register-form section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.register-form button {
+  padding: 8px 40px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.register a {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.confirm-pass {
+  position: relative;
+}
+
+.message {
+  position: absolute;
+  bottom: -10px;
+  left: 40%;
+}
+
+/* guest */
+
+.ghuest {
+  width: 70%;
+  height: 70%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ghuest h3 {
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--color-d2);
+}
+
+.ghuest p {
+  font-size: 25px;
+  font-weight: 600;
+  color: white;
+  margin-top: 25px;
+  margin-bottom: 40px;
+}
+
+.ghuest a {
+  padding: 10px 40px;
+  border-radius: 30px;
+  border: 2px solid var(--color-d2);
+  font-size: 25px;
+  font-weight: 550;
+  color: var(--color-d2);
+  margin-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.ghuest a:hover {
+  background: white;
+  color: var(--color-d2);
+}

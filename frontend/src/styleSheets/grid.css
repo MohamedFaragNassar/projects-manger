@@ -1,0 +1,135 @@
+/*grid*/
+.proj-body {
+  z-index: 3000;
+  position: relative;
+}
+
+.check {
+  font-size: 25px;
+}
+.grid-main {
+  max-width: 99.5%;
+  background: white;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 -2px 5px 0 rgba(0, 0, 0, 0.07);
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+#table-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-header {
+  font-size: 20px;
+  font-weight: 600;
+}
+.grid-header i {
+  margin-left: 10px;
+  visibility: hidden;
+}
+
+.additional-col:hover i:only-child {
+  visibility: visible;
+}
+
+.proj-body div {
+  font-size: 18px;
+}
+.task-row,
+.grid-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #d4d4d8;
+  min-width: 100%;
+}
+.grid-main span:not(.task-name, .finish-icon) {
+  text-align: center;
+  min-width: 150px;
+  overflow: hidden;
+}
+
+.task-name {
+  font-size: 18px;
+  font-weight: 550;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 300px;
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.finish-icon {
+  min-width: 40px;
+  overflow: hidden;
+}
+
+.add-task-wrapper {
+  margin-left: 50px;
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px 0 15px 45px;
+}
+
+.task-row i:nth-child(2) {
+  display: none;
+}
+.task-row:hover i:nth-child(2) {
+  display: block;
+}
+
+.add-task-wrapper div button {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-d2);
+}
+
+.add-task-wrapper div i {
+  font-size: 20px;
+}
+.task-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-task-wrapper form input {
+  padding: 5px;
+  font-size: 18px;
+  border: 3px solid var(--border);
+  border-radius: 5px;
+}
+.add-task-wrapper form input:focus {
+  border: 3px solid var(--green);
+}
+
+.add-task-wrapper form button {
+  margin-left: 15px;
+  font-size: 25px;
+  color: var(--color-d2);
+}
+.add-col-container {
+  min-width: 200px;
+}
+.add-col-container button {
+  font-size: 20px;
+  font-weight: 580;
+  padding: 7px 10px;
+}
+
+.add-col-container select {
+  padding: 5px 15px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 550;
+  width: 150px;
+  z-index: 2000;
+}

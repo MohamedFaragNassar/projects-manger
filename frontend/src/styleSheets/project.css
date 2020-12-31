@@ -1,0 +1,161 @@
+.proj-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  margin-bottom: 50px;
+}
+.proj-header h1 {
+  color: var(--color-d2);
+  margin-left: 15px;
+}
+
+.proj-header div {
+  display: flex;
+  align-items: center;
+}
+
+.view-links {
+  margin-left: 100px;
+  margin-top: 10px;
+}
+.view-links button {
+  margin-left: 10px;
+  font-size: 15px;
+  font-weight: 550;
+}
+
+.filter,
+.group {
+  margin-right: 60px;
+}
+
+.add-new-bucket {
+  z-index: 1000;
+}
+
+.users {
+  z-index: 1500;
+}
+
+.group-members {
+  position: relative;
+}
+.group-members button,
+.group {
+  font-size: 15px;
+  font-weight: 550;
+}
+
+.group-members button:hover,
+.group:hover,
+.filters button:hover,
+.view-links button:hover {
+  color: var(--green);
+}
+
+.group-members-panel {
+  position: absolute;
+  top: 20px;
+  left: -50px;
+  width: 200px;
+  pointer-events: none;
+}
+
+.filters {
+  position: relative;
+}
+
+.filters i {
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.filters button,
+.filter label {
+  font-size: 15px;
+  font-weight: 550;
+  color: var(--color-d2);
+  margin-right: 10px;
+}
+
+.filter select {
+  padding: 5px 15px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 550;
+  width: 150px;
+  z-index: 2000;
+  text-align: center;
+}
+
+.users i {
+  margin-left: 10px;
+}
+
+/*filter panel */
+.filters-panel {
+  position: absolute;
+  top: 30px;
+  left: -105px;
+  width: 250px;
+  padding: 20px 10px;
+  pointer-events: none;
+  background: #e7e7e7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 10000;
+  background: white;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 -2px 5px 0 rgba(0, 0, 0, 0.07);
+  border-radius: 10px;
+}
+
+.filters-body,
+.filters-body div:not(.applied-filter) {
+  display: flex;
+  flex-direction: column;
+  z-index: 10000;
+  pointer-events: all;
+}
+.filters-body select {
+  width: 95%;
+}
+.hide-filters {
+  visibility: hidden;
+}
+.filters-body div {
+  margin-bottom: 20px;
+  width: 100%;
+}
+.filter-options label {
+  margin-bottom: 10px;
+}
+
+.filters-body label,
+.filters-body button {
+  margin: 10px 0;
+}
+.filters-body input {
+  width: 50%;
+}
+.filters-body section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.applied-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  margin-top: 10px;
+}
+
+.added-filter {
+  color: var(--color-d3);
+  font-weight: 550;
+}
