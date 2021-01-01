@@ -32,6 +32,8 @@ const ProjectScreen = (props) => {
     const [zoom,setZoom] = useState(50)
     const [filters,setFilters] = useState([])
     const [boardfilter,setBoardFilter] = useState("bucket")
+
+
     const domNode = useClickToClose(()=>setIsOpen(false),".group-search")
 
     
@@ -121,13 +123,13 @@ const ProjectScreen = (props) => {
                         </> 
                         : view==="grid"?
                         <>
-                            <div ref={filtersNode} className="filters" >
+                            <div className="filters" >
                                 <button onClick={()=>showFilters()}>
                                     ({filters.length}) filters
                                     <i class="fas fa-filter"></i>
                                     </button>
                                 <Filters project={project} filterByCompletion={filterByCompletion} filterByUser={filterByUser} 
-                                    filterByBucket={filterByBucket} filterByDuration={filterByDuration}
+                                    filterByBucket={filterByBucket} filterByDuration={filterByDuration} domNode={filtersNode}
                                      clearFilters={clearFilters} filters={filters} setFrom={setFrom} setTo={setTo} />
                             </div>
                         </> : <>
@@ -136,13 +138,12 @@ const ProjectScreen = (props) => {
                         </>}
                     </div>
                     <div className="users">
-                        <div ref={domNode} className="group-members" >
+                        <div className="group-members" >
                             <button onClick={()=>setIsOpen(true)} className="group" >Group mempers ({project.group.length}) 
                                 <i class="fas fa-chevron-down"></i>
+                                <GroupSearch isOpen={isOpen} users = {project.group} domNode={domNode} />
                             </button>
-                            <div className="group-members-panel">
-                                <GroupSearch isOpen={isOpen} users = {project.group} />
-                            </div>
+                            
                         </div>
                         {project.owner._id == userID?<button onClick={()=>setAddUserOpen(true)} className="group" >
                             Add Members<i class="fas fa-user-plus"></i>

@@ -28,8 +28,8 @@ const GroupSearch = (props) => {
         return null
     }
     return (
-        <section className="group-search">
-            <h3>Search for users in your group</h3>
+        <div ref={props.domNode} className="group-search">
+            <h3>Search Members</h3>
             <input type="text" />
             <ul>
                 {users.map(user => 
@@ -39,7 +39,7 @@ const GroupSearch = (props) => {
                 )}
             </ul>
             
-        </section>
+        </div>
     )
 }
 

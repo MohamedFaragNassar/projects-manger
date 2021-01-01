@@ -7,6 +7,7 @@ const useClickToClose = (closeHandler,selector) =>{
          if(node.current){
             clickHandler = (e)=>{
                 const element = document.querySelector(selector)
+                console.log(element)
                 if(element){
                     if(!element.contains(e.target)){
                         closeHandler()

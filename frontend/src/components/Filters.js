@@ -8,7 +8,7 @@ const Filters = (props) => {
     const options = ["Bucket","Completion","Duration","Group member"].filter(item => {return !appliedFilters.includes(item)})
     console.log(filters)
     return (
-        <div className="filters-panel hide-filters">
+        <div ref={props.domNode} className="filters-panel hide-filters">
         <div className="filters-body" >
             <div className="filter-options">
                 <label>Filter by</label>

@@ -7,6 +7,7 @@ import {useClickToClose} from '../helpers/CTC'
 import {getDragAfterElement} from '../helpers/dragAndDrop'
 import TaskMenu from '../components/TaskMenu'
 import {hideOrShow} from '../helpers/helpers'
+import AdditionalColumns from './AdditionalColumns'
 
 
 
@@ -119,14 +120,17 @@ console.log(userData)
       }
 
 
+ 
+
+
     useEffect(()=>{
         
 
     },[columns])
   
     return <>
-        <div ref={domNode} className="add-task-panel" >
-            <AddTask method="add" isOpen ={isOpen} close={()=>setIsOpen(false)} task={task} project={project} />
+        <div className="add-task-panel" >
+            <AddTask method="add" isOpen ={isOpen} close={()=>setIsOpen(false)} task={task} project={project} domNode={domNode} />
         </div>
         <div className="grid-main" >
             <div className="grid-header">
@@ -137,12 +141,11 @@ console.log(userData)
                 <span>completed</span>
                 {columns && columns.map(col => 
                 <span className="additional-col" key={col} >
-                    {col} 
-                    <i onClick={(e)=>handleHideColumn(e,col)} className="fal fa-times-circle"></i>
-                </span>    
+                    {col} <i onClick={(e)=>handleHideColumn(e,col)} className="fal fa-times-circle"></i>
+                 </span>    
                 )}
-                {options.length > 0 ?<div ref={addColNode} className="add-col-container">
-                    <select id="select-col" className="hide">{options.map( opt =>
+                {options.length > 0 ?<div  className="add-col-container">
+                    <select ref={addColNode} id="select-col" className="hide">{options.map( opt =>
                     <option onClick={(e)=>handleAddColumn(e.target.value)}>{opt}</option>    
                     )}</select>
                     <button id="add-col" onClick={()=>handleShowSelect()}>Add column</button>
@@ -155,13 +158,13 @@ console.log(userData)
                         <button onClick={()=>handleFinishTask(task._id)} 
                         className="check">{task.completion < 100 ?<i className="far fa-circle"></i>:
                         <i className="fas fa-check-circle"></i>}</button>:null}</span>
-                            <span ref={taskMenuNode} className="task-name" >
+                            <span className="task-name" >
                                <section>{task.name}</section>
                                 <div className="task-icons">
                                     <i onClick={()=>handleTaskDetails(task._id)} id="task-details-icon"
                                          className="fal fa-info-circle"></i>
                                     <i  onClick={(e)=>handleShowMenu(e)}  class="far fa-ellipsis-v"></i>
-                                    <TaskMenu task={task} handleFinishTask={handleFinishTask} 
+                                    <TaskMenu task={task} handleFinishTask={handleFinishTask}  domNode={taskMenuNode}
                                     handleTaskDetails={handleTaskDetails} projectID={project._id} />
                                 </div>
                             </span>
@@ -170,23 +173,17 @@ console.log(userData)
                                 )}</span>
                             <span>{task.duration}</span>
                             <span>{task.completion} %</span>
-                            {columns && columns.map(col => 
-                            col ==="dependsOn" || col ==="dependants"? 
-                            <span>{task[col].map(task => 
-                                    <span>{task.name}</span>
-                                )}</span>
-                            : <span>{task[col]}</span>    
-                        )}
+                            <AdditionalColumns columns={columns} task={task} />
                         <span></span>
                     </div>
                 )}
             </div>
             {userID&&userID==project.owner._id?<div className="add-task-wrapper">
-                    <div ref={addTaskNode} id="add-new-task">
+                    <div id="add-new-task">
                         <i class="fas fa-plus"></i>
                         <button onClick={()=>handleShowTaskForm()} >Add new task</button>
                     </div>
-                    <form onSubmit={(e)=>handleAddTask(e)} id="add-task-form" className="hide task-form " >
+                    <form ref={addTaskNode} onSubmit={(e)=>handleAddTask(e)} id="add-task-form" className="hide task-form " >
                         <input onChange={(e)=>setTask(e.target.value)} required={true} type="text" />
                         <button><i className="fas fa-plus-circle"></i></button>
                     </form>

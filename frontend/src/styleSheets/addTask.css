@@ -7,6 +7,7 @@
   width: 40%;
   height: 80%;
   pointer-events: none;
+  z-index: 100000;
 }
 
 .add-task {
@@ -15,19 +16,18 @@
   box-shadow: -4px 4px 15px 0px rgba(50, 50, 50, 0.42);
   height: 100%;
   border-radius: 10px;
-  z-index: 10000;
   position: relative;
   pointer-events: all;
   background: white;
+  padding: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
-.add-task h3 {
-  text-align: center;
-}
 .add-task label {
   margin-right: 5px;
 }
-.add-task div {
+.add-task div:not(.show-dependacy-container, .show-dependacy) {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,16 +39,16 @@
   width: 70%;
   padding: 7px;
   border-radius: 5px;
-  border: 2px solid var(--color-d1);
+  border: 3px solid var(--border);
 }
 .double div {
   width: 50%;
 }
 .double input {
-  width: 50%;
+  width: 55%;
   padding: 7px;
   border-radius: 5px;
-  border: 2px solid var(--color-d1);
+  border: 3px solid var(--border);
 }
 .trible div {
   width: 33%;
@@ -57,13 +57,54 @@
   width: 40%;
   padding: 7px;
   border-radius: 5px;
-  border: 2px solid var(--color-d1);
+  border: 3px solid var(--border);
 }
 
 .add-task-btns {
   margin-top: 20px;
 }
 
+.dependacy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.single {
+  width: 90%;
+  margin: auto;
+}
+
+.show-dependacy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  word-wrap: none;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  margin-top: 10px;
+}
+.show-dependacy i {
+  color: var(--color-d2);
+  font-size: 15px;
+  visibility: hidden;
+  margin-left: 10px;
+}
+
+.show-dependacy:hover i:only-child {
+  visibility: visible;
+}
+
+.show-dependacy-container {
+  width: 95%;
+  max-height: 200px;
+  overflow-y: scroll;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 /*group search */
 
 .assign-users {

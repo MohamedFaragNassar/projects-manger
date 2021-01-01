@@ -60,6 +60,7 @@
   left: -50px;
   width: 200px;
   pointer-events: none;
+  z-index: 10000;
 }
 
 .filters {

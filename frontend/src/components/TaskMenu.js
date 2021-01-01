@@ -1,7 +1,7 @@
 import React from 'react'
 import {useMutation} from '@apollo/client'
 import {deleteeTaskMutation,getProjectDetailsQuery} from '../queries/projectQueries'
-const TaskMenu = ({task,handleTaskDetails,handleFinishTask,projectID}) => {
+const TaskMenu = ({task,handleTaskDetails,handleFinishTask,projectID,domNode}) => {
 
     const [deleteTask] = useMutation(deleteeTaskMutation)
 
@@ -15,7 +15,7 @@ const TaskMenu = ({task,handleTaskDetails,handleFinishTask,projectID}) => {
     }
 
     return (
-        <div id="task-menu" className="task-menu hide">
+        <div ref={domNode} id="task-menu" className="task-menu hide">
             <button  onClick={()=>handleTaskDetails(task._id)} >
                 <i id="task-details-icon" className="fal fa-info-circle"></i>
                 <span className="task-menu-item" >Details</span>

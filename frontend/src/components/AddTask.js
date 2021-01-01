@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
 import {useMutation} from '@apollo/client'
-import {addTaskMutation,updateTaskMutation,getProjectDetailsQuery
-        ,addDependaciesForTaskMutation,deleteDependaciesForTaskMutation} from '../queries/projectQueries'
+import {updateTaskMutation,getProjectDetailsQuery
+        ,addDependaciesForTaskMutation} from '../queries/projectQueries'
 import {debounce} from '../helpers/helpers'
 import GroupSearch from '../components/GroupSearch'
+import ShowDependacy from '../components/ShowDependacy'
 
 const AddTask = (props) => {
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
@@ -17,7 +17,7 @@ const AddTask = (props) => {
     const taskID = props.task
     const task =project.tasks.find(item => {return item._id == taskID})
     
-    const node = props.node
+    const node = props.domNode
     let isAllowed
    
 if(task){
@@ -35,7 +35,6 @@ if(task){
 
     const [updateTask] = useMutation(updateTaskMutation)
     const [addDependacy] = useMutation(addDependaciesForTaskMutation)
-    const [deleteDependacy] = useMutation(deleteDependaciesForTaskMutation)
 
 
 
@@ -62,18 +61,6 @@ if(task){
         })
     }
 
-    const deleteDependacyHandler = (taskID,field) => {
-        deleteDependacy({
-            variables:{
-                id:task._id,
-                taskID,
-                field
-            },
-            refetchQueries:[{query:getProjectDetailsQuery,variables:{
-                id:project._id
-            }}]
-        })
-    }
     
     
 
@@ -141,16 +128,8 @@ if(task){
                     <input  defaultValue={task.totalEffort - task.doneEffort} type="number" readOnly/>
                 </div>
             </div>
-            <div className="single">
-                <div>
-                    {task.dependsOn.map(task =>
-                        <div>
-                            <span>{task.name}</span>
-                            {isAllowed?<button onClick={()=>deleteDependacyHandler(task._id,"dependsOn")} >del</button>:null}
-                        </div>    
-                    )}
-                </div>
-               { isAllowed ? <div>
+            <div className="dependacy">
+                { isAllowed ? <div className="single" >
                     <label>Depends On</label>
                     <select defaultValue={task.dependsOn[0]}  >{
                         project.tasks.map(task => 
@@ -160,17 +139,17 @@ if(task){
                         )    
                     }</select>
                 </div> :null }
-            </div>
-            <div className="single">
-                <div>
-                    {task.dependants.map(task =>
+                <div className="show-dependacy-container" >
+                    {task.dependsOn.map(task =>
                         <div>
-                            <span>{task.name}</span>
-                            {isAllowed?<button onClick={()=>deleteDependacyHandler(task._id,"dependants")} >del</button>:null}
+                           <ShowDependacy task={task} id={taskID} projectID={project._id} field="dependsOn" isAllowed={isAllowed} />
                         </div>    
                     )}
                 </div>
-                {isAllowed?<div>
+               
+            </div>
+            <div className="dependacy">
+                {isAllowed?<div className="single">
                     <label>Dependants</label>
                     <select defaultValue={task.dependants[0]}  >
                     {
@@ -182,6 +161,12 @@ if(task){
                     }
                     </select>
                 </div>:null}
+                <div className="show-dependacy-container" >
+                    {task.dependants.map(task =>
+                        <ShowDependacy task={task} id={taskID} projectID={project._id} field="dependants" isAllowed={isAllowed} />
+                    )}
+                </div>
+                
             </div>
           </div>
    </>
