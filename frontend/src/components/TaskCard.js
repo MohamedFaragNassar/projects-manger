@@ -1,29 +1,51 @@
 import React from 'react'
+import {useMutation} from '@apollo/client'
+import {getProjectDetailsQuery,updateTaskMutation} from '../queries/projectQueries'
 
 const TaskCard = (props) => {
-    const task = props.task;
+    const {task,project} = props;
+    const [finishTask] = useMutation(updateTaskMutation)
+    
+
+    const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
+    let userID 
+    if(userData){
+        userID = userData.login.id
+    }
+
     const handleDrageStart = (e)=>{
         e.target.classList.add("dragging")
     }
-    const handleDrageEnd = (e)=>{
-        e.target.classList.remove("dragging")
-
+  
+    const handleFinishTask = (id)=>{
+        finishTask({variables:{
+            id,
+            updatedFields:{completion:100}
+        },
+        refetchQueries:[{query:getProjectDetailsQuery,variables:{
+            id:project._id
+        }}]})
     }
-
+    const now  =  Date.now()
+    const isOverDue =  now > new Date(task.end).getTime() 
     return (
         <div onDragStart={(e)=>handleDrageStart(e)}  taskID={task._id}  draggable="true" className="task-card draggable ">
             <div className="tc-top">
-                <button>check</button>
-                <h3>{task.name}</h3>
+                <span >{userID&&userID==project.owner._id?
+                    <button onClick={()=>handleFinishTask(task._id)} 
+                    className="check">{task.completion < 100 ?<i className="far fa-circle "></i>:
+                    <i className="fas fa-check-circle completed"></i>}</button>:null}</span>
+                <h3 style={task.completion===100?{textDecoration:"line-through"}:null}  >{task.name}</h3>
             </div>
             <div className="tc-mid">
                 <span>{task.duration}</span>
                 <span>{task.completion} %</span>
             </div>
             <div className="tc-bottom">
-                    <div className="date">
-                        {task.endDate}
-                    </div>
+                    {task.end?<div className="date" style={{background:isOverDue?"#f05454":"#fff5c0"}} >
+                        {task.end?<i class="fal fa-calendar-alt"></i>:null }
+                        {task.end}
+                    </div>:null}
                     <div className="people">
                         {task.assignedTo.map(user => 
                             <span>{user.userName}</span>

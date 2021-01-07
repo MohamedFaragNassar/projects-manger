@@ -7,7 +7,7 @@
   width: 40%;
   height: 80%;
   pointer-events: none;
-  z-index: 100000;
+  z-index: 3;
 }
 
 .add-task {
@@ -78,12 +78,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: fit-content;
+  width: 80%;
   word-wrap: none;
   padding: 10px;
   border-radius: 5px;
   color: white;
-  margin-top: 10px;
+  margin: 10px auto 0 auto;
 }
 .show-dependacy i {
   color: var(--color-d2);
@@ -104,6 +104,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.show-dependacy-container div {
+  width: 80%;
+  margin: auto;
 }
 /*group search */
 

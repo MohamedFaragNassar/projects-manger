@@ -1,6 +1,5 @@
 /*grid*/
 .proj-body {
-  z-index: 3000;
   position: relative;
 }
 
@@ -8,7 +7,6 @@
   font-size: 25px;
 }
 .grid-main {
-  max-width: 99.5%;
   background: white;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 -2px 5px 0 rgba(0, 0, 0, 0.07);
   padding: 10px 10px;
@@ -25,6 +23,10 @@
 .grid-header {
   font-size: 20px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  width: max-content;
 }
 .grid-header i {
   margin-left: 10px;
@@ -38,13 +40,16 @@
 .proj-body div {
   font-size: 18px;
 }
-.task-row,
-.grid-header {
+.task-row {
   display: flex;
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #d4d4d8;
   min-width: 100%;
+  width: max-content;
+}
+.task-row:first-child {
+  border-top: 1px solid #d4d4d8;
 }
 .grid-main span:not(.task-name, .finish-icon, .task-menu-item) {
   text-align: center;
@@ -142,7 +147,6 @@
   font-size: 18px;
   font-weight: 550;
   width: 150px;
-  z-index: 2000;
 }
 .task-icons {
   display: flex;
@@ -173,7 +177,6 @@
   position: absolute;
   top: 0;
   right: 110px;
-  z-index: 10000;
 }
 
 /*task menu*/
@@ -190,7 +193,6 @@
   border-radius: 10px;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 -2px 5px 0 rgba(0, 0, 0, 0.07);
   padding: 20px 0;
-  z-index: 20000;
 }
 
 .task-menu button {
@@ -212,4 +214,8 @@
 .task-menu-item {
   text-align: left;
   width: 70%;
+}
+
+.completed {
+  color: var(--green);
 }

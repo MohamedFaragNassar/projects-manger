@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Route,BrowserRouter, Link} from 'react-router-dom'
+import {BrowserRouter, Link} from 'react-router-dom'
 import './App.css';
 import SideMenu from './components/SideMenu'
 import Main from './screens/Main'
@@ -23,7 +23,8 @@ const [isOpen,setIsOpen] = useState(false)
  } 
 
   return   <BrowserRouter >
-      <header className="navigation">
+    <div className="container" >
+    <header className="navigation">
           <Link to="/" className="logo" >Project Manger</Link>
           <div className="user">
             {userData ? <SignedUser/> :<UnSignedUser/> }
@@ -50,7 +51,8 @@ const [isOpen,setIsOpen] = useState(false)
               </div>
       </div>
       
-      </BrowserRouter>
+    </div>
+    </BrowserRouter>
 }
 
 export default App;

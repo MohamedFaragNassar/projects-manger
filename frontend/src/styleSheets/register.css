@@ -14,7 +14,7 @@
 }
 
 .img-container {
-  width: 50%;
+  min-width: 50%;
   min-height: 98.5%;
   background: white;
   display: flex;
@@ -38,6 +38,68 @@
   align-items: center;
 }
 
+/* guest */
+
+.ghuest {
+  width: 70%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ghuest h3 {
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--color-d2);
+  margin-top: 25px;
+}
+
+.ghuest p {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  color: var(--color-d2);
+}
+
+.ghuest-text {
+  width: 90%;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 550;
+  color: white;
+}
+
+.ghuest-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.join-now {
+  padding: 10px;
+  width: 50%;
+  text-align: center;
+  border-radius: 30px;
+  font-size: 25px;
+  font-weight: 550;
+  color: var(--color-d2);
+  margin-bottom: 10px;
+  margin-bottom: 15px;
+  background: #fde8cd;
+}
+
+.join-now:hover {
+  background: white;
+  color: var(--color-d2);
+}
+
+/*login*/
+
 .login-form h3 {
   font-size: 40px;
   font-weight: bold;
@@ -46,7 +108,7 @@
   text-align: center;
 }
 
-.login-form div:not(#status) {
+.login-form div:not(#status, .loader) {
   width: 70%;
   display: flex;
   flex-direction: column;
@@ -86,24 +148,26 @@
 .register button {
   padding: 10px 40px;
   border-radius: 30px;
-  border: 2px solid white;
   font-size: 25px;
   font-weight: 550;
-  color: white;
+  color: var(--color-d2);
+  background: #fde8cd;
   margin-bottom: 10px;
 }
-.register a {
+.register a:not(.join-now) {
   color: var(--color-d2);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 550;
+}
+
+.register a:not(.join-now):hover {
+  color: white;
 }
 .register button:hover {
   background: white;
   color: var(--color-d2);
 }
-.register a:hover {
-  color: white;
-}
+
 .signup {
   width: 40%;
 }
@@ -116,7 +180,7 @@
   color: white;
   margin-top: 15px;
 }
-.register-form div:not(#status) {
+.register-form div:not(#status, .loader) {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -142,17 +206,7 @@
   align-items: center;
   margin-top: auto;
   margin-bottom: auto;
-}
-
-.register-form button {
-  padding: 8px 40px;
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.register a {
-  font-size: 20px;
-  font-weight: 500;
+  padding-top: 10px;
 }
 
 .confirm-pass {
@@ -165,43 +219,31 @@
   left: 40%;
 }
 
-/* guest */
-
-.ghuest {
-  width: 70%;
-  height: 70%;
+/* pre made account */
+.pre-made {
+  width: 50%;
+  height: 60px;
   margin: auto;
+  padding: 10px;
+  border: 1px solid var(--color-d2);
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-.ghuest h3 {
-  font-size: 40px;
-  font-weight: bold;
-  color: var(--color-d2);
+.pre-made:hover {
+  background: #51adcf;
 }
 
-.ghuest p {
-  font-size: 25px;
+.pre-made img {
+  width: 50px;
+  height: 50px;
+}
+
+.pre-made span {
+  font-size: 20px;
   font-weight: 600;
-  color: white;
-  margin-top: 25px;
-  margin-bottom: 40px;
-}
-
-.ghuest a {
-  padding: 10px 40px;
-  border-radius: 30px;
-  border: 2px solid var(--color-d2);
-  font-size: 25px;
-  font-weight: 550;
-  color: var(--color-d2);
-  margin-bottom: 10px;
-  margin-bottom: 15px;
-}
-
-.ghuest a:hover {
-  background: white;
-  color: var(--color-d2);
+  margin-left: 10px;
 }

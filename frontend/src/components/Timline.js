@@ -1,5 +1,4 @@
-import React, { createElement, useState } from 'react'
-import ReactDom from 'react-dom'
+import React, {  useState } from 'react'
 import {useMutation} from '@apollo/client'
 import {updateTaskMutation,getProjectDetailsQuery} from '../queries/projectQueries'
 import Node from '../components/Node'
@@ -10,7 +9,6 @@ import {getDeffrenceInDays,modifyDate,addDays,removeDays} from '../helpers/helpe
 const Timline = (props) => {
     const {project,zoom} = props 
     const [index, setIndex] = useState()
-    //const [cdate, setCdate] = useState()
     let cdate
     if(index){
         cdate =modifyDate((Number(project.createdAt)+index*86400000))

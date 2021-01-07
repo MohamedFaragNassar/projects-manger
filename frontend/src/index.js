@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Provider} from 'react-redux'
-import store from './store'
-import { ApolloClient, InMemoryCache,ApolloProvider ,createHttpLink,gql} from '@apollo/client';
+import { ApolloClient, InMemoryCache,ApolloProvider ,createHttpLink} from '@apollo/client';
 import {setContext} from '@apollo/client/link/context'
 
 
@@ -34,12 +32,9 @@ const client = new ApolloClient({
 });
 
 
-
 ReactDOM.render(
   <ApolloProvider client={client} >
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <App />
   </ApolloProvider>,
   document.getElementById('root')
 );

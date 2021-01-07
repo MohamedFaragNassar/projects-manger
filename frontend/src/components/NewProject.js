@@ -1,41 +1,24 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-//import {addProject} from '../Actions/projectActions'
 import {useMutation} from '@apollo/client'
 import {addProjectMutation,getProjectsQuery} from '../queries/projectQueries'
 
 const NewProject = (props) => {
 
-    const dispatch = useDispatch()
-
     const [name,setName] = useState("")
-    const [stages,setStages] = useState([])
     const [buckets,setBuckets] = useState([])
-    const [stage,setStage] = useState(null)
     const [bucket,setBucket] = useState(null)
 
     const [addProject] = useMutation(addProjectMutation)
     
     
-    const handleAddStages = (e)=>{
-        e.preventDefault()
-        if(stage){
-            setStages([...stages,stage])
-        }
-        setStage(null)
-        
-    }
-
     const handleAddBuckets = (e)=>{
         e.preventDefault()
-        setBuckets([...buckets,bucket])
-        setBucket("")
+        if(bucket){
+            setBuckets([...buckets,bucket])
+        }
+        setBucket(null)
     }
-    const handleDelStage = (e) =>{
-        e.preventDefault()
-        const stage = e.target.previousElementSibling.innerText
-        setStages(stages.filter(x => x != stage))
-    }
+  
     const handleDelBucket = (e) =>{
         e.preventDefault()
         const bucket = e.target.previousElementSibling.innerText
@@ -44,13 +27,6 @@ const NewProject = (props) => {
 
     const handelAddProject = (e) => {
         e.preventDefault()
-        let fullStages = []
-        for(let i=0; i<stages.length;i++){
-            fullStages.push({
-                order: i+1,
-                name: stages[i]
-            })
-        }
         addProject({
             variables:{
                 name,
@@ -87,10 +63,10 @@ const NewProject = (props) => {
                             </div>
                              )} 
                         </div>
-                        <div className="add-stages">
-                           <input  onChange={(e)=>setBucket(e.target.value)} type="text" />
+                        <form className="add-stages">
+                           <input  onChange={(e)=>setBucket(e.target.value)} type="text" required={true} />
                            <button onClick={(e)=>handleAddBuckets(e)} >+</button> 
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div className="add-project-btns" >

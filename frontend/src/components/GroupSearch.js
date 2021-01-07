@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import {useMutation} from '@apollo/client'
 import {assignTaskToUserMutation,getProjectDetailsQuery} from '../queries/projectQueries'
+import {debounce} from '../helpers/helpers'
 
 
-const GroupSearch = (props) => {
-    const group = props.users
-    const taskID = props.taskID
-    const projectID = props.projectID
+const GroupSearch = ({group, taskID, projectID,position,domNode}) => {
     const [users,setUsers] = useState(group)
     const [updateTask] = useMutation(assignTaskToUserMutation)
 
@@ -24,21 +22,33 @@ const GroupSearch = (props) => {
     }) 
     }
 
-    if(! props.isOpen){
-        return null
-    }
+    const handleSearchGroup = debounce((element)=>{
+        const keyword = element.value
+        if(keyword ===""){
+            setUsers(group)
+        }
+        if(keyword){
+             const filteredUsers = group.filter(user => user.userName.includes(keyword))
+             setUsers(filteredUsers)
+         } 
+        },100)
+
+        
+
     return (
-        <div ref={props.domNode} className="group-search">
+        <div id="group-search" className={`hide-v ${position}`} >
+            <div ref={domNode} className="group-search">
             <h3>Search Members</h3>
-            <input type="text" />
+            <input onChange={(e)=>handleSearchGroup(e.target)} type="text" />
             <ul>
-                {users.map(user => 
+                {users&&users.map(user => 
                     <li value={user._id} onClick={taskID?(e)=>handleUpdateTask(e):null} >
                         {user.userName}
                     </li>
-                )}
+                )} 
             </ul>
             
+            </div>
         </div>
     )
 }

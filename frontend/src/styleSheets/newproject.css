@@ -5,16 +5,13 @@
   right: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 5000;
 }
 
 .new-project {
   width: 50%;
   background: white;
-  border-radius: 5px;
-  height: auto;
-  min-height: 400px;
-  z-index: 6000;
+  border-radius: 15px;
+
   position: fixed;
   left: 50%;
   top: 50%;

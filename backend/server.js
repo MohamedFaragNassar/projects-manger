@@ -1,9 +1,6 @@
 const mongoose = require("mongoose")
 const expresss = require("express")
 const bodyParser = require("body-parser")
-const projectRoutes = require("./routes/projectRoutes")
-const userRoutes = require("./routes/userRoutes")
-const taskRoutes = require("./routes/taskRoutes")
 const {graphqlHTTP} = require('express-graphql');
 const {schema} = require("./schemas/projectSchema")
 const RootResolver = require("./resolvers.js/rootResolver")
@@ -19,9 +16,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(expresss.static("public"))
 
-app.use("/api/projects",projectRoutes)
-app.use("/api/tasks",taskRoutes)
-app.use("/api/users",userRoutes)
+
 app.use('/graphql',isAuth, graphqlHTTP((req)=>({
     schema,
     rootValue:RootResolver,

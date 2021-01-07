@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react'
-import Axios from "axios"
+import React, {useState } from 'react'
 import {useLazyQuery, useMutation, useQuery} from '@apollo/client'
 import {searchUsersQuery} from '../queries/userQueries'
 import {addUsersGroupMutation} from '../queries/projectQueries'
@@ -8,8 +7,6 @@ import {useClickToClose} from '../helpers/CTC'
 const AddUsers = (props) => {
     const [users,setUsers] = useState([])
     const [showUsers,setShowUsers] = useState([])
-    const [result,setResult] = useState([])
-    
     
     const [searchUsers, {loading,data}] = useLazyQuery(searchUsersQuery)
     const [addUsers] = useMutation(addUsersGroupMutation)
@@ -80,7 +77,7 @@ const AddUsers = (props) => {
     return <>
         <div className="overlay"></div>
         <div className="add-users new-project ">
-        <div className="stages users" >
+        <div className="stages show-users" >
             <div>
                 <label>Users</label>
                     <div ref={domNode} className="add-stages users-add">

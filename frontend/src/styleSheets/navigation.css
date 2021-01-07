@@ -1,18 +1,17 @@
-.navigation{
-    height: 60px;
-    background: var(--color-d2);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px;
+.navigation {
+  height: 60px;
+  background: var(--color-d2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
 }
 
-.logo{
-    font-size: 25px;
-    font-weight: bold;
-    width: fit-content;
-    margin-left: 20px;
-    color: white;
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  width: fit-content;
+  margin-left: 20px;
+  color: white;
 }
-

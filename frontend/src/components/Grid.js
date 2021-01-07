@@ -157,9 +157,9 @@ console.log(userData)
                         <span className="finish-icon" >{userID&&userID==project.owner._id?
                         <button onClick={()=>handleFinishTask(task._id)} 
                         className="check">{task.completion < 100 ?<i className="far fa-circle"></i>:
-                        <i className="fas fa-check-circle"></i>}</button>:null}</span>
+                        <i className="fas fa-check-circle completed"></i>}</button>:null}</span>
                             <span className="task-name" >
-                               <section>{task.name}</section>
+                               <section style={task.completion===100?{textDecoration:"line-through"}:null} >{task.name}</section>
                                 <div className="task-icons">
                                     <i onClick={()=>handleTaskDetails(task._id)} id="task-details-icon"
                                          className="fal fa-info-circle"></i>
@@ -174,7 +174,7 @@ console.log(userData)
                             <span>{task.duration}</span>
                             <span>{task.completion} %</span>
                             <AdditionalColumns columns={columns} task={task} />
-                        <span></span>
+                        {columns.length<5?<span></span>:null}
                     </div>
                 )}
             </div>

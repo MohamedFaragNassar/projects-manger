@@ -12,7 +12,7 @@
   margin-left: auto;
   margin-right: 25px;
   border-radius: 25px;
-  z-index: 20000;
+
   position: relative;
 }
 .rm-b {
@@ -44,7 +44,7 @@
   top: -120px;
   right: 30px;
   margin-top: 5px;
-  z-index: 1000;
+  z-index: 3;
   opacity: 0;
   visibility: hidden;
   transition: all 1s ease;
@@ -80,6 +80,10 @@
   font-size: 20px;
   font-weight: 600;
   padding: 20px;
+}
+
+.unsigned-user a:hover {
+  color: #fde8cd;
 }
 
 .nav-user i {

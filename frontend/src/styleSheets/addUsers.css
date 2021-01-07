@@ -5,7 +5,7 @@
   position: relative;
   align-items: flex-start;
 }
-.users {
+.show-users {
   min-height: 250px;
 }
 
@@ -18,7 +18,7 @@
   left: 75px;
   overflow-y: scroll;
   padding: 15px 0;
-  z-index: 20000;
+
   background: white;
 }
 

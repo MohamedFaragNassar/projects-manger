@@ -5,6 +5,8 @@ import {updateTaskMutation,getProjectDetailsQuery
 import {debounce} from '../helpers/helpers'
 import GroupSearch from '../components/GroupSearch'
 import ShowDependacy from '../components/ShowDependacy'
+import {modifyDate,removeDays,addDays} from '../helpers/helpers'
+
 
 const AddTask = (props) => {
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
@@ -29,9 +31,8 @@ if(task){
    
     
 
-    const [isOpen,setIsOpen] = useState(false)
     
-    
+    const projectStart = modifyDate(project.createdAt)
 
     const [updateTask] = useMutation(updateTaskMutation)
     const [addDependacy] = useMutation(addDependaciesForTaskMutation)
@@ -62,24 +63,26 @@ if(task){
     }
 
     
-    
+    const showGroupSearch = (e)=>{
+        const menu = e.target.offsetParent.querySelector("#group-search")
+        menu.classList.remove("hide-v")
+    }
 
-
+console.log(project.group)
     if(!props.isOpen){
         return null
     }
     return <>
         <div ref={node}  className="add-task">
             <div className="single assign-users">
-                <div className="group-search-panel" >
-                    <GroupSearch isOpen={isOpen} users={project.group} taskID = {task._id} projectID ={project._id} />
-                </div>
-                <button onClick={()=>setIsOpen(true)}><i class="fas fa-user-plus"></i></button>
+                <button onClick={(e)=>showGroupSearch(e)}><i className="fas fa-user-plus"></i></button>
                 <ul>
                     {task.assignedTo.map(user => 
-                        <li>{user.userName}</li>
+                        <li  >{user.userName}</li>
                     )}
                 </ul>
+                <GroupSearch group={project.group} position={"group-search-containerv2"}  />
+                
             </div>
             <div className="single">
                 <label>Name</label>
@@ -88,11 +91,15 @@ if(task){
             <div  className="double">
                 <div>
                     <label>Start</label>
-                    <input onChange={(e)=>updateTaskHandler({start:e.target.value})} readOnly={!isAllowed} defaultValue={task.start}  type="date"/>
+                    <input min={projectStart} max={task.end?removeDays(task.end,1).toISOString().split('T')[0]:null}
+                    onChange={(e)=>updateTaskHandler({start:e.target.value})} readOnly={!isAllowed} defaultValue={task.start} 
+                     type="date"/>
                 </div>
                 <div>
                     <label>End</label>
-                    <input onChange={(e)=>updateTaskHandler({end:e.target.value})} readOnly={!isAllowed} defaultValue={task.end}  type="date"/>
+                    <input min={task.start?addDays(task.start,1).toISOString().split('T')[0]:null}
+                    onChange={(e)=>updateTaskHandler({end:e.target.value})} readOnly={!isAllowed} defaultValue={task.end} 
+                     type="date"/>
                 </div>
             </div>
             <div className="double" >

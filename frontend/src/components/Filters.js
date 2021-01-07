@@ -1,14 +1,15 @@
 import React, {useState} from 'react'
 
 const Filters = (props) => {
+    
     const {project,filterByBucket,filterByCompletion,filterByDuration
             ,filterByUser,clearFilters,filters,setFrom,setTo} = props
     const [filter,setFilter] = useState()
     const appliedFilters = filters.map(filt => filt.filter)
     const options = ["Bucket","Completion","Duration","Group member"].filter(item => {return !appliedFilters.includes(item)})
-    console.log(filters)
+    
     return (
-        <div ref={props.domNode} className="filters-panel hide-filters">
+        <div ref={props.domNode} className="filters-panel hide-v">
         <div className="filters-body" >
             <div className="filter-options">
                 <label>Filter by</label>
@@ -19,7 +20,7 @@ const Filters = (props) => {
                     )}
                 </select>
             </div>
-                {filter==="bucket" ? 
+                {filter==="Bucket" ? 
                     <select onChange={(e)=> filterByBucket(e.target.value)} >
                         <option value={null} >-</option>
                         {project.buckets.map(bucket => 
@@ -30,11 +31,11 @@ const Filters = (props) => {
                     <div>
                         <section>
                             <label>from</label>
-                            <input type="number" onChange={(e)=>setFrom(e.target.value)} />
+                            <input type="number" min={0} max={100} onChange={(e)=>setFrom(e.target.value)} />
                         </section>
                         <section>
                              <label>to</label>
-                            <input type="number" onChange={(e)=>setTo(e.target.value)} />
+                            <input type="number" min={1} max={100} onChange={(e)=>setTo(e.target.value)} />
                         </section>
                        
                         <button onClick={()=>filterByCompletion()} >
@@ -45,11 +46,11 @@ const Filters = (props) => {
                     <div>
                         <section>
                             <label>from</label>
-                            <input type="number" onChange={(e)=>setFrom(e.target.value)} />
+                            <input type="number" min={0} onChange={(e)=>setFrom(e.target.value)} />
                         </section>
                         <section>
                             <label>to</label>
-                            <input type="number" onChange={(e)=>setTo(e.target.value)} />
+                            <input type="number" min={1} onChange={(e)=>setTo(e.target.value)} />
                         </section>
                         <button  onClick={()=>filterByDuration()} >Add</button>
                     </div>  :

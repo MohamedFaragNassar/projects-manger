@@ -1,5 +1,4 @@
 import React from 'react'
-import {useQuery} from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 
 const Profile = () => {

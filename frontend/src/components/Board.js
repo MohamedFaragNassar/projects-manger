@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import TaskCard from './TaskCard'
 import {useMutation} from '@apollo/client'
 import {addBucketMutation,addTaskToBucketMutation
         ,getProjectDetailsQuery,deleteBucketmutation} from '../queries/projectQueries'
 import {getDragAfterElement} from '../helpers/dragAndDrop'
+import {useClickToClose} from '../helpers/CTC'
 
 const Board = (props) => {
     const project = props.project;
@@ -19,6 +20,8 @@ const Board = (props) => {
     const [addBucket] = useMutation(addBucketMutation)
     const [addTaskToBucket] = useMutation(addTaskToBucketMutation)
     const [deleteBucket] = useMutation(deleteBucketmutation)
+
+    const domNode = useClickToClose()
    
    
     const handleAddBucket = (e)=>{
@@ -40,11 +43,13 @@ const Board = (props) => {
         bucketInput.classList.remove("hide")
       
     }
+
     const showSelect = (e)=>{
         const selectTask = e.target.previousElementSibling
         selectTask.classList.remove("hide")
         e.target.classList.add("hide")
     }
+
     const handleAddTaskToBucket = (e)=>{
         const taskID = e.target.value
         const bucket = e.target.attributes.bucket.value
@@ -110,10 +115,12 @@ const Board = (props) => {
             <div className="board-body">
                 { filter==="bucket" && project ? 
                     project.buckets.map(bucket => 
-                    <div id={bucket}  bucket={bucket}  onDragOver={(e)=>handledragOver(e,bucket)} className="board-bucket drag-container drg" >
+                    <div id={bucket}  bucket={bucket}  onDragOver={(e)=>handledragOver(e,bucket)}
+                     className="board-bucket drag-container drg" >
                         <h4>
                             {bucket} 
-                            {project.owner._id==userID?<i onClick={(e)=>handleDeleteBucket(bucket)} className="fal fa-times-circle"></i>:null} 
+                            {project.owner._id==userID?<i onClick={(e)=>handleDeleteBucket(bucket)}
+                             className="fal fa-times-circle "></i>:null} 
                         </h4>
                         <select id="board-select"  className="hide" >{project.tasks.map(task => 
                             <option  bucket={bucket} value={task._id} onClick={(e)=>handleAddTaskToBucket(e)} >{task.name}</option>    
@@ -122,7 +129,7 @@ const Board = (props) => {
                             add task
                         </button> :null}
                         {project.tasks.filter(task => task.bucket === bucket).map(task => 
-                            <TaskCard task = {task} />
+                            <TaskCard task = {task} project={project} />
                             )}
                     </div>)
                     :

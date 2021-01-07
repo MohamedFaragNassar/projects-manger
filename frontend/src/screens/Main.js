@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
 import NewProject from '../components/NewProject'
 import ProjectCard from '../components/ProjectCard'
 import {useQuery} from '@apollo/client'
@@ -9,7 +8,7 @@ import {useClickToClose} from '../helpers/CTC'
 import Status from '../components/Status'
 
 const Main = () => {
-    const dispatch = useDispatch()
+   
     const [isOpen,setIsOpen] = useState(false)
     const [projectstype,setProjectsType] = useState("mine")
     

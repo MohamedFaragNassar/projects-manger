@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef } from "react"
 import {Link, useHistory} from 'react-router-dom'
 import {useClickToClose} from "../components/ClickToClose"
-import { useDispatch } from "react-redux"
 
 const SignedUser = () => {
-    const dispatch = useDispatch()
-    const history = useHistory()
+   const history = useHistory()
 
     const  handleShowMenu = () =>{
         const menu = document.querySelector(".nav-user-menu")
@@ -14,11 +12,6 @@ const SignedUser = () => {
         usernav.classList.add("rm-b")
     }
 
-
-    const toggleShowMenu = ()=>{
-        const menu = document.querySelector(".nav-user-menu")
-        menu.classList.toggle("show")
-    }
 
     function hideMenu(){
         const menu = document.querySelector(".nav-user-menu")

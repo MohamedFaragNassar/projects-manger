@@ -54,13 +54,8 @@ const debounce = (func, wait, immediate)=> {
   }
 
   const addDays = (date, days) =>{
-    console.log(date)
-    console.log(days)
     const  newDate = new Date(date);
-    console.log(newDate)
     newDate.setDate(newDate.getDate() + days);
-    console.log(newDate)
-
     return newDate;
   }
 

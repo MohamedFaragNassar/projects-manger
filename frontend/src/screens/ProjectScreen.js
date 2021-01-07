@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Grid from '../components/Grid'
 import Board from '../components/Board'
 import Timline from '../components/Timline'
-import { useDispatch, useSelector } from 'react-redux'
-import {getProjectDetails} from '../Actions/projectActions'
-import AddTask from '../components/AddTask'
 import {getProjectDetailsQuery} from '../queries/projectQueries'
 import {useQuery} from '@apollo/client'
 import AddUsers from '../components/AddUsers'
@@ -15,6 +12,7 @@ import Status from '../components/Status'
 
 
 
+
 const ProjectScreen = (props) => {
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
     let userID 
@@ -22,10 +20,9 @@ const ProjectScreen = (props) => {
         userID = userData.login.id
     }
     const id = props.match .params.id;
-    const dispatch = useDispatch()
+    
     const [addUserOpen,setAddUserOpen] = useState(false)
     const [view,setView] = useState("grid")
-    const [isOpen,setIsOpen] = useState(false)
     const [tasks,setTasks] = useState([])
     const [from,setFrom] = useState(0)
     const [to,setTo] = useState(0)
@@ -34,7 +31,16 @@ const ProjectScreen = (props) => {
     const [boardfilter,setBoardFilter] = useState("bucket")
 
 
-    const domNode = useClickToClose(()=>setIsOpen(false),".group-search")
+    const hideGroupSearch = ()=>{
+        const menu = document.getElementById("group-search")
+        menu.classList.add("hide-v")
+    }
+    const showGroupSearch = ()=>{
+        const menu = document.getElementById("group-search")
+        menu.classList.remove("hide-v")
+    }
+
+    const domNode = useClickToClose(hideGroupSearch,".group-search")
 
     
     const {loading,error,data} = useQuery(getProjectDetailsQuery,{
@@ -50,12 +56,12 @@ const ProjectScreen = (props) => {
 
     const showFilters = ()=>{
         const filters = document.querySelector(".filters-panel")
-        filters.classList.remove("hide-filters")
+        filters.classList.remove("hide-v")
     }
 
     const hideFilters = ()=>{
         const filters = document.querySelector(".filters-panel")
-        filters.classList.add("hide-filters")
+        filters.classList.add("hide-v")
     }
 
     const filtersNode = useClickToClose(hideFilters,".filters-panel")
@@ -86,10 +92,10 @@ const ProjectScreen = (props) => {
     }
 
  
-    //console.log(data)
+   
 
     useEffect(() => {
-       dispatch(getProjectDetails(id))
+       
        if(project){
            setTasks(project.tasks)
        }
@@ -111,7 +117,7 @@ const ProjectScreen = (props) => {
                         <button onClick={()=>setView("timline")} >Timeline</button>
                     </div>
                 </div>
-                <div>
+                <div className="manage" >
                     <div className="filter" >
                        {view === "board" ? 
                         <>
@@ -139,15 +145,16 @@ const ProjectScreen = (props) => {
                     </div>
                     <div className="users">
                         <div className="group-members" >
-                            <button onClick={()=>setIsOpen(true)} className="group" >Group mempers ({project.group.length}) 
+                            <button onClick={()=> showGroupSearch()} className="group-members-btn" >Group mempers ({project.group.length}) 
                                 <i class="fas fa-chevron-down"></i>
-                                <GroupSearch isOpen={isOpen} users = {project.group} domNode={domNode} />
                             </button>
                             
                         </div>
                         {project.owner._id == userID?<button onClick={()=>setAddUserOpen(true)} className="group" >
                             Add Members<i class="fas fa-user-plus"></i>
                         </button>:null}
+                        
+                        <GroupSearch  group={project.group} domNode={domNode} position={"group-search-container"} />
                         
                     </div>
                     

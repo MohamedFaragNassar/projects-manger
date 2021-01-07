@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import {registerUser} from '../Actions/userAction'
 import {useMutation} from '@apollo/client'
 import {registerUserMutation} from '../queries/userQueries'
 import Status from '../components/Status'
+import Spinner from '../components/Spinner'
 
 const RegisterScreen = () => {
-   // const {loading , error,dataError , user}= useSelector(state => state.addUser)
-
+   
     const [userName,setUserName] = useState()
     const [firsName,setFirsName] = useState()
     const [lastName,setLastName] = useState()
@@ -25,7 +23,6 @@ const RegisterScreen = () => {
     const handlRegister = async(e) =>{
         console.log(userName , email , password , firsName , lastName ,confirmPassword)
         if(userName && email && password && firsName && lastName && confirmPassword){
-            console.log("mmm")
             e.preventDefault()
             if(password !== confirmPassword){
                setError("password should match")
@@ -45,7 +42,7 @@ const RegisterScreen = () => {
                     }
                 }catch(error){
                     console.log(error.message)
-                setError(error.message)
+                    setError(error.message)
             }
                
             }
@@ -54,7 +51,7 @@ const RegisterScreen = () => {
 
     }
     
-    return (
+    return <>
         <form className="register-form">
             <h3>Sign Up</h3>
                 <div>
@@ -87,8 +84,9 @@ const RegisterScreen = () => {
                     <Link to="/signin" >Already have Account? sign in </Link>
                 </section>
             {error?<Status message={error} isOpen={true} />:null}
+                {loading?<Spinner/>:null}
             </form>
-     )
+     </>
 }
 
 export default RegisterScreen

@@ -31,14 +31,13 @@
   border-radius: 5px;
   margin-top: 15px;
 }
-.board-bucket button {
+.board-bucket button:not(.check) {
   padding: 10px 20px;
   font-size: 15px;
   margin-top: 15px;
 }
 .add-new-bucket {
   width: 200px;
-  z-index: 2000;
 }
 .add-new-bucket button {
   width: 100%;
@@ -71,10 +70,11 @@
   background: #e7e7e7;
 }
 
-.drg i {
+.drg h4 i {
   visibility: hidden;
 }
 
-.drg:hover i {
+.drg:hover h4 i {
   visibility: visible;
+  margin-left: 10px;
 }
