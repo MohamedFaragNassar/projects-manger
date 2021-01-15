@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ useEffect, useState } from 'react'
 import {useMutation} from '@apollo/client'
 import {loginQuery} from '../queries/userQueries'
 import { Link, useHistory } from 'react-router-dom'
@@ -6,7 +6,8 @@ import { Link, useHistory } from 'react-router-dom'
 const GhuestScreen = () => {
 
     const [logUserIn] = useMutation(loginQuery)
-    const history = useHistory();
+    const userInfo =localStorage.getItem("userInfo")
+    const history = useHistory()
 
     const handlSignin = async() =>{
         try{
@@ -24,17 +25,16 @@ const GhuestScreen = () => {
            console.log(error)
         }
     }
-
+    useEffect(() => {
+        if(!userInfo){
+            history.push("/ghuest")
+        }
+    }, [userInfo])
 
     return (
         <div className="ghuest">
             <h3>Project Manger</h3>
             <p>The power to make project management simple</p>
-            <div className="ghuest-text">
-                Stay organized, focused, and in charge. Tackle anything from small
-                 projects to large initiatives. You may or may not be a project manager,
-                 but now you can be the boss of any project with a powerful, easy-to-use app.
-            </div>
             <div className="ghuest-links" >
                 <Link className="join-now" to="/signup">Join Now</Link>
                 <Link to="/signin">Already have Account? sign in</Link>

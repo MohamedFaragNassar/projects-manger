@@ -5,7 +5,6 @@ const taskSchema = new mongoose.Schema({
     name:{type:String,required:true},
     start:{type:String},
     end:{type:String},
-    duration:{type:Number},
     totalEffort:{type:Number},
     doneEffort:{type:Number},
     dependants:[{

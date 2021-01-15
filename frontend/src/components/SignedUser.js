@@ -5,7 +5,9 @@ import {useClickToClose} from "../components/ClickToClose"
 const SignedUser = () => {
    const history = useHistory()
 
-    const  handleShowMenu = () =>{
+   const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
+    
+   const  handleShowMenu = () =>{
         const menu = document.querySelector(".nav-user-menu")
         const usernav = document.querySelector(".nav-user")
         menu.classList.add("show")
@@ -28,7 +30,7 @@ const SignedUser = () => {
 
     const HandleLogout = (e) => {
         localStorage.removeItem("userInfo")
-        history.push("/ghuest")
+        window.location.href = "/ghuest"
       } 
 
     return <>
@@ -37,11 +39,11 @@ const SignedUser = () => {
             <i class="fas fa-chevron-down"></i>
         </div>
         <div ref={domNode}  id='user-menu' className="nav-user-menu">
-            <ul>
-                <li><Link onClick= {()=> hideMenu()} to={"/profile"}>Veiw Profile</Link></li>
+           {userData&& <ul>
+                <li><Link onClick= {()=> hideMenu()} to={`/profile/${userData.id}`}>Veiw Profile</Link></li>
                 <li><Link  onClick= {()=> hideMenu()}  to="">Edit profile</Link></li>
                 <li><button onClick={(e)=>HandleLogout(e)}>Log out</button></li>
-            </ul>
+            </ul>}
         </div> 
     </>
 }

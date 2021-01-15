@@ -1,5 +1,6 @@
 .add-users {
   min-height: 350px;
+  z-index: 2000;
 }
 .users-add {
   position: relative;

@@ -1,0 +1,62 @@
+.edit-profile {
+  width: 40%;
+  position: fixed;
+  top: 10%;
+  left: 31%;
+  background: white;
+  padding: 20px 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 -2px 5px 0 rgba(0, 0, 0, 0.07);
+}
+.edit-profile h2 {
+  text-align: center;
+}
+
+.edit-profile input {
+  width: 70%;
+}
+
+.update-info div:not(.update-btn, .loader),
+.change-password div:not(.update-btn, .loader) {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.update-info,
+.change-password {
+  border: 1px solid var(--color-d2);
+  padding: 10px;
+  border-radius: 10px;
+  position: relative;
+  margin-top: 20px;
+}
+
+.edit-profile-header {
+  position: absolute;
+  top: -20px;
+  left: 10px;
+  background: white;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.update-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.update-btn button {
+  font-size: 18px;
+  font-weight: 550;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: var(--color-d3);
+  color: white;
+}

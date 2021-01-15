@@ -15,7 +15,7 @@ const Grid = (props) => {
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
     let userID 
     if(userData){
-        userID = userData.login.id
+        userID = userData.id
     }
     const storedColumns  =localStorage.getItem("columns") ? JSON.parse(localStorage.getItem("columns"))  : []
     const {project,tasks} = props;
@@ -120,6 +120,14 @@ console.log(userData)
       }
 
 
+      const getDuration = (start,end)=>{
+          const date1 = new Date(start).getTime()
+          const date2 = new Date(end).getTime()
+            console.log(date1)
+          return (date2-date1)/86400000
+      }
+
+
  
 
 
@@ -171,7 +179,7 @@ console.log(userData)
                             <span>{task.assignedTo.map(user =>
                                 <span>{user.userName}</span>
                                 )}</span>
-                            <span>{task.duration}</span>
+                            <span>{task.start&&task.end ? getDuration(task.start,task.end):null}</span>
                             <span>{task.completion} %</span>
                             <AdditionalColumns columns={columns} task={task} />
                         {columns.length<5?<span></span>:null}

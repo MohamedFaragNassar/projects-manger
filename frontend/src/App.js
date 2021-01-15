@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {BrowserRouter, Link} from 'react-router-dom'
+import {BrowserRouter, Link, Route} from 'react-router-dom'
 import './App.css';
 import SideMenu from './components/SideMenu'
 import Main from './screens/Main'
@@ -13,7 +13,7 @@ import Profile from './screens/Profile';
 
 function App() {
 
-const userData =localStorage.getItem("userInfo")?JSON.parse(localStorage.getItem("userInfo")).login:null
+const userData =localStorage.getItem("userInfo")?JSON.parse(localStorage.getItem("userInfo")):null
 const [isOpen,setIsOpen] = useState(false)
 
  const sideMenuHandler = ()=>{
@@ -40,11 +40,11 @@ const [isOpen,setIsOpen] = useState(false)
                     <SideMenu isOpen={isOpen} />
               </div>:<div></div>}
               <div className="main-section">
-                  <UnRegisteredRoute path="/ghuest" component={SignScreen} />
+                  <Route path="/ghuest" component={SignScreen} />
                   <UnRegisteredRoute path="/signin"  component={SignScreen} />
                   <UnRegisteredRoute path="/signup"  component={SignScreen} />
                   <ProtectedRoute path="/project/:id"  component={ProjectScreen} />
-                  <ProtectedRoute path="/profile"  component={Profile} />
+                  <ProtectedRoute path="/profile/:id"  component={Profile} />
                   <ProtectedRoute path="/"  exact={true} component={Main} />
                
                 

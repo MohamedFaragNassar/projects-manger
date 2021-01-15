@@ -15,23 +15,21 @@
   width: 20%;
   max-width: 20%;
   height: 100%;
-  border: 1px solid black;
+  border-left: 1px solid #dfdfdf;
 }
 
 .timeline-main {
   width: 80%;
   max-width: 80%;
   height: 100%;
-  z-index: 10000;
 }
 
 .timline-task {
   width: 100%;
   height: 40px;
-  border: 1px solid black;
+  border: 1px solid #dfdfdf;
   display: flex;
   position: relative;
-  margin-top: 25px;
 }
 
 .bar {
@@ -39,6 +37,8 @@
   position: relative;
   z-index: 500;
   pointer-events: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 -2px 5px 0 rgba(0, 0, 0, 0.07);
 }
 .bar-btn {
   pointer-events: all;
@@ -80,6 +80,7 @@
   height: 100%;
   background: #79a3b1;
   top: 0;
+  border-radius: 5px;
 }
 .draw {
   position: absolute;
@@ -94,4 +95,10 @@
   height: 600px;
   width: 600px;
   z-index: -1;
+}
+
+.timline-side-task {
+  padding: 8px 10px;
+  border-top: 1px solid #dfdfdf;
+  border-bottom: 1px solid #dfdfdf;
 }

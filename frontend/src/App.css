@@ -14,6 +14,8 @@
 @import "./styleSheets/timline.css";
 @import "./styleSheets/status.css";
 @import "./styleSheets/spinner.css";
+@import "./styleSheets/profile.css";
+@import "./styleSheets/editprofile.css";
 
 :root {
   --color-d1: #222831;

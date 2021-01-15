@@ -65,7 +65,6 @@ const getProjectDetailsQuery = gql`
                 name
                 start
                 end
-                duration
                 bucket
                 completion
                 assignedTo{
@@ -219,9 +218,48 @@ mutation deleteTask($id:String!){
 }
 `
 
+const getProfileInfoQuery = gql`
+    query profile($id:String!){
+        profile(id:$id){
+            user{
+                _id
+                userName
+                fullName
+                email
+                image
+                createdAt
+            }
+            createdProjects
+            sharedProjects
+        }
+    }
+`
+
+const updateProfileMutation = gql`
+mutation updateProfile($user:userInput!){
+    updateProfile(user:$user){
+        _id
+    }
+}
+`
+
+const changePasswordMutation = gql`
+mutation changePassword($currentPassword:String,$newPassword:String){
+    changePassword(currentPassword:$currentPassword,newPassword:$newPassword){
+        id
+        userName
+        fullName
+        email
+        token
+    
+    }
+}
+`
+
 export {getProjectsQuery,addProjectMutation,getProjectDetailsQuery
     ,addTaskMutation,deleteProjectMutation,deleteeTaskMutation
     ,addUsersGroupMutation,addBucketMutation,addTaskToBucketMutation
     ,updateTaskMutation,assignTaskToUserMutation,addFavoritesMutation
     ,deleteFavoritesMutation,deleteBucketmutation,leaveProjectMutation
-    ,addDependaciesForTaskMutation,deleteDependaciesForTaskMutation}
+    ,addDependaciesForTaskMutation,deleteDependaciesForTaskMutation,
+    getProfileInfoQuery,updateProfileMutation,changePasswordMutation}

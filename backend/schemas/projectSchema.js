@@ -11,6 +11,15 @@ type userType {
     email:String,
     image:String,
     favorites:[String]
+    createdAt:String
+}
+
+type changePassword {
+    id:String
+    userName:String
+    fullName:String
+    email:String
+    token:String
 }
 
 input userInput {
@@ -29,7 +38,6 @@ type taskType  {
     name:String
     start:String
     end:String
-    duration:Int
     totalEffort:Int
     doneEffort:Int
     dependants:[taskType]
@@ -46,7 +54,6 @@ input taskInput  {
     name:String
     start:String
     end:String
-    duration:Int
     totalEffort:Int
     doneEffort:Int
     dependants:[String]
@@ -76,6 +83,12 @@ type allProjects  {
     favorites :[projectType]
 }
 
+type profileInfo {
+    user: userType
+    createdProjects:Int
+    sharedProjects:Int
+}
+
 
 
 type RootQuery  {
@@ -83,6 +96,7 @@ type RootQuery  {
     projectDetails(id:String): projectType
     taskDetails(id:String): taskType
     searchUsers(keyword:String):[userType]
+    profile(id:String):profileInfo
 }
 
 type Mutation  {
@@ -101,7 +115,8 @@ type Mutation  {
         deleteDependaciesForTask(id:String,field:String,taskID:String): taskType
         leaveProject(id:String): projectType
         deleteTask(id:String): taskType
-
+        updateProfile(user:userInput): userType
+        changePassword(currentPassword:String,newPassword:String): changePassword
     }
 
 

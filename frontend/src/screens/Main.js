@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NewProject from '../components/NewProject'
 import ProjectCard from '../components/ProjectCard'
 import {useQuery} from '@apollo/client'
@@ -6,9 +6,12 @@ import {getProjectsQuery} from '../queries/projectQueries'
 import ShowProjects from '../components/ShowProjects'
 import {useClickToClose} from '../helpers/CTC'
 import Status from '../components/Status'
+import { useHistory } from 'react-router-dom'
 
 const Main = () => {
-   
+    const userInfo =localStorage.getItem("userInfo")
+    const history = useHistory()
+
     const [isOpen,setIsOpen] = useState(false)
     const [projectstype,setProjectsType] = useState("mine")
     
@@ -44,7 +47,6 @@ const Main = () => {
     if(error){
         return <Status isOpen={true} message={error.message} />
     }
-    
     return <>
         <div className="main-page">
            <div className="add-new-project" >

@@ -18,7 +18,7 @@ const httpLink2 = createHttpLink({
   uri: 'http://localhost:5000/api',
 });
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('userInfo')?JSON.parse(localStorage.getItem('userInfo')).login.token:null;
+  const token = localStorage.getItem('userInfo')?JSON.parse(localStorage.getItem('userInfo')).token:null;
   return {
     headers: {
       ...headers,

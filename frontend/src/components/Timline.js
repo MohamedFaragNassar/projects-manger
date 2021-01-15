@@ -53,7 +53,11 @@ const Timline = (props) => {
     return (
         <div className="timeline">
             <div className="changing-date">{cdate ? cdate:null}</div>
-            <div className="timeline-side" ></div>
+            <div className="timeline-side" >
+                {project.tasks.map(task => 
+                    <div className="timline-side-task">{task.name}</div>    
+                )}
+            </div>
             <div className="timeline-main">
                 {project.tasks.map(task => {
                     const days = getDeffrenceInDays(task.end,task.start)
@@ -78,16 +82,3 @@ const Timline = (props) => {
 
 export default Timline
 
-{/* <svg  width="62" height="600" pointer-events="none" position="absolute" version="1.1" xmlns="http://www.w3.org/2000/svg" >
-
-<path d="M 0 0 L 25 0 A 3 3 0 0,1 28 3 L 28 250  A 3 3 0 0,0 31 253 L 56 253 " transform="translate(3,3)" pointer-events="visibleStroke" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgb(132, 172, 179)"  stroke-width="4"></path>
-
-</svg>
-<svg  width="62" height="600" pointer-events="none" position="absolute" version="1.1" xmlns="http://www.w3.org/2000/svg" >
-    <path d="M 50 0 L 25 0 A 3 3 0 0,0 24 3 L 25 250  A 3 3 0 0,1 24 253 L 0 253 " transform="translate(3,3)" pointer-events="visibleStroke" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgb(132, 172, 179)" stroke-width="5"></path>
-</svg> */}
-
-/* 
-<path d={`M ${box1.x} ${box1.y} L ${box1.x+25} ${box1.y} A 3 3 0 0,1 ${box1.x+28} ${box1.y+3} L ${box1.x+28} ${box1.y+250}  A 3 3 0 0,0 ${box1.x+31} ${box1.y+253} L ${box1.x+56} ${box1.y+253} `}
-             transform="translate(3,3)" pointer-events="visibleStroke" version="1.1" xmlns="http://www.w3.org/2000/svg" 
-             fill="none" stroke="rgb(132, 172, 179)"   stroke-width="4"></path> */

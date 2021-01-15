@@ -12,7 +12,7 @@ const AddTask = (props) => {
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
     let userID 
     if(userData){
-        userID = userData.login.id
+        userID = userData.id
     }
 
     const project = props.project

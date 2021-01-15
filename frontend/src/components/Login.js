@@ -25,7 +25,7 @@ const Login = () => {
                 }
             })
             if(data){
-                localStorage.setItem("userInfo",JSON.stringify(data))
+                localStorage.setItem("userInfo",JSON.stringify(data.login))
                 setData(data)
             }
         }catch(error){
@@ -34,13 +34,11 @@ const Login = () => {
     }
 
     useEffect(()=>{
-        
+        if(data){
+            window.location.href = "/"
+        }
     },[data])
     
-    console.log(data)
-    if(data){
-        return <Redirect path="/" />
-    }
     return <>
         <form onSubmit={(e)=>handlSignin(e)} className="login-form">
                 <h3>Welcome</h3>
