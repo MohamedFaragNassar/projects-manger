@@ -7,14 +7,8 @@ const taskSchema = new mongoose.Schema({
     end:{type:String},
     totalEffort:{type:Number},
     doneEffort:{type:Number},
-    dependants:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"task",
-    }],
-    dependsOn:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"task",
-    }],
+    dependants:[{type:String}],
+    dependsOn:[{type:String}],
     assignedTo:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user",

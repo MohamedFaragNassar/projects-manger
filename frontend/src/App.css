@@ -16,6 +16,7 @@
 @import "./styleSheets/spinner.css";
 @import "./styleSheets/profile.css";
 @import "./styleSheets/editprofile.css";
+@import "./styleSheets/assign.css";
 
 :root {
   --color-d1: #222831;
@@ -90,4 +91,22 @@ input {
 }
 input:focus {
   border: 3px solid var(--green);
+}
+
+@media (max-width: 600px) {
+  .add-new-project {
+    width: 90%;
+  }
+}
+
+@media (max-width: 400px) {
+  .add-new-project button {
+    padding: 15px 20px;
+    font-size: 15px;
+    font-weight: 550;
+  }
+
+  .fav-body {
+    padding: 10px 5px;
+  }
 }

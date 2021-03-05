@@ -1,6 +1,7 @@
 import React from 'react'
 import {useMutation} from '@apollo/client'
 import {getProjectDetailsQuery,updateTaskMutation} from '../queries/projectQueries'
+import {getDuration} from '../helpers/helpers'
 
 const TaskCard = (props) => {
     const {task,project} = props;
@@ -38,7 +39,7 @@ const TaskCard = (props) => {
                 <h3 style={task.completion===100?{textDecoration:"line-through"}:null}  >{task.name}</h3>
             </div>
             <div className="tc-mid">
-                <span>{task.duration}</span>
+                <span>{task.start&&task.end ? `${getDuration(task.start,task.end)} days`:null}</span>
                 <span>{task.completion} %</span>
             </div>
             <div className="tc-bottom">

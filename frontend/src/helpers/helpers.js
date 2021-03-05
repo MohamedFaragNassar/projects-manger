@@ -65,8 +65,17 @@ const debounce = (func, wait, immediate)=> {
     return newDate;
   }
 
+  const getDuration = (start,end)=>{
+    const date1 = new Date(start).getTime()
+    const date2 = new Date(end).getTime()
+      console.log(date1)
+    return (date2-date1)/86400000
+  }
+
+
  
 
 export {
-    hideAndShow,hideOrShow,debounce,modifyDate,getDeffrenceInDays,addDays,removeDays
+    hideAndShow,hideOrShow,debounce,modifyDate,getDeffrenceInDays
+    ,addDays,removeDays,getDuration
 }

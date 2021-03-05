@@ -6,14 +6,14 @@ import { useHistory } from 'react-router-dom'
  const UnRegisteredRoute = ({component:Component,...rest}) =>{
     const userInfo = localStorage.getItem("userInfo")
     const history = useHistory()
-  
-
+  /* 
   useEffect(() => {
         if(userInfo){
             history.push("/")
         }
     }, [userInfo])
-
+ */
+    
 
     return (
         <Route {...rest} render = {props => {

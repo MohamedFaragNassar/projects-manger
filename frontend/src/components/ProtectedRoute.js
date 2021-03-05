@@ -7,12 +7,14 @@ import { useHistory } from 'react-router-dom'
   const userInfo = localStorage.getItem("userInfo")
   const history = useHistory()
 
-  useEffect(() => {
+  
+
+  /* useEffect(() => {
         if(!userInfo){
             history.push("/ghuest")
         }
     }, [userInfo])
-
+ */
     return (
         <Route {...rest} render = {props => {
             return <Component {...props} />

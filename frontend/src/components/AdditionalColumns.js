@@ -6,7 +6,7 @@ import ShowDependacy from '../components/ShowDependacy'
 const AdditionalColumns = ({columns,task}) => {
 
     const handleShowDependacy = (e)=>{
-            console.log(e.target)
+           
         hideOrShow(e.target,"dependacy-container","show")
     }
 
@@ -18,6 +18,7 @@ const AdditionalColumns = ({columns,task}) => {
     }
     const dependacynode = useClickToClose(hideShowDependacy,".grid-dependacy-container:not(.hide)")
 
+    
     return <>
         {columns && columns.map(col => 
             col ==="dependsOn" || col ==="dependants"? 

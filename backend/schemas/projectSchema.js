@@ -31,7 +31,9 @@ input userInput {
     favorites:[String]
 }
 
-
+type fileData {
+    url:String
+}
 
 type taskType  {
     _id:String
@@ -107,7 +109,7 @@ type Mutation  {
         addBucket(id:String,bucket:String):projectType
         deleteBucket(id:String,bucket:String): projectType
         addTaskToBucket(taskID:String,bucket:String):projectType
-        assignTaskToUser(taskID:String,user:userInput!):taskType
+        assignTaskToUser(taskID:String,userID:String!):taskType
         addUsersGroup(id:String,users:[String]):userType
         addFavorites(projectID:String):userType
         delFromFavorites(projectID:String):userType
@@ -117,6 +119,8 @@ type Mutation  {
         deleteTask(id:String): taskType
         updateProfile(user:userInput): userType
         changePassword(currentPassword:String,newPassword:String): changePassword
+        deleteUserFromProject(projectID:String,userID:String): projectType
+        removeTaskFromUser(userID:String,taskID:String): taskType
     }
 
 

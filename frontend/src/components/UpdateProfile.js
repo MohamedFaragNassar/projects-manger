@@ -4,8 +4,8 @@ import {useMutation} from '@apollo/client'
 import Status from './Status'
 import Spinner from './Spinner'
 
-const UpdateProfile = ({isOpen,user,node}) => {
-    const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
+const UpdateProfile = ({isOpen,user,node,close}) => {
+    const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")):null 
 
     const [currentPassword,setCurrentPassword] = useState()
     const [newPassword,setNewPassword] = useState()
@@ -43,7 +43,7 @@ const UpdateProfile = ({isOpen,user,node}) => {
 
     const handleUpdateProfile = async()=>{
         try{
-            await updateProfile({
+           const {data} =  await updateProfile({
                 variables:{
                     user:{
                         userName,
@@ -53,6 +53,9 @@ const UpdateProfile = ({isOpen,user,node}) => {
                 },
                 refetchQueries:[{query:getProfileInfoQuery,variables:{id:userData.id}}]
             })
+            if(data){
+                close()
+            }
         }catch(err){
             setError(err.message)
         }
@@ -80,7 +83,7 @@ const UpdateProfile = ({isOpen,user,node}) => {
                     <label>Email</label>
                     <input onChange={(e)=>setEmail(e.target.value)} defaultValue={user.email} type="email" />
                 </div>
-                <div onClick={handleUpdateProfile} className="update-btn"><button  >Update</button></div>
+                <div  className="update-btn"><button onClick={handleUpdateProfile} >Update</button></div>
                 {updateProfileLoading?<Spinner />:null}
             </div>
             <form className="change-password" onSubmit={(e)=>handleChangePassword(e)} >

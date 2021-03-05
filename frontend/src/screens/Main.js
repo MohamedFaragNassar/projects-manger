@@ -56,7 +56,7 @@ const Main = () => {
                 <div className="fav-header" >Favorites</div>
                 <div ref={domNode} className="fav-body" >
                     {data.projects.favorites.map(project => 
-                        <ProjectCard  project={project} />
+                        <ProjectCard  project={project} close={()=>hideMenu} />
                     )}
                 </div>
             </div>: null}

@@ -8,10 +8,13 @@ import {getDragAfterElement} from '../helpers/dragAndDrop'
 import TaskMenu from '../components/TaskMenu'
 import {hideOrShow} from '../helpers/helpers'
 import AdditionalColumns from './AdditionalColumns'
-
+import {getDuration} from '../helpers/helpers'
+import ShowAssghnedTo from '../components/ShowAssghnedTo'
+import Assigh from '../components/Assigh'
 
 
 const Grid = (props) => {
+    
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
     let userID 
     if(userData){
@@ -29,6 +32,7 @@ const Grid = (props) => {
 
     const domNode = useClickToClose(()=>setIsOpen(false),".add-task")
     const addTaskNode = useClickToClose(()=> hideAndShow("add-task-form","add-new-task"),"#add-task-form")
+    
     const handleFinishTask = (id)=>{
         finishTask({variables:{
             id,
@@ -93,8 +97,6 @@ console.log(userData)
     }
 
     
-    console.log(tasks)
-
     const handleDrageStart = (e)=>{
         e.target.classList.add("dragging")
     }
@@ -117,23 +119,12 @@ console.log(userData)
 
     const handleShowMenu = (e) => {
         hideOrShow(e.target.offsetParent,"task-menu","show")
-      }
+    }
 
-
-      const getDuration = (start,end)=>{
-          const date1 = new Date(start).getTime()
-          const date2 = new Date(end).getTime()
-            console.log(date1)
-          return (date2-date1)/86400000
-      }
-
-
- 
-
-
+    
+    
     useEffect(()=>{
         
-
     },[columns])
   
     return <>
@@ -176,9 +167,9 @@ console.log(userData)
                                     handleTaskDetails={handleTaskDetails} projectID={project._id} />
                                 </div>
                             </span>
-                            <span>{task.assignedTo.map(user =>
-                                <span>{user.userName}</span>
-                                )}</span>
+                            <div  className="dependacy-row">
+                                <Assigh users={task.assignedTo} taskID={task._id} projectID={project._id} />
+                            </div>
                             <span>{task.start&&task.end ? getDuration(task.start,task.end):null}</span>
                             <span>{task.completion} %</span>
                             <AdditionalColumns columns={columns} task={task} />

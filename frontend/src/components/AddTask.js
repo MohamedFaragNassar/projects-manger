@@ -6,7 +6,9 @@ import {debounce} from '../helpers/helpers'
 import GroupSearch from '../components/GroupSearch'
 import ShowDependacy from '../components/ShowDependacy'
 import {modifyDate,removeDays,addDays} from '../helpers/helpers'
-
+import {getDuration} from '../helpers/helpers'
+import {useClickToClose} from '../helpers/CTC'
+import Assigh from './Assigh'
 
 const AddTask = (props) => {
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
@@ -28,7 +30,12 @@ if(task){
     }
 }
 
-   
+const hideGroupSearch = ()=>{
+    const menu = document.querySelector(".group-search-containerv2")
+    menu.classList.add("hide-v")
+}
+
+const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
     
 
     
@@ -68,7 +75,16 @@ if(task){
         menu.classList.remove("hide-v")
     }
 
-console.log(project.group)
+  const filterGroup = (array,filter) =>{
+     return array.filter((el) => {
+        return !filter.some((f) => {
+             return f._id === el._id;
+             });
+        });
+    }
+  
+ 
+
     if(!props.isOpen){
         return null
     }
@@ -76,12 +92,11 @@ console.log(project.group)
         <div ref={node}  className="add-task">
             <div className="single assign-users">
                 <button onClick={(e)=>showGroupSearch(e)}><i className="fas fa-user-plus"></i></button>
-                <ul>
-                    {task.assignedTo.map(user => 
-                        <li  >{user.userName}</li>
-                    )}
-                </ul>
-                <GroupSearch group={project.group} position={"group-search-containerv2"}  />
+               <div style={{position:"relative"}}>
+                    <Assigh users={task.assignedTo} taskID={taskID} projectID={project._id} />
+               </div>
+                <GroupSearch group={filterGroup(project.group,task.assignedTo)} type="add" 
+                 position={"group-search-containerv2"} domNode={domNode} taskID={taskID} projectID={project._id} />
                 
             </div>
             <div className="single">
@@ -105,7 +120,9 @@ console.log(project.group)
             <div className="double" >
                 <div>
                     <label>duration</label>
-                    <input onChange={(e)=>updateTaskHandler({duration:Number(e.target.value)})} readOnly={!isAllowed} defaultValue={task.duration}  type="number"/>
+                    <input onChange={(e)=>updateTaskHandler({duration:Number(e.target.value)})} 
+                    readOnly={true} defaultValue={task.duration} 
+                    defaultValue={task.start&&task.end ? getDuration(task.start,task.end):null}  type="number"/>
                 </div>
                 <div>
                     <label>Completed </label>
@@ -148,9 +165,7 @@ console.log(project.group)
                 </div> :null }
                 <div className="show-dependacy-container" >
                     {task.dependsOn.map(task =>
-                        <div>
-                           <ShowDependacy task={task} id={taskID} projectID={project._id} field="dependsOn" isAllowed={isAllowed} />
-                        </div>    
+                       <ShowDependacy task={task} id={taskID} projectID={project._id} field="dependsOn" isAllowed={isAllowed} />
                     )}
                 </div>
                
@@ -170,7 +185,7 @@ console.log(project.group)
                 </div>:null}
                 <div className="show-dependacy-container" >
                     {task.dependants.map(task =>
-                        <ShowDependacy task={task} id={taskID} projectID={project._id} field="dependants" isAllowed={isAllowed} />
+                        <ShowDependacy task={task} id={taskID} projectID={project._id} field="dependants" isAllowed={isAllowed}/>
                     )}
                 </div>
                 

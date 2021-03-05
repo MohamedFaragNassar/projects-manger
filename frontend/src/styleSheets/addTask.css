@@ -24,40 +24,82 @@
   overflow-x: hidden;
 }
 
+.single,
+.double,
+.trible {
+  width: 95%;
+  margin: auto;
+}
+
+.single {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.double {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.double div {
+  width: 47%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .add-task label {
   margin-right: 5px;
-}
-.add-task div:not(.show-dependacy-container, .show-dependacy) {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px;
 }
 
 .single input,
 .single select {
-  width: 70%;
+  width: 79%;
   padding: 7px;
   border-radius: 5px;
   border: 3px solid var(--border);
 }
-.double div {
-  width: 50%;
-}
+
 .double input {
   width: 55%;
   padding: 7px;
   border-radius: 5px;
   border: 3px solid var(--border);
 }
-.trible div {
-  width: 33%;
-}
+
 .trible input {
   width: 40%;
   padding: 7px;
   border-radius: 5px;
   border: 3px solid var(--border);
+}
+
+.trible {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trible div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+  width: 30%;
+}
+
+.trible div input {
+  width: 70%;
+  align-self: flex-end;
+}
+
+.trible div label {
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
 .add-task-btns {
@@ -69,22 +111,19 @@
   flex-direction: column;
   align-items: center;
 }
-.single {
-  width: 90%;
-  margin: auto;
-}
 
 .show-dependacy {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80%;
+  width: 60%;
   word-wrap: none;
   padding: 10px;
   border-radius: 5px;
   color: white;
   margin: 10px auto 0 auto;
 }
+
 .show-dependacy i {
   color: var(--color-d2);
   font-size: 15px;
@@ -97,18 +136,17 @@
 }
 
 .show-dependacy-container {
-  width: 95%;
-  max-height: 200px;
-  overflow-y: scroll;
-  padding: 5px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
+  overflow-y: auto;
+  max-height: 200px;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
-.show-dependacy-container div {
-  width: 80%;
-  margin: auto;
-}
+
 /*group search */
 
 .assign-users {

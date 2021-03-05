@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useQuery} from '@apollo/client'
 import {getProfileInfoQuery} from '../queries/projectQueries'
 import Spinner from '../components/Spinner'
@@ -8,11 +8,40 @@ import UpdateProfile from '../components/UpdateProfile'
 import {useClickToClose} from '../helpers/CTC'
 
 const Profile = (props) => {
+    const userData =localStorage.getItem("userInfo")?JSON.parse(localStorage.getItem("userInfo")):null
     const id = props.match.params.id
+    let AllowEdit
+    if(userData && userData.id == id){
+        AllowEdit = true
+    }
     const {loading,error,data} =useQuery(getProfileInfoQuery,{variables:{id}})
     const [isOpen,setIsOpen] = useState(false)
-
+    const [isUploaded,setIsUploaded] = useState(false) 
+    const [uploadError,setError] = useState() 
     const domNode = useClickToClose(()=>setIsOpen(false),".edit-profile")
+
+    
+    const uploadHandler = async(e)=>{
+        const file = e.target.files[0]
+        const formData = new FormData()
+        formData.append("image",file)
+
+        fetch("/upload/",{
+            headers:{
+              Authorization: `Bearer ${userData.token}`,
+              },
+              body:formData,
+              method:"POST"
+          })
+          .then(res => res.json())
+          .then(data => document.location.reload())
+          .catch(err => setError("Somthing went wrong when trying to update the profile image, please try again"))
+      
+    }
+
+    useEffect(() => {
+       
+    }, [isUploaded])
 
     if(loading){
         return <Spinner/>
@@ -22,10 +51,13 @@ const Profile = (props) => {
     }
     return <>
          <div className="profile">
-            <button onClick={()=>setIsOpen(true)} className="edit-profile-btn" ><i class="far fa-edit"></i></button>
+            {AllowEdit?<button onClick={()=>setIsOpen(true)} className="edit-profile-btn" ><i class="far fa-edit"></i></button>:null}
             <div className="profile-img" >
-                <img src="../account.png" />
-                <button className="upload-image" ><i class="fal fa-camera-alt"></i></button>
+                <img src={`../${data.profile.user._id}.jpg`} />
+                {AllowEdit?<div>
+                    <label for="upload-image" className="upload-image" ><i class="fal fa-camera-alt"></i></label >
+                    <input onChange={(e)=>uploadHandler(e)} type="file" id="upload-image" className="hide" />
+                </div>:null}
             </div>
               <div className="profile-name">
                   <span className="full-name" >{data.profile.user.fullName}</span>
@@ -48,8 +80,9 @@ const Profile = (props) => {
                             <span>{data.profile.sharedProjects}</span>
                     </div>
               </div>
+              {uploadError&&<Status isOpen={true} message={uploadError} />}
         </div> 
-        <UpdateProfile isOpen={isOpen} user={data.profile.user} node={domNode} />
+        <UpdateProfile isOpen={isOpen} close={()=>setIsOpen(false)} user={data.profile.user} node={domNode} />
     </>
 }
 

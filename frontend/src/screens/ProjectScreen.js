@@ -99,7 +99,7 @@ const ProjectScreen = (props) => {
        if(project){
            setTasks(project.tasks)
        }
-    }, [data])
+    }, [data,props])
     
     return <>
        { loading ? 
@@ -154,7 +154,8 @@ const ProjectScreen = (props) => {
                             Add Members<i class="fas fa-user-plus"></i>
                         </button>:null}
                         
-                        <GroupSearch  group={project.group} domNode={domNode} position={"group-search-container"} />
+                        <GroupSearch  group={project.group} projectID={project._id} type="show"
+                         domNode={domNode} position={"group-search-container"} />
                         
                     </div>
                     

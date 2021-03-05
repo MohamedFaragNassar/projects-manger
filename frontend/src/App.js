@@ -40,7 +40,7 @@ const [isOpen,setIsOpen] = useState(false)
                     <SideMenu isOpen={isOpen} />
               </div>:<div></div>}
               <div className="main-section">
-                  <Route path="/ghuest" component={SignScreen} />
+                  <UnRegisteredRoute path="/ghuest" component={SignScreen} />
                   <UnRegisteredRoute path="/signin"  component={SignScreen} />
                   <UnRegisteredRoute path="/signup"  component={SignScreen} />
                   <ProtectedRoute path="/project/:id"  component={ProjectScreen} />

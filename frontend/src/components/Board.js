@@ -38,11 +38,18 @@ const Board = (props) => {
         bucketInput.value = null
         bucketInput.classList.add("hide")
     }
+
     const showInput = (e) =>{
         const bucketInput = document.querySelector("#bucket-input")
         bucketInput.classList.remove("hide")
-      
     }
+
+    const hideInput = (e) =>{
+        const bucketInput = document.querySelector("#bucket-input")
+        bucketInput.classList.add("hide")
+    }
+
+    const bucketNode = useClickToClose(hideInput,"#bucket-input")
 
     const showSelect = (e)=>{
         const selectTask = e.target.previousElementSibling
@@ -136,26 +143,26 @@ const Board = (props) => {
                     <>
                         <div>
                             <h4>Not Started</h4>
-                            {project.tasks.filter(task => {return task.completion ==0 }).map(task => 
-                                <TaskCard task={task}  />
+                            {project&&project.tasks.filter(task => {return task.completion ==0 }).map(task => 
+                                <TaskCard task={task} project={project}  />
                             )}
                         </div>
                         <div>
                             <h4>In progress</h4>
-                            {project.tasks.filter(task => {return task.completion > 0 && task.completion < 100  }).map(task => 
-                                <TaskCard task={task}  />
+                            {project&&project.tasks.filter(task => {return task.completion > 0 && task.completion < 100  }).map(task => 
+                                <TaskCard task={task} project={project}  />
                             )}
                         </div>
                         <div>
                             <h4>Finished</h4>
-                            {project.tasks.filter(task => {return task.completion == 100 }).map(task => 
-                                <TaskCard task={task}  />
+                            {project&&project.tasks.filter(task => {return task.completion == 100 }).map(task => 
+                                <TaskCard task={task} project={project}  />
                             )}
                         </div>
                     </>
                 }
             </div>
-           {filter==="bucket" && project.owner._id==userID?<form onSubmit={(e)=>handleAddBucket(e)} className="add-new-bucket">
+           {filter==="bucket" && project.owner._id==userID?<form ref={bucketNode} onSubmit={(e)=>handleAddBucket(e)} className="add-new-bucket">
                 <input className="hide" id="bucket-input" required={true} type="text" onChange={(e)=>setBucket(e.target.value)} />
                 <button onClick={(e)=>showInput(e)}>+ New Bucket</button>
             </form>:null}

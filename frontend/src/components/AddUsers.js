@@ -4,7 +4,7 @@ import {searchUsersQuery} from '../queries/userQueries'
 import {addUsersGroupMutation} from '../queries/projectQueries'
 import {useClickToClose} from '../helpers/CTC'
 
-const AddUsers = (props) => {
+const AddUsers = ({isOpen,close,project}) => {
     const [users,setUsers] = useState([])
     const [showUsers,setShowUsers] = useState([])
     
@@ -66,12 +66,15 @@ const AddUsers = (props) => {
     
     const handleAddGroup = ()=>{
         addUsers({variables:{
-            id:props.project._id,
+            id:project._id,
             users
         }})
+
+        close()
+        
     }
 
-    if(!props.isOpen){
+    if(!isOpen){
         return null
     }
     return <>
@@ -109,7 +112,7 @@ const AddUsers = (props) => {
             </div>
             <div className=" add-project-btns" >
                     <button onClick={()=> handleAddGroup()} className="confirm" >Add Members</button>
-                    <button onClick={props.close} className="cancel">Cancel</button>
+                    <button onClick={close} className="cancel">Cancel</button>
             </div>
         </div>
             

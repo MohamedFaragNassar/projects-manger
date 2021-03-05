@@ -33,11 +33,12 @@ const SignedUser = () => {
         window.location.href = "/ghuest"
       } 
 
+     
     return <>
-        <div ref={userNav} onClick={()=>handleShowMenu()} className="nav-user">
-            <img src="./logo192.png"  alt=""/>
+        {userData&&<div ref={userNav} onClick={()=>handleShowMenu()} className="nav-user">
+            <img src={`../${userData.id}.jpg`}/>
             <i class="fas fa-chevron-down"></i>
-        </div>
+        </div>}
         <div ref={domNode}  id='user-menu' className="nav-user-menu">
            {userData&& <ul>
                 <li><Link onClick= {()=> hideMenu()} to={`/profile/${userData.id}`}>Veiw Profile</Link></li>

@@ -76,7 +76,6 @@ const getProjectDetailsQuery = gql`
                 dependsOn{
                     _id
                     name
-                    
                 }
                 dependants{
                     _id
@@ -90,8 +89,7 @@ const getProjectDetailsQuery = gql`
             group{
                 _id
                 userName
-                fullName
-                email
+               
             }
             createdAt
         }
@@ -159,8 +157,15 @@ mutation updateTask($id:String,$updatedFields:taskInput!){
 `
 
 const assignTaskToUserMutation = gql`
-mutation assignTaskToUser($taskID:String!,$user:userInput!){
-    assignTaskToUser(taskID:$taskID,user:$user){
+mutation assignTaskToUser($taskID:String!,$userID:String!){
+    assignTaskToUser(taskID:$taskID,userID:$userID){
+        _id
+    }
+}
+`
+const removeTaskFromUserMutation = gql`
+mutation removeTaskFromUser($taskID:String!,$userID:String!){
+    removeTaskFromUser(taskID:$taskID,userID:$userID){
         _id
     }
 }
@@ -256,10 +261,19 @@ mutation changePassword($currentPassword:String,$newPassword:String){
 }
 `
 
+const deleteUserFromProjectMutation = gql`
+mutation deleteUserFromProject($projectID:String!,$userID:String!){
+    deleteUserFromProject(projectID:$projectID,userID:$userID){
+        _id
+    }
+}
+`
+
 export {getProjectsQuery,addProjectMutation,getProjectDetailsQuery
     ,addTaskMutation,deleteProjectMutation,deleteeTaskMutation
     ,addUsersGroupMutation,addBucketMutation,addTaskToBucketMutation
     ,updateTaskMutation,assignTaskToUserMutation,addFavoritesMutation
     ,deleteFavoritesMutation,deleteBucketmutation,leaveProjectMutation
     ,addDependaciesForTaskMutation,deleteDependaciesForTaskMutation,
-    getProfileInfoQuery,updateProfileMutation,changePasswordMutation}
+    getProfileInfoQuery,updateProfileMutation,changePasswordMutation,
+    deleteUserFromProjectMutation,removeTaskFromUserMutation}

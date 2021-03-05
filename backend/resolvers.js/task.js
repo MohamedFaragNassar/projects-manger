@@ -64,11 +64,11 @@ const updateTask = async (args,{user}) => {
  }
 
 
- const assignTaskToUser = async (args,{user}) => {
+ const assignTaskToUser = async ({taskID,userID},{user}) => {
     try{
-        const task = await Task.findById(args.taskID)
+        const task = await Task.findById(taskID)
         const project = await Project.findById(task.project)
-        const addedUser = await User.findById(args.user._id)
+        const addedUser = await User.findById(userID)
         if(project.owner == user._id){
             if(task && user){
                 if(!task.assignedTo.includes(addedUser._id)){
@@ -88,6 +88,23 @@ const updateTask = async (args,{user}) => {
          console.log(error)
          throw new Error("somthing went wrong " + error)
     } 
+}
+
+const removeTaskFromUser = async({userID,taskID},{user}) =>{
+    const task = await Task.findById(taskID)
+    const project = await Project.findById(task.project)
+    try{
+        if(project.owner == user._id){
+            const filteredUsers = task.assignedTo.filter(e => e._id != userID)
+            task.assignedTo = filteredUsers
+            return task.save()
+        }else{
+            throw new Error("You are not allowed to perform this action")
+        }
+    }catch(err){
+        console.log(error)
+        throw new Error("somthing went wrong " + error)
+    }
 }
 
 const addDependaciesForTask = async (args,{user})=>{
@@ -159,5 +176,5 @@ const deleteTask = ({id}) => {
 
 module.exports = {
     addTask,updateTask,taskDetails,addTaskToBucket,assignTaskToUser,
-    addDependaciesForTask,deleteDependaciesForTask,deleteTask
+    addDependaciesForTask,deleteDependaciesForTask,deleteTask,removeTaskFromUser                                              
 }

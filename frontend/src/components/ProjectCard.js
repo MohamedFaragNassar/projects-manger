@@ -6,8 +6,8 @@ import {deleteFavoritesMutation,deleteProjectMutation,getProjectsQuery} from '..
 
 
 
-const ProjectCard = (props) => {
-   const project = props.project
+const ProjectCard = ({project,close}) => {
+   
    const [delFavorites] = useMutation(deleteFavoritesMutation)
    const [delProject] = useMutation(deleteProjectMutation)
 
@@ -20,6 +20,7 @@ const ProjectCard = (props) => {
           variables:{id:project._id},
           refetchQueries:[{query:getProjectsQuery}]
       })
+      close()
     }
    const handleRemoveFavorites = ()=>{
       delFavorites({
@@ -28,6 +29,7 @@ const ProjectCard = (props) => {
         },
         refetchQueries:[{query:getProjectsQuery}]
       })
+      close()
    }
   
    const startDate = new Date(Number(project.createdAt)).toISOString().split('T')[0]

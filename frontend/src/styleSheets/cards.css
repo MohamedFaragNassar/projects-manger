@@ -79,8 +79,17 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
+
+.tc-top {
+  max-height: 50%;
+  overflow: hidden;
+}
 .tc-top h3 {
+  font-weight: 600;
+  font-size: 15px;
   margin-left: 10px;
+  word-wrap: break-word;
+  width: 80%;
 }
 
 .tc-top i {
@@ -88,7 +97,7 @@
 }
 
 .tc-mid {
-  width: 50%;
+  width: 70%;
   margin: auto;
   display: flex;
   align-items: center;
@@ -100,8 +109,13 @@
   justify-content: space-between;
   align-items: center;
 }
+.tc-bottom i {
+  margin-right: 10px;
+}
 
 .date {
   padding: 5px;
   border-radius: 3px;
+  font-size: 15px;
+  font-weight: 550;
 }

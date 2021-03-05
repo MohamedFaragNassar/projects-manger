@@ -20,8 +20,10 @@ const projectDetails = async (args,{user}) => {
         const project = await Project.findById(args.id)
         const tasks = await Task.find({project:project._id})
         const group = await User.find({_id:{$in:project.group}})
+        
         project.tasks = tasks
         project.group = group
+
         return project
     }catch(error){
         console.log(error)
@@ -118,9 +120,23 @@ const leaveProject = async ({id},{user}) => {
     }
 }
 
+const deleteUserFromProject = async ({projectID,userID},{user}) => {
+    try{
+        const project = await Project.findById(projectID)
+        if(!(project.owner == user._id)){
+            throw new Error("You are not authorized to delete this project")
+        }
+        project.group=project.group.filter(member => {return member != userID})
+        return project.save()
+    }catch(error){
+        throw new Error(error)
+    }
+}
+
+
 
 module.exports = {
     projects,projectDetails,addProject,
     addBucket,addFavorites,deleteProject,
-    delFromFavorites,deleteBucket,leaveProject
+    delFromFavorites,deleteBucket,leaveProject,deleteUserFromProject
 }

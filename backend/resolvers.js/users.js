@@ -4,15 +4,16 @@ const project = require("../models/Project")
 const bcrypt = require("bcrypt")
 const {getToken} = require("../Authentication")
 
-const searchUsers = (args) => {
+const searchUsers = async(args,{user}) => {
     try{
-       return User.find({
+       const users = await User.find({
             email:{
                 $regex: new RegExp(args.keyword)
                 }
             },{
                __v:0
             }).limit(10) 
+        return users.filter(usr => usr._id != user._id)
     }catch(err){
         console.log(error)
         throw new Error(err)

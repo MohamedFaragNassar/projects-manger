@@ -19,7 +19,7 @@ const ShowDependacy = ({task,field,id,projectID,isAllowed}) => {
             }}]
         })
     }
-    
+
     return (
         <div className="show-dependacy" style={{background:field==="dependsOn"?"#16c79a":"#f05454"}}>
              <span>{task.name}</span>

@@ -37,7 +37,7 @@
   display: inline;
 }
 
-.proj-body div {
+.proj-body div:not(.date) {
   font-size: 18px;
 }
 .task-row {
@@ -51,7 +51,7 @@
 .task-row:first-child {
   border-top: 1px solid #d4d4d8;
 }
-.grid-main span:not(.task-name, .finish-icon, .task-menu-item) {
+.grid-main span:not(.task-name, .finish-icon, .task-menu-item, .user-name) {
   text-align: center;
   min-width: 150px;
   overflow: hidden;
@@ -69,6 +69,7 @@
 
 .task-name section {
   max-width: 80%;
+  word-wrap: break-word;
 }
 
 .finish-icon {

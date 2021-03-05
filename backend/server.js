@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const expresss = require("express")
+const express = require("express")
 const bodyParser = require("body-parser")
 const {graphqlHTTP} = require('express-graphql');
 const {schema} = require("./schemas/projectSchema")
@@ -8,13 +8,15 @@ const RigsterResolver = require("./resolvers.js/register")
 const {userSchema} = require("./schemas/userSchema")
 const cors = require('cors');
 const {isAuth} = require("./Authentication")
+const uploadRoute = require("./resolvers.js/uploadImages")
 
 
-
-const app = expresss("")
+const app = express("")
 app.use(bodyParser.json());
 app.use(cors());
-app.use(expresss.static("public"))
+app.use(express.static("public"))
+app.use(express.static("media"))
+
 
 
 app.use('/graphql',isAuth, graphqlHTTP((req)=>({
@@ -28,6 +30,7 @@ app.use('/api', graphqlHTTP({
         rootValue:RigsterResolver,
         graphiql: true
     }));
+app.use("/upload",uploadRoute)
     
 
 const mongoDB_URl = "mongodb://127.0.0.1:27017/project_manger";
