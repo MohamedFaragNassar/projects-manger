@@ -5,7 +5,6 @@ import {useMutation} from '@apollo/client'
 import {deleteFavoritesMutation,deleteProjectMutation,getProjectsQuery} from '../queries/projectQueries'
 
 
-
 const ProjectCard = ({project,close}) => {
    
    const [delFavorites] = useMutation(deleteFavoritesMutation)

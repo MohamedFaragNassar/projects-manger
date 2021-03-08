@@ -13,8 +13,8 @@ const GhuestScreen = () => {
         try{
            const {data} = await logUserIn({
                 variables:{
-                    email:"exampleuser2020@gmail.com",
-                    password:"Example123456"
+                    email:"mfnemo60@yahoo.com",
+                    password:"Nassar60"
                 }
             })
             if(data){

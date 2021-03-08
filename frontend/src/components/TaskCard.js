@@ -2,6 +2,7 @@ import React from 'react'
 import {useMutation} from '@apollo/client'
 import {getProjectDetailsQuery,updateTaskMutation} from '../queries/projectQueries'
 import {getDuration} from '../helpers/helpers'
+import Assigh from '../components/Assigh'
 
 const TaskCard = (props) => {
     const {task,project} = props;
@@ -48,9 +49,7 @@ const TaskCard = (props) => {
                         {task.end}
                     </div>:null}
                     <div className="people">
-                        {task.assignedTo.map(user => 
-                            <span>{user.userName}</span>
-                            )}
+                        <Assigh users={task.assignedTo} />
                     </div>
             </div>
             

@@ -76,7 +76,7 @@ const updateProfile =async(args,{user})=>{
     }
 }
 
-const changePassword = async({currentPassword,newPassword},{user}) => {
+const updatePassword = async({currentPassword,newPassword},{user}) => {
     try{
         const passwordValidation= /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,100}$/
         const updatedUser = await User.findById(user._id)
@@ -105,4 +105,4 @@ const changePassword = async({currentPassword,newPassword},{user}) => {
     }
 }
 
-module.exports = {addUsersGroup,searchUsers,profile,updateProfile,changePassword}
+module.exports = {addUsersGroup,searchUsers,profile,updateProfile,updatePassword}

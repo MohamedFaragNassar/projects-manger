@@ -2,7 +2,7 @@ const Project = require("../models/Project")
 const Task = require("../models/Task")
 const User = require("../models/User")
 
-const projects = async (args,{user},parent) => {
+const projects = async (args,{user}) => {
   try{
         const myProjects = await Project.find({owner:user}).sort({ createdAt : -1})
         const sharedProjects = await Project.find({group:user}).sort({ createdAt : -1})

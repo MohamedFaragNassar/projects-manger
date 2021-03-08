@@ -6,9 +6,7 @@ const getToken = (user) =>{
    return jwt.sign({
         _id : user._id,
         userName: user.userName,
-    }, config.JWT_SECRET,{
-        expiresIn: "24h"
-    })
+    }, config.JWT_SECRET,)
 }
 
 const isAuth = (req,res,next)=>{
