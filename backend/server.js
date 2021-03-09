@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const express = require("express")
 const bodyParser = require("body-parser")
 const {graphqlHTTP} = require('express-graphql');
-const {schema} = require("./schemas/projectSchema")
+const schema= require("./schemas/projectSchema")
 const RootResolver = require("./resolvers.js/rootResolver")
 const RigsterResolver = require("./resolvers.js/register")
 const {userSchema} = require("./schemas/userSchema")
@@ -21,7 +21,6 @@ app.use(express.static("media"))
 
 app.use('/graphql',isAuth, graphqlHTTP((req)=>({
     schema,
-    rootValue:RootResolver,
     graphiql:true,
     context:{user:req.user}
 })));
