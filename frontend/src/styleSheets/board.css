@@ -31,7 +31,7 @@
   border-radius: 5px;
   margin-top: 15px;
 }
-.board-bucket button:not(.check) {
+.board-bucket button:not(.check, .users-btn) {
   padding: 10px 20px;
   font-size: 15px;
   margin-top: 15px;

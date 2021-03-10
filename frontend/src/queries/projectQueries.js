@@ -155,6 +155,20 @@ mutation updateTask($id:String,$updatedFields:taskInput!){
     }
 }
 `
+const editStartDateMutation = gql`
+mutation editStartDate($id:String,$date:String!){
+    editStartDate(id:$id,date:$date){
+        _id
+    }
+}
+`
+const editEndDateMutation = gql`
+mutation editEndDate($id:String,$date:String!){
+    editEndDate(id:$id,date:$date){
+        _id
+    }
+}
+`
 
 const assignTaskToUserMutation = gql`
 mutation assignTaskToUser($taskID:String!,$userID:String!){
@@ -276,4 +290,5 @@ export {getProjectsQuery,addProjectMutation,getProjectDetailsQuery
     ,deleteFavoritesMutation,deleteBucketmutation,leaveProjectMutation
     ,addDependaciesForTaskMutation,deleteDependaciesForTaskMutation,
     getProfileInfoQuery,updateProfileMutation,changePasswordMutation,
-    deleteUserFromProjectMutation,removeTaskFromUserMutation}
+    deleteUserFromProjectMutation,removeTaskFromUserMutation,
+    editStartDateMutation,editEndDateMutation}

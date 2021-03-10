@@ -9,7 +9,6 @@ import {useClickToClose} from '../helpers/CTC'
 const Board = (props) => {
     const project = props.project;
     const filter = props.filter
-
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
     let userID 
     if(userData){
@@ -17,6 +16,8 @@ const Board = (props) => {
     }
     
     const [bucket,setBucket] = useState()
+    const [showForm,setShowForm] = useState(false)
+
     const [addBucket] = useMutation(addBucketMutation)
     const [addTaskToBucket] = useMutation(addTaskToBucketMutation)
     const [deleteBucket] = useMutation(deleteBucketmutation)
@@ -39,17 +40,12 @@ const Board = (props) => {
         bucketInput.classList.add("hide")
     }
 
-    const showInput = (e) =>{
-        const bucketInput = document.querySelector("#bucket-input")
-        bucketInput.classList.remove("hide")
+    const showInput = () =>{
+       setShowForm(true)
+        
     }
 
-    const hideInput = (e) =>{
-        const bucketInput = document.querySelector("#bucket-input")
-        bucketInput.classList.add("hide")
-    }
-
-    const bucketNode = useClickToClose(hideInput,"#bucket-input")
+    const bucketNode = useClickToClose(()=>setShowForm(false),"#add-bucket-form")
 
     const showSelect = (e)=>{
         const selectTask = e.target.previousElementSibling
@@ -162,10 +158,12 @@ const Board = (props) => {
                     </>
                 }
             </div>
-           {filter==="bucket" && project.owner._id==userID?<form ref={bucketNode} onSubmit={(e)=>handleAddBucket(e)} className="add-new-bucket">
-                <input className="hide" id="bucket-input" required={true} type="text" onChange={(e)=>setBucket(e.target.value)} />
-                <button onClick={(e)=>showInput(e)}>+ New Bucket</button>
-            </form>:null}
+           {filter==="bucket" && project.owner._id==userID ?
+                <form ref={bucketNode} id="add-bucket-form" onSubmit={showForm?(e)=>handleAddBucket(e):()=>showInput()} className="add-new-bucket">
+                    {showForm&&<input  id="bucket-input" required={true} type="text" onChange={(e)=>setBucket(e.target.value)} />}
+                    <button onClick={(e)=>showInput(e)}>+ New Bucket</button>
+                </form>
+            :null}
            
         </div>
     )

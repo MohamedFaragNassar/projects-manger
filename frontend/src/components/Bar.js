@@ -1,7 +1,7 @@
 import React from 'react'
 import Relation from '../components/Relation'
 
-const Bar = ({befor,length,task,handleEditEndDate,handleEditStartDate}) => {
+const Bar = ({befor,length,task,handleEditEndDate,handleEditStartDate,index}) => {
 
     
      return (
@@ -14,7 +14,7 @@ const Bar = ({befor,length,task,handleEditEndDate,handleEditStartDate}) => {
         </button>
         <div style={{width:task.completion+"%"}} className="compeletion-state" ></div>
       {task.dependants.length > 0 && task.dependants.map(relTask =>
-            <Relation  id1={task._id} id2={relTask._id} left={length*20}   />
+            <Relation  id1={task._id} id2={relTask._id} left={length*20} index={index}   />
         )} 
     </div>
     )

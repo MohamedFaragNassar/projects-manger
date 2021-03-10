@@ -49,7 +49,7 @@ const TaskCard = (props) => {
                         {task.end}
                     </div>:null}
                     <div className="people">
-                        <Assigh users={task.assignedTo} />
+                        <Assigh users={task.assignedTo} type="board" />
                     </div>
             </div>
             

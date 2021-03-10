@@ -5,7 +5,7 @@ import {useClickToClose} from '../helpers/CTC'
 import {useMutation} from '@apollo/client'
 import {getProjectDetailsQuery,removeTaskFromUserMutation} from '../queries/projectQueries'
 
-const Assigh = ({users,taskID,projectID}) => {
+const Assigh = ({users,taskID,projectID,type}) => {
     const [isOpen,setIsOpen] = useState(false)
 
     const node = useClickToClose(()=>setIsOpen(false),"#usrmenu")
@@ -24,14 +24,14 @@ const Assigh = ({users,taskID,projectID}) => {
 
     return <>
         <div className="assign">
-            <div className="assign-top">
+           {type=="grid" && <div className="assign-top">
                 {users.slice(0,2).map(user => 
                     <Link ><img className="user-img" src={`../${user._id}.jpg`} /></Link>    
                 )}
-            </div>
+            </div>}
             <div className="assign-bottom">
-                <button onClick={()=>setIsOpen(true)} >
-                    {users.length > 2 &&` and  ${users.length -2} more `} 
+                <button className="users-btn" onClick={()=>setIsOpen(true)} >
+                    {users.length > 2 && type=="grid"&&` and  ${users.length -2} more `}
                     {users.length> 0 &&<i style={{fontSize:15+"px",color:"#1687a7"}} className="fas fa-ballot"></i>}
                 </button>
                 {isOpen&&<div ref={node} id="usrmenu" className="assign-model">

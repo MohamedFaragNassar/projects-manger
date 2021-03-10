@@ -93,7 +93,7 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
             <div className="single assign-users">
                 <button onClick={(e)=>showGroupSearch(e)}><i className="fas fa-user-plus"></i></button>
                <div style={{position:"relative"}}>
-                    <Assigh users={task.assignedTo} taskID={taskID} projectID={project._id} />
+                    <Assigh users={task.assignedTo} taskID={taskID} projectID={project._id} type="grid" />
                </div>
                 <GroupSearch group={filterGroup(project.group,task.assignedTo)} type="add" 
                  position={"group-search-containerv2"} domNode={domNode} taskID={taskID} projectID={project._id} />

@@ -43,11 +43,13 @@ const GroupSearch = ({group, taskID, projectID,position,domNode,type}) => {
                 id:projectID
             }}]
         })
+
+        setUsers(users.filter(user => user._id != userID))
     }
     
     useEffect(() => {
         
-    }, [group])
+    }, [group,users])
 
     return (
         <div id="group-search" className={`hide-v ${position}`} >

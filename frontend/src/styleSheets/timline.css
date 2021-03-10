@@ -30,6 +30,7 @@
   border: 1px solid #dfdfdf;
   display: flex;
   position: relative;
+  padding: 5px;
 }
 
 .bar {
@@ -98,7 +99,11 @@
 }
 
 .timline-side-task {
-  padding: 8px 10px;
   border-top: 1px solid #dfdfdf;
   border-bottom: 1px solid #dfdfdf;
+  height: 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  padding: 5px;
 }

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
-const Relation = ({id1,id2,left}) => {
+const Relation = ({id1,id2,left,index}) => {
 
     const colors = ['#16c79a', '#19456b', '#11698e','#e7d9ea', '#583d72', '#fa9579','#fdb827', '#bedbbb', '#839b97'];
     const random_color = colors[Math.floor(Math.random() * colors.length)];
-    
+    const [random,setRandome] = useState()
+    useEffect(() => {
+       setRandome(colors[Math.floor(Math.random() * colors.length)])
+    }, [])
     const [x1,setX1] = useState()
     const [y1,sety1] = useState()
    
@@ -19,21 +22,20 @@ const Relation = ({id1,id2,left}) => {
            box2 = element2.getBoundingClientRect()
            sety1(box2.y-box1.y)
            setX1(box2.x-(box1.x+box1.width))
-           console.log(box2.left)
-           console.log(box1.left)
+       
        }
         
-    }, [x1])
+    }, [x1,index])
         
-    console.log(y1)
+   
     return <>
         {y1 > 0 ?
         <svg className="draw" style={{left:left+"px"}} >
-            <polyline points={`0,0 25,0 25,${y1} ${x1},${y1}`} fill="none" strokeWidth="4" stroke={random_color} />
+            <polyline points={`0,0 25,0 25,${y1} ${x1},${y1}`} fill="none" strokeWidth="4" stroke={random} />
         </svg>
         :
         <svg className="drawv2" style={{left:left+"px"}} >
-            <polyline points={`0,600 25,600 25,${600+y1} ${x1},${600+y1}`} fill="none" strokeWidth="4" stroke={random_color} />
+            <polyline points={`0,600 25,600 25,${600+y1} ${x1},${600+y1}`} fill="none" strokeWidth="4" stroke={random} />
         </svg>
         }
     </>

@@ -41,6 +41,8 @@ const Grid = (props) => {
         refetchQueries:[{query:getProjectDetailsQuery,variables:{
             id:project._id
         }}]})
+        hideMenu()
+
     }
 
     const handleShowSelect = ()=>{
@@ -94,6 +96,7 @@ console.log(userData)
     const handleTaskDetails = (id)=>{
         setTask( id)
         setIsOpen(true)
+        hideMenu()
     }
 
     
@@ -163,12 +166,12 @@ console.log(userData)
                                     <i onClick={()=>handleTaskDetails(task._id)} id="task-details-icon"
                                          className="fal fa-info-circle"></i>
                                     <i  onClick={(e)=>handleShowMenu(e)}  class="far fa-ellipsis-v"></i>
-                                    <TaskMenu task={task} handleFinishTask={handleFinishTask}  domNode={taskMenuNode}
+                                    <TaskMenu task={task} handleFinishTask={handleFinishTask} close={()=>hideMenu()}  domNode={taskMenuNode}
                                     handleTaskDetails={handleTaskDetails} projectID={project._id} />
                                 </div>
                             </span>
                             <div  className="dependacy-row">
-                                <Assigh users={task.assignedTo} taskID={task._id} projectID={project._id} />
+                                <Assigh users={task.assignedTo} taskID={task._id} projectID={project._id} type="grid"/>
                             </div>
                             <span>{task.start&&task.end ? getDuration(task.start,task.end):null}</span>
                             <span>{task.completion} %</span>

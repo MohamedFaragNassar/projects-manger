@@ -8,12 +8,7 @@ const stageSchema = new mongoose.Schema({
 
 const projectschema = new mongoose.Schema({
     name:{type:String,required:true},
-    stages:[stageSchema],
     buckets:[{type:String}],
-    tasks:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Task"
-    }],
     owner:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user",

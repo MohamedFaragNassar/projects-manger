@@ -49,9 +49,19 @@ const projectType = new GraphQLObjectType({
        _id:{type:GraphQLString},
        name:{type:GraphQLString},
        buckets:{ type: new GraphQLList(GraphQLString) },
-       tasks:{ type: new GraphQLList(taskType) },
+       tasks:{ 
+           type: new GraphQLList(taskType),
+           resolve(parent,args){
+               return Task.find({project:parent._id})
+           } 
+        },
        owner:{type:userType},
-       group: { type: new GraphQLList(userType) },
+       group: { 
+           type: new GraphQLList(userType),
+           resolve(parent,args){
+               return User.find({_id:{$in:parent.group}})
+           } 
+        },
        createdAt:{type:GraphQLString},
 
    })
@@ -149,14 +159,7 @@ const RootQuery = new GraphQLObjectType({
             args:{id:{type:GraphQLString}},
             async resolve(parent,args,{user}){
                 try{
-                    const project = await Project.findById(args.id)
-                    const tasks = await Task.find({project:project._id})
-                    const group = await User.find({_id:{$in:project.group}})
-                    
-                    project.tasks = tasks
-                    project.group = group
-            
-                    return project
+                    return Project.findById(args.id)
                 }catch(error){
                     console.log(error)
                     throw new Error(error)
@@ -266,12 +269,83 @@ const Mutation = new GraphQLObjectType({
         updateTask:{
             type:taskType,
             args:{id:{type:GraphQLString},updatedFields:{type:taskInput}},
-            async resolve(parent,args,{user}){
+            async resolve(parent,{updatedFields,id},{user}){
                 try{
-                    const task = await Task.findById(args.id)
+                    const task = await Task.findById(id)
                     const project = await Project.findById(task.project)
                     if(project.owner == user._id || task.assignedTo.includes(user._id) ){
-                        return task.updateOne({...args.updatedFields})
+                        return task.updateOne({...updatedFields})
+                    }else{
+                        throw new Error("You are not allowed to perform this action")
+                    }
+                }catch(error){
+                    console.log(error)
+                    throw new Error("somthing went wrong " + error)
+                }
+            }
+        },
+        editStartDate:{
+            type:taskType,
+            args:{id:{type:GraphQLString},date:{type:GraphQLString}},
+            async resolve(parent,{id,date},{user}){
+                try{
+                    const task = await Task.findById(id)
+                    const project = await Project.findById(task.project)
+                    if(project.owner == user._id || task.assignedTo.includes(user._id) ){
+                        let valid = true;
+                        const newDate = new Date(date)
+                        const proJectDate = new Date(project.createdAt)
+                        dependsOn = await Task.find({_id:{$in:task.dependsOn}})
+                        dependsOn.map(e => {
+                            const taskDate = new Date(e.end) || null;
+                            console.log(taskDate)
+                            if(taskDate && taskDate.getTime() > newDate.getTime()){
+                                return valid = false;
+                            }
+                        })
+                        console.log(valid)
+                        if(newDate.getTime() < proJectDate.getTime()){
+                            throw new Error("Task start date can not be before project start date")
+                        }else if(!valid){
+                            throw new Error("the date you provided is not valid, please check the the relations of this task")
+                        }
+
+                        task.start = date;
+                        return task.save()
+
+                    }else{
+                        throw new Error("You are not allowed to perform this action")
+                    }
+                }catch(error){
+                    console.log(error)
+                    throw new Error("somthing went wrong " + error)
+                }
+            }
+        },
+        editEndDate:{
+            type:taskType,
+            args:{id:{type:GraphQLString},date:{type:GraphQLString}},
+            async resolve(parent,{id,date},{user}){
+                try{
+                    const task = await Task.findById(id)
+                    const project = await Project.findById(task.project)
+                    if(project.owner == user._id || task.assignedTo.includes(user._id) ){
+                        const newDate = new Date(date)
+                        dependants = await Task.find({_id:{$in:task.dependants}})
+                        dependants.map(e => {
+                            const taskDate = new Date(e.start) || null;
+                            if(taskDate && taskDate.getTime() < newDate.getTime()){
+                                const endDate = new Date(e.end)
+                                const newEndDate = new Date((newDate.getTime()+(endDate.getTime()-taskDate.getTime())))
+                                e.start = date
+                                e.end = newEndDate
+                                return e.save();
+                            }
+                        })
+                        
+                        task.end = date;
+                        return task.save()
+
                     }else{
                         throw new Error("You are not allowed to perform this action")
                     }
@@ -435,7 +509,7 @@ const Mutation = new GraphQLObjectType({
                         if(args.field ==="dependsOn"){
                             const taskDate = new Date(task.start)
                             const addedTaskDate = new Date(addedTask.end)
-                            if(addedTaskDate.getTime() > taskDate.getTime()){
+                            if(addedTaskDate.getTime() > taskDate.getTime() || !addedTask.start){
                                 task.start = addedTask.end
                             }
                             task.dependsOn = [...task.dependsOn,addedTask._id]
@@ -443,7 +517,7 @@ const Mutation = new GraphQLObjectType({
                         }else if(args.field === "dependants"){
                             const taskDate = new Date(task.end)
                             const addedTaskDate = new Date(addedTask.start)
-                            if(addedTaskDate.getTime() < taskDate.getTime()){
+                            if(addedTaskDate.getTime() < taskDate.getTime() || !addedTask.start ){
                                 addedTask.start = task.end
                             }
                             task.dependants = [...task.dependants,addedTask._id] 
@@ -580,6 +654,11 @@ const Mutation = new GraphQLObjectType({
                         throw new Error("You are not authorized to delete this project")
                     }
                     project.group=project.group.filter(member => {return member != userID})
+                    const tasks = await Task.find({project:project._id})
+                    tasks.forEach(task => {
+                        task.assignedTo = task.assignedTo.filter(user => user._id != userID)
+                        return task.save()
+                    })
                     return project.save()
                 }catch(error){
                     throw new Error(error)
