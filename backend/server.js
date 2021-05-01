@@ -9,7 +9,7 @@ const {userSchema} = require("./schemas/userSchema")
 const cors = require('cors');
 const {isAuth} = require("./Authentication")
 const uploadRoute = require("./resolvers.js/uploadImages")
-
+const path = require("path")
 
 const app = express("")
 app.use(bodyParser.json());
