@@ -46,6 +46,7 @@
 .my-project {
   margin-top: 50px;
   width: 100%;
+  min-width: 650px;
 }
 .my-projects-btns {
   width: fit-content;
@@ -68,6 +69,7 @@
   padding: 10px;
   margin-bottom: 50px;
   min-height: 34vh;
+  overflow-x: auto;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 -2px 5px 0 rgba(0, 0, 0, 0.07);
 }
 

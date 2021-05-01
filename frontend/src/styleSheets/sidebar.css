@@ -45,6 +45,17 @@
   background: transparent;
   border-style: none;
   border-bottom: 1px solid #333;
+  font-size: 18px;
+}
+.side-nav a {
+  width: 100%;
+  padding: 20px 0;
+  background: transparent;
+  border-bottom: 1px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
 }
 .side-menu div {
   width: 100%;

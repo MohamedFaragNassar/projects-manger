@@ -3,13 +3,14 @@ import {useMutation} from '@apollo/client'
 import {editEndDateMutation,getProjectDetailsQuery,editStartDateMutation} from '../queries/projectQueries'
 import Node from '../components/Node'
 import Bar from '../components/Bar'
-import {getDeffrenceInDays,modifyDate,addDays,removeDays} from '../helpers/helpers'
+import {getDeffrenceInDays,modifyDate,addDays,removeDays, getDuration} from '../helpers/helpers'
 import Status from '../components/Status'
 
 const Timline = (props) => {
     const {project,zoom} = props 
     const [index, setIndex] = useState()
     const [error, setError] = useState()
+  
     
 
     let cdate
@@ -30,6 +31,7 @@ const Timline = (props) => {
         })
         setIndex(null)
         
+        
     }
 
     const handleEditStartDate = (id,date,days)=>{
@@ -41,11 +43,12 @@ const Timline = (props) => {
                 },
                 refetchQueries:[{query:getProjectDetailsQuery,variables:{id:project._id}}]
             })
-            .then(res => console.log(res))
+            .then(res =>{})
             .catch(err => setError(err) )
             
       
         setIndex(null)
+        
         
 
 
@@ -53,6 +56,10 @@ const Timline = (props) => {
 
     const getInitialGrid = () => {
         const grid = [];
+        const startDate = project.createdAt;
+        const endDate = Math.max(...project.tasks.map(e => new Date(e.end)))
+        const duration = Math.ceil((endDate-Number(startDate))/86400000)
+        console.log(duration)
         for (let col = 0; col < 53; col++) {
             grid.push(col);
           }
@@ -79,10 +86,10 @@ const Timline = (props) => {
                    
                   return ( <div className="timline-task" >
                        <Bar length={days} befor={daysBeforStart} task={task} handleEditEndDate={handleEditEndDate} 
-                        handleEditStartDate={handleEditStartDate} index={index} /> 
+                        handleEditStartDate={handleEditStartDate} index={index} nodeSize={zoom*20} /> 
                         <div className="row-grid">
                             {grid.map(x => 
-                                <Node index = {x+1} setIndex={setIndex} />    
+                                <Node index = {x+1} setIndex={setIndex} zoom={zoom} />    
                             )}
                         </div>
                    </div>) 

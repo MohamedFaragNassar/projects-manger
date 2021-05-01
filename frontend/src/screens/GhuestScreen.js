@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import {useMutation} from '@apollo/client'
 import {loginQuery} from '../queries/userQueries'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, Redirect, useHistory } from 'react-router-dom'
 
 const GhuestScreen = () => {
 
@@ -18,8 +18,8 @@ const GhuestScreen = () => {
                 }
             })
             if(data){
-                localStorage.setItem("userInfo",JSON.stringify(data))
-               history.push("/")
+                localStorage.setItem("userInfo",JSON.stringify(data.login))
+                window.location.href = "/";
             }
         }catch(error){
            console.log(error)

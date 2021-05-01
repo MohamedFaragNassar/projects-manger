@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import {Route, useHistory } from 'react-router-dom'
+import {Redirect, Route, useHistory } from 'react-router-dom'
 import Login from '../components/Login'
 import RegisterScreen from '../screens/RegisterScreen'
 import GhuestScreen from './GhuestScreen'
 
 const SignScreen = () => {
-    const history = useHistory()
+    const userInfo = localStorage.getItem("userInfo")
+
+    if(userInfo){
+        return <Redirect path="/" />
+    }
+    else{
     return (
         <div className="register" >
             <section className="img-container" >
@@ -16,6 +21,7 @@ const SignScreen = () => {
             <Route path="/ghuest" component={GhuestScreen} />
         </div>
     )
+    }
 }
 
 export default SignScreen

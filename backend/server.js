@@ -30,10 +30,17 @@ app.use('/api', graphqlHTTP({
         graphiql: true
     }));
 app.use("/upload",uploadRoute)
+ 
+if (process.env.NODE_ENV === "production"){
+    app.use(express.static(path.resolve(__dirname,'../frontend/build')));
     
+    app.get("*",(req,res)=>{
+            res.sendFile(path.resolve(__dirname,'../frontend/build/index.html'));
+    })
+}
 
-const mongoDB_URl = "mongodb://127.0.0.1:27017/project_manger";
-const port = process.env.port || 5000;
+const mongoDB_URl = "mongodb+srv://mnassar:nassar5050@tu-blogs.7sokl.mongodb.net/projectmanger?retryWrites=true&w=majority";
+const port = process.env.PORT || 5000;
 
 mongoose.connect(mongoDB_URl,{useNewUrlParser:true,useUnifiedTopology:true,useCreateIndex:true},) 
         .then(app.listen(port,()=>{console.log("server connected")}))

@@ -93,6 +93,24 @@ input:focus {
   border: 3px solid var(--green);
 }
 
+@media (max-width: 800px) {
+  .new-project {
+    width: 90%;
+    top: 40%;
+  }
+  .add-task-panel {
+    width: 90%;
+    height: 60%;
+    top: 20px;
+  }
+  .task-icons i {
+    display: block;
+  }
+  .profile {
+    width: 80%;
+  }
+}
+
 @media (max-width: 600px) {
   .add-new-project {
     width: 90%;
@@ -100,6 +118,16 @@ input:focus {
 }
 
 @media (max-width: 400px) {
+  .logo {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .nav-user {
+    width: 100px;
+    margin-left: 0;
+  }
+
   .add-new-project button {
     padding: 15px 20px;
     font-size: 15px;
@@ -108,5 +136,11 @@ input:focus {
 
   .fav-body {
     padding: 10px 5px;
+  }
+
+  .my-projects-btns button {
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: 500;
   }
 }

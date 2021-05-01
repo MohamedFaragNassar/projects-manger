@@ -36,16 +36,16 @@ const SignedUser = () => {
      
     return <>
         {userData&&<div ref={userNav} onClick={()=>handleShowMenu()} className="nav-user">
-            <img src={`../${userData.id}.jpg`}/>
+            <img src={`../${userData.id}.jpg`}  onError={(e)=>e.target.src="../account.jpg"}/>
             <i class="fas fa-chevron-down"></i>
-        </div>}
-        <div ref={domNode}  id='user-menu' className="nav-user-menu">
-           {userData&& <ul>
-                <li><Link onClick= {()=> hideMenu()} to={`/profile/${userData.id}`}>Veiw Profile</Link></li>
-                <li><Link  onClick= {()=> hideMenu()}  to="">Edit profile</Link></li>
+
+            <ul ref={domNode}  id='user-menu' className="nav-user-menu" >
+                <li><Link   onClick={()=> hideMenu()} to={`/profile/${userData.id}`}  >Veiw Profile</Link></li>
                 <li><button onClick={(e)=>HandleLogout(e)}>Log out</button></li>
-            </ul>}
-        </div> 
+            </ul>
+        </div>
+        }
+         
     </>
 }
 

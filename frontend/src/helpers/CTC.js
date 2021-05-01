@@ -15,8 +15,6 @@ const useClickToClose = (closeHandler,selector) =>{
 
             }
          }
-       
-        
     document.addEventListener("mousedown", clickHandler);
 
     return () => {

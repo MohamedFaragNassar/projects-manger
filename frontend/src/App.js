@@ -7,7 +7,6 @@ import ProjectScreen from './screens/ProjectScreen'
 import SignedUser from './components/SignedUser'
 import UnSignedUser from './components/unSignedUser'
 import ProtectedRoute from './components/ProtectedRoute'
-import UnRegisteredRoute from './components/UnRegisteredRoute'
 import SignScreen from './screens/SignScreen';
 import Profile from './screens/Profile';
 
@@ -35,19 +34,17 @@ const [isOpen,setIsOpen] = useState(false)
               {userData?<div className="sidebar">
                     <div className="side-nav">
                       <button onClick={()=>sideMenuHandler()} ><i class="far fa-bars"></i></button>
-                      <button><i class="far fa-home-lg-alt"></i></button>
+                      <Link to="/"><i class="far fa-home-lg-alt"></i></Link>
                     </div>
                     <SideMenu isOpen={isOpen} />
               </div>:<div></div>}
               <div className="main-section">
-                  <UnRegisteredRoute path="/ghuest" component={SignScreen} />
-                  <UnRegisteredRoute path="/signin"  component={SignScreen} />
-                  <UnRegisteredRoute path="/signup"  component={SignScreen} />
+                  <Route path="/ghuest" component={SignScreen} />
+                  <Route path="/signin"  component={SignScreen} />
+                  <Route path="/signup"  component={SignScreen} />
                   <ProtectedRoute path="/project/:id"  component={ProjectScreen} />
                   <ProtectedRoute path="/profile/:id"  component={Profile} />
                   <ProtectedRoute path="/"  exact={true} component={Main} />
-               
-                
               </div>
       </div>
       

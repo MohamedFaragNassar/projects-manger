@@ -1,26 +1,24 @@
 import React, { useEffect } from "react"
-import {Route, Redirect} from "react-router-dom"
-import { useHistory } from 'react-router-dom'
+import {Route, Redirect, useHistory} from "react-router-dom"
 
 
  const ProtectedRoute = ({component:Component,...rest}) =>{
   const userInfo = localStorage.getItem("userInfo")
   const history = useHistory()
 
-  
+  if(!userInfo){
+      history.push("/ghuest")
+  }
 
-  /* useEffect(() => {
-        if(!userInfo){
-            history.push("/ghuest")
-        }
-    }, [userInfo])
- */
+
     return (
-        <Route {...rest} render = {props => {
-            return <Component {...props} />
-        }} />
+            <Route {...rest} render = {props => {
+                return <Component {...props} />
+            }} />
+        
+
     )
-  
+    
     
 }
 

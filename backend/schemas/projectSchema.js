@@ -2,6 +2,7 @@ const {GraphQLString, GraphQLInt,GraphQLInputObjectType,GraphQLList,GraphQLObjec
 const Project = require("../models/Project")
 const Task = require("../models/Task")
 const User = require("../models/User")
+const bcrypt = require("bcrypt")
 
  const userType  = new GraphQLObjectType ({
     name:"userType",
@@ -338,7 +339,7 @@ const Mutation = new GraphQLObjectType({
                                 const endDate = new Date(e.end)
                                 const newEndDate = new Date((newDate.getTime()+(endDate.getTime()-taskDate.getTime())))
                                 e.start = date
-                                e.end = newEndDate
+                                e.end = newEndDate.toISOString().split('T')[0]
                                 return e.save();
                             }
                         })

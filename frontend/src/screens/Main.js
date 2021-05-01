@@ -23,6 +23,7 @@ const Main = () => {
             menu.classList.add("hide")
         }
     }
+    console.log("mainnnnnnnnnn")
  
     const domNode = useClickToClose(hideMenu,".project-menu:not(.hide)")
 

@@ -40,32 +40,34 @@
   width: 150px;
   background: var(--color-d4);
   position: absolute;
-  padding: 10px;
-  top: -120px;
+  padding: 5px 5px 10px 5px;
   right: 30px;
   margin-top: 5px;
   z-index: 3;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 1s ease;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
+  width: 100%;
+  left: 0;
+  top: 50px;
+  opacity: 0;
+  height: 0;
+  transition: all 0.5s ease;
 }
 
 .show {
-  display: block;
-  visibility: visible;
-  top: 50px;
+  padding: 10px 0 20px 0;
+  height: 80px;
   opacity: 1;
+  transform: translateY(0);
 }
 
-.nav-user-menu ul li {
+.nav-user-menu li {
   padding: 10px;
 }
-.nav-user-menu ul li a {
+.nav-user-menu li a {
   color: #0f3057;
 }
-.nav-user-menu ul li:hover {
+.nav-user-menu li:hover {
   background: #f3f3f3;
 }
 

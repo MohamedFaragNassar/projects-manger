@@ -26,7 +26,7 @@ const Assigh = ({users,taskID,projectID,type}) => {
         <div className="assign">
            {type=="grid" && <div className="assign-top">
                 {users.slice(0,2).map(user => 
-                    <Link ><img className="user-img" src={`../${user._id}.jpg`} /></Link>    
+                    <Link ><img className="user-img" src={`../${user._id}.jpg`} onError={(e)=>e.target.src="../account.jpg"} /></Link>    
                 )}
             </div>}
             <div className="assign-bottom">
@@ -37,7 +37,7 @@ const Assigh = ({users,taskID,projectID,type}) => {
                 {isOpen&&<div ref={node} id="usrmenu" className="assign-model">
                     {users.map(user => <div>
                         <Link to={`/profile/${user._id}`}>
-                            <img className="user-img" src={`../${user._id}.jpg`} />
+                            <img className="user-img" src={`../${user._id}.jpg`}  onError={(e)=>e.target.src="../account.jpg"} />
                             <span className="user-name ">{user.userName}</span>
                         </Link>
                         <button onClick={()=>handleDelUserFromTask(user._id)}>

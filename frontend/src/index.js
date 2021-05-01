@@ -11,11 +11,11 @@ import {setContext} from '@apollo/client/link/context'
 const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:5000/graphql',
+  uri: '/graphql',
 });
 
 const httpLink2 = createHttpLink({
-  uri: 'http://localhost:5000/api',
+  uri: '/api',
 });
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('userInfo')?JSON.parse(localStorage.getItem('userInfo')).token:null;

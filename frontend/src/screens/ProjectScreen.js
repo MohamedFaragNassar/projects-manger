@@ -26,7 +26,7 @@ const ProjectScreen = (props) => {
     const [tasks,setTasks] = useState([])
     const [from,setFrom] = useState(0)
     const [to,setTo] = useState(0)
-    const [zoom,setZoom] = useState(50)
+    const [zoom,setZoom] = useState(1)
     const [filters,setFilters] = useState([])
     const [boardfilter,setBoardFilter] = useState("bucket")
 
@@ -140,7 +140,7 @@ const ProjectScreen = (props) => {
                             </div>
                         </> : <>
                             <label>zoom</label>
-                            <input type="range" min="0" max="100" defaultValue="50" onChange={(e=>setZoom(e.target.value))} />
+                            <input type="range" min=".5" max="1.5" defaultValue="1" step=".1" onChange={(e=>setZoom(e.target.value))} />
                         </>}
                     </div>
                     <div className="users">

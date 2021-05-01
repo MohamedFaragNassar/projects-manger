@@ -44,6 +44,8 @@ const SideMenu = (props) => {
         hideOrShow(e.target.parentElement,"projects-menu",action)
     }
 
+    console.log(data)
+
 
     if(!props.isOpen){
         return null;
@@ -71,11 +73,11 @@ const SideMenu = (props) => {
                </ul>
            </div>
            <div>
-               <button onClick={(e)=>handleShowMenu(e)} >Shared Favorites 
+               <button onClick={(e)=>handleShowMenu(e)} >Shared Projects 
                     <i class="fas fa-chevron-down"></i>
                </button>
                <ul id="projects-menu" className="hide projects-menu-items">
-                   {data&&data.projects.favorites.map(pr => 
+                   {data&&data.projects.sharedProjects.map(pr => 
                     <Link to={`/project/${pr._id}`} >{pr.name}</Link>
                     )}
                </ul>

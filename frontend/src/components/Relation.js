@@ -26,12 +26,13 @@ const Relation = ({id1,id2,left,index}) => {
        }
         
     }, [x1,index])
+    
         
    
     return <>
         {y1 > 0 ?
         <svg className="draw" style={{left:left+"px"}} >
-            <polyline points={`0,0 25,0 25,${y1} ${x1},${y1}`} fill="none" strokeWidth="4" stroke={random} />
+            <polyline points={`0,0 0,${y1} ${x1+left},${y1}`} fill="none" strokeWidth="4" stroke={random} />
         </svg>
         :
         <svg className="drawv2" style={{left:left+"px"}} >

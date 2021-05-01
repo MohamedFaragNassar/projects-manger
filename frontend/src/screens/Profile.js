@@ -53,7 +53,7 @@ const Profile = (props) => {
          <div className="profile">
             {AllowEdit?<button onClick={()=>setIsOpen(true)} className="edit-profile-btn" ><i class="far fa-edit"></i></button>:null}
             <div className="profile-img" >
-                <img src={`../${data.profile.user._id}.jpg`} />
+                <img src={`../${data.profile.user._id}.jpg`}  onError={(e)=>e.target.src="../account.jpg"} />
                 {AllowEdit?<div>
                     <label for="upload-image" className="upload-image" ><i class="fal fa-camera-alt"></i></label >
                     <input onChange={(e)=>uploadHandler(e)} type="file" id="upload-image" className="hide" />
