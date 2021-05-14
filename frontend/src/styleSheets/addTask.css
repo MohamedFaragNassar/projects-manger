@@ -61,21 +61,21 @@
   width: 79%;
   padding: 7px;
   border-radius: 5px;
-  border: 3px solid var(--border);
+  border: 2px solid var(--border);
 }
 
 .double input {
   width: 55%;
   padding: 7px;
   border-radius: 5px;
-  border: 3px solid var(--border);
+  border: 2px solid var(--border);
 }
 
 .trible input {
   width: 40%;
   padding: 7px;
   border-radius: 5px;
-  border: 3px solid var(--border);
+  border: 2px solid var(--border);
 }
 
 .trible {

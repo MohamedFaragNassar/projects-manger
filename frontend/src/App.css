@@ -85,17 +85,16 @@ button {
 
 input {
   padding: 5px;
-  font-size: 18px;
-  border: 3px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: 5px;
 }
 input:focus {
-  border: 3px solid var(--green);
+  border: 2px solid var(--green);
 }
 
 @media (max-width: 800px) {
   .new-project {
-    width: 90%;
+    width: 80%;
     top: 40%;
   }
   .add-task-panel {
@@ -109,23 +108,153 @@ input:focus {
   .profile {
     width: 80%;
   }
+  .register{
+    width: 100%;
+  }
+  .user{
+    width: 40%;
+  }
+  .unsigned-user a{
+    font-size: 15px;
+    padding: 10px;
+  }
+  .main {
+    grid-template-columns: 0px auto;
+  }
+  .sidebar{
+    visibility: hidden;
+  }
+  .edit-profile{
+    width: 80%;
+    transform: translate(-50%,-80%);
+  }
+  .proj-header h1{
+    font-size: 25px;
+    font-weight: 600;
+  }
+  .timline-btn{
+    display: none;
+  }
+  .manage{
+    width: 60%;
+    padding-right: 10px;
+  }
+  .main-links{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 30%;
+  }
+
+  .view-links{
+    margin-left: 0;
+  }
+
+  .users{
+    width: 70%;
+  }
+  .filter,.group{
+    margin-right: 0;
+  }
+
+  .board{
+    flex-direction: column-reverse;
+  }
+  .board-body{
+    width: 98%;
+  }
+  .task-icons i:not(.task-menu i){
+    display: block;
+  }
+
+  .ghuest h3{
+    font-size: 30px;
+  }
+  .pre-made{
+    width: 80%;
+  }
+  .register-form input{
+    width: 50%;
+  }
 }
 
 @media (max-width: 600px) {
   .add-new-project {
     width: 90%;
   }
+  .img-container{
+    display: none;
+  }
+  .register-form{
+    width: 100%;
+  }
+  .login-form{
+    width: 100%;
+  }
+  .register form{
+    width: 100%;
+  }
+  .pre-made{
+    width: 80%;
+  }
+  .main {
+    grid-template-columns: 0px auto;
+  }
+  .register-form input{
+    width:50% ;
+  }
+  .register-form label{
+    font-size: 15px;
+  }
+  .logo{
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .ghuest h3{
+    font-size: 25px;
+  }
+  .ghuest p{
+    width: 100%;
+  }
+  .user{
+    width: 50%;
+  }
+  .unsigned-user a{
+    font-size: 15px;
+    padding: 10px;
+  }
+  .sidebar{
+    visibility: hidden;
+  }
+  .proj-header h1{
+    font-size: 20px;
+  }
+  .proj-header div:not(.view-links , .manage){
+    display: flex;
+  }
+  .view-links{
+    display: none;
+  }
+  .manage{
+    display: none;
+  }
+
+  .edit-profile{
+    width: 90%;
+    transform: translate(-50%,-60%);
+  }
+ 
 }
 
 @media (max-width: 400px) {
   .logo {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: 600;
   }
 
   .nav-user {
     width: 100px;
-    margin-left: 0;
+    margin-left: auto;
   }
 
   .add-new-project button {
@@ -142,5 +271,35 @@ input:focus {
     padding: 10px 15px;
     font-size: 15px;
     font-weight: 500;
+  }
+
+  .edit-profile{
+    width: 90%;
+    transform: translate(-50%,-60%);
+  }
+
+  .profile{
+    width: 90%;
+  }
+  .profile-info div span{
+    font-size: 15px;
+  }
+  .profile-info div span{
+    width: 40%;
+  }
+  .edit-profile input{
+    max-width: 60%;
+  }
+  .manage{
+    visibility: hidden;
+  }
+  .add-new-bucket button{
+    padding: 10px 0;
+  }
+  .main-links {
+    width: 100%;
+  }
+  .view-links{
+    margin-left: 50px;
   }
 }

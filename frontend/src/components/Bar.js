@@ -1,9 +1,8 @@
 import React from 'react'
 import Relation from '../components/Relation'
 
-const Bar = ({befor,length,task,handleEditEndDate,handleEditStartDate,index,nodeSize}) => {
+const Bar = ({befor,length,task,handleEditEndDate,handleEditStartDate,index,nodeSize,trigger}) => {
 
-    
      return (
     <div style={{width:length*nodeSize+"px",marginLeft:befor*nodeSize+"px"}} id={`${task._id}`} className="bar">
         <button draggable="true" className="bar-btn" onDragEnd={()=>handleEditStartDate(task._id,task.start,(befor))} >
@@ -14,7 +13,7 @@ const Bar = ({befor,length,task,handleEditEndDate,handleEditStartDate,index,node
         </button>
         <div style={{width:task.completion+"%"}} className="compeletion-state" ></div>
       {task.dependants.length > 0 && task.dependants.map(relTask =>
-            <Relation  id1={task._id} id2={relTask._id} left={(length/2)*nodeSize} index={index}   />
+            <Relation key={task._id}  id1={task._id} id2={relTask._id} left={(length/2)*nodeSize} index={index}    />
         )} 
     </div>
     )

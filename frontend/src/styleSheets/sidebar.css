@@ -88,3 +88,10 @@
 .side-menu a:hover {
   color: #16c79a;
 }
+
+.home-btn{
+  color: #132c33;
+}
+.home-btn:hover{
+  color: #126e82;
+}

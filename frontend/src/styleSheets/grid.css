@@ -117,11 +117,11 @@
 .add-task-wrapper form input {
   padding: 5px;
   font-size: 18px;
-  border: 3px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: 5px;
 }
 .add-task-wrapper form input:focus {
-  border: 3px solid var(--green);
+  border: 2px solid var(--green);
 }
 
 .add-task-wrapper form button {
@@ -194,6 +194,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.15), 0 -2px 5px 0 rgba(0, 0, 0, 0.07);
   padding: 20px 0;
+  z-index: 20;
 }
 
 .task-menu button {

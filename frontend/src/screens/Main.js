@@ -7,6 +7,7 @@ import ShowProjects from '../components/ShowProjects'
 import {useClickToClose} from '../helpers/CTC'
 import Status from '../components/Status'
 import { useHistory } from 'react-router-dom'
+import Spinner from '../components/Spinner'
 
 const Main = () => {
     const userInfo =localStorage.getItem("userInfo")
@@ -43,7 +44,7 @@ const Main = () => {
 
     
     if(loading){
-        return <div>loading</div>
+        return <Spinner/>
     }
     if(error){
         return <Status isOpen={true} message={error.message} />

@@ -9,6 +9,7 @@ import GroupSearch from '../components/GroupSearch'
 import {useClickToClose} from '../helpers/CTC'
 import Filters from '../components/Filters'
 import Status from '../components/Status'
+import Spinner from '../components/Spinner'
 
 
 
@@ -91,7 +92,8 @@ const ProjectScreen = (props) => {
         setFilters([])
     }
 
- 
+    
+    const x = window.screen.width
    
 
     useEffect(() => {
@@ -103,18 +105,18 @@ const ProjectScreen = (props) => {
     
     return <>
        { loading ? 
-            <div>loading</div>
+            <Spinner/>
         : error ?
             <Status isOpen={true} message={error.message} />
        :data? 
        <div className="project-page" >
            <div className="proj-header">
-                <div>
+                <div className="main-links">
                     <h1>{project.name}</h1>
                     <div className="view-links">
                         <button onClick={()=>setView("grid")} >Grid</button>
                         <button onClick={()=>setView("board")} >Board</button>
-                        <button onClick={()=>setView("timline")} >Timeline</button>
+                        <button className="timline-btn" onClick={()=>setView("timline")} >Timeline</button>
                     </div>
                 </div>
                 <div className="manage" >
@@ -139,8 +141,8 @@ const ProjectScreen = (props) => {
                                      clearFilters={clearFilters} filters={filters} setFrom={setFrom} setTo={setTo} />
                             </div>
                         </> : <>
-                            <label>zoom</label>
-                            <input type="range" min=".5" max="1.5" defaultValue="1" step=".1" onChange={(e=>setZoom(e.target.value))} />
+                            {/* <label>zoom</label>
+                            <input type="range" min=".5" max="1.5" defaultValue="1" step=".1" onChange={(e=>setZoom(e.target.value))} /> */}
                         </>}
                     </div>
                     <div className="users">
@@ -164,8 +166,8 @@ const ProjectScreen = (props) => {
             <div className="proj-body" >
                 {view==="grid"?
                     <Grid  tasks={tasks} project={project}/>:view==="board"?
-                    <Board filter={boardfilter} project={project}/>:
-                    <Timline project={project} zoom={zoom}/>
+                    <Board filter={boardfilter} project={project}/>: window.screen.width > 800 ?
+                    <Timline project={project} zoom={zoom}/> : null
                 }
             </div>
         </div>:null}

@@ -22,45 +22,56 @@ const Timline = (props) => {
     const [editEnd] = useMutation(editEndDateMutation)
 
     const handleEditEndDate = (id,date,days)=>{
-        editEnd({
-            variables:{
-                id,
-                date:addDays(date,(index-days)).toISOString("YYYY-MM-DD").split('T')[0]
-            },
-            refetchQueries:[{query:getProjectDetailsQuery,variables:{id:project._id}}]
-        })
-        setIndex(null)
-        
-        
-    }
-
-    const handleEditStartDate = (id,date,days)=>{
-        
-        editStart({
+        try{
+            editEnd({
                 variables:{
                     id,
                     date:addDays(date,(index-days)).toISOString("YYYY-MM-DD").split('T')[0]
                 },
                 refetchQueries:[{query:getProjectDetailsQuery,variables:{id:project._id}}]
             })
-            .then(res =>{})
-            .catch(err => setError(err) )
-            
-      
-        setIndex(null)
+            setIndex(null)
+
+        }catch(err){
+            setError(err)
+        }
+        
+        
+    }
+
+    const handleEditStartDate = (id,date,days)=>{
+        try{
+            editStart({
+                    variables:{
+                        id,
+                        date:addDays(date,(index-days)).toISOString("YYYY-MM-DD").split('T')[0]
+                    },
+                    refetchQueries:[{query:getProjectDetailsQuery,variables:{id:project._id}}]
+                })
+                .then(res =>{})
+                .catch(err => setError(err) )
+                
+          
+            setIndex(null)
+
+        }catch(err){
+            setError(err)
+        }
         
         
 
 
     }
 
+    const startDate = project?.createdAt;
+    const lastTaskDate = Math.max(...project?.tasks.map(e => new Date(e.end)))
+    const endDate = addDays(Number(lastTaskDate),20)
+    const duration = Math.ceil((endDate-Number(startDate))/86400000)
+    
+
     const getInitialGrid = () => {
         const grid = [];
-        const startDate = project.createdAt;
-        const endDate = Math.max(...project.tasks.map(e => new Date(e.end)))
-        const duration = Math.ceil((endDate-Number(startDate))/86400000)
-        console.log(duration)
-        for (let col = 0; col < 53; col++) {
+        for (let col = 0; col < duration; col++) {
             grid.push(col);
           }
         
@@ -76,20 +87,20 @@ const Timline = (props) => {
             <div className="changing-date">{cdate ? cdate:null}</div>
             <div className="timeline-side" >
                 {project.tasks.map(task => 
-                    <div className="timline-side-task">{task.name}</div>    
+                    <div key={task._id} className="timline-side-task">{task.name}</div>    
                 )}
             </div>
-            <div className="timeline-main">
+            <div className="timeline-main" >
                 {project.tasks.map(task => {
                     const days = getDeffrenceInDays(task.end,task.start)
                     const daysBeforStart =getDeffrenceInDays(task.start,modifyDate(project.createdAt))
                    
-                  return ( <div className="timline-task" >
+                  return ( <div className="timline-task" style={{width:duration*20+"px"}} >
                        <Bar length={days} befor={daysBeforStart} task={task} handleEditEndDate={handleEditEndDate} 
                         handleEditStartDate={handleEditStartDate} index={index} nodeSize={zoom*20} /> 
                         <div className="row-grid">
                             {grid.map(x => 
-                                <Node index = {x+1} setIndex={setIndex} zoom={zoom} />    
+                                <Node key={x} index = {x+1} setIndex={setIndex} zoom={zoom} />    
                             )}
                         </div>
                    </div>) 

@@ -129,13 +129,13 @@
   height: 25px;
   border-radius: 5px;
   padding: 10px;
-  border: 2px solid #0f3057;
+  border: 1px solid #ddd;
   outline: none;
-  font-size: 18px;
+  
 }
 
 .register form input:focus {
-  border: 2px solid #51adcf;
+  border: 1px solid #51adcf;
 }
 .login-form section {
   display: flex;
@@ -146,7 +146,7 @@
   margin-bottom: auto;
 }
 
-.register button {
+.register button:not(#status button) {
   padding: 10px 40px;
   border-radius: 30px;
   font-size: 25px;
@@ -164,7 +164,7 @@
 .register a:not(.join-now):hover {
   color: white;
 }
-.register button:hover {
+.register button:not(#status button):hover {
   background: white;
   color: var(--color-d2);
 }
@@ -196,9 +196,9 @@
   height: 15px;
   border-radius: 5px;
   padding: 10px;
-  border: 2px solid #0f3057;
+  border: 1px solid #ddd;
   outline: none;
-  font-size: 18px;
+  
 }
 
 .register-form section {

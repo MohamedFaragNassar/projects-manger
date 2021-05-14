@@ -24,7 +24,7 @@
   text-align: center;
 }
 
-.new-project form {
+.new-project form:not(.add-stages) {
   width: 80%;
   margin: auto;
 }
@@ -33,11 +33,11 @@
   width: 75%;
   padding: 10px;
   border-radius: 5px;
-  border: 3px solid var(--border);
+  border: 2px solid var(--border);
 }
 
 .new-project input:focus {
-  border: 3px solid var(--green);
+  border: 2px solid var(--green);
 }
 
 .project-name {
@@ -132,8 +132,11 @@
 
 .list-buckets div {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  width: 95%;
+  width: 90%;
   height: 25px;
+  word-break: break-all;
+  padding: 5px;
+ 
 }
