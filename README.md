@@ -7,7 +7,7 @@ A web Application designed to assist a project manager in developing a schedule,
 
 **Client:** React, Redux, CSS
 
-**Server:** NodeJs,express ,Mongodb
+**Server:** NodeJs,express ,Mongodb, GraphQl
 
 
   
