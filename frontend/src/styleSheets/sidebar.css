@@ -24,13 +24,35 @@
   overflow-y: scroll;
   box-shadow: 0 4px 0px 0 rgba(0, 0, 0, 0.15), 0 -2px 5px 0 rgba(0, 0, 0, 0.07);
   border-left: 1px solid var(--color-d2);
+  
 }
+
+.hide-menu{
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+  pointer-events: none;
+}
+
+.show-menu{
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
 
 .side-menu div,
 .projects-menu-items {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.side-menu div button{
+  width: 80%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 .side-nav {
   display: flex;

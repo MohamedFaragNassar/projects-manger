@@ -63,6 +63,7 @@ button {
 .main {
   display: grid;
   grid-template-columns: 60px auto;
+  transition: all 150ms ease-in-out;
 }
 .main-v2 {
   grid-template-columns: 300px auto;

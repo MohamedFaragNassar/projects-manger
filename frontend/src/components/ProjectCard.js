@@ -37,17 +37,17 @@ const ProjectCard = ({project,close}) => {
         <div className="project-card">
             <div  id="project-menu" className="project-menu hide" >
               <ul >
-                <li ><Link to={`/project/${project._id}`} >Open<i class="fad fa-external-link"></i></Link></li>
-                <li onClick={()=>handleDeleteProject()} >Delete <i class="fas fa-trash-alt"></i></li>
-                <li onClick={()=>handleRemoveFavorites()} >Remove favorite<i class="far fa-star"></i></li>
+                <li ><Link to={`/project/${project._id}`} >Open<i className="fad fa-external-link"></i></Link></li>
+                <li onClick={()=>handleDeleteProject()} >Delete <i className="fas fa-trash-alt"></i></li>
+                <li onClick={()=>handleRemoveFavorites()} >Remove favorite<i className="far fa-star"></i></li>
               </ul>
             </div>
             <div className="top-sec">
                 <Link to={`/project/${project._id}`} >{project.name}</Link>
-              <button   onClick={(e)=>handleShowMenu(e)} ><i class="far fa-ellipsis-v"></i></button>
+              <button   onClick={(e)=>handleShowMenu(e)} ><i className="far fa-ellipsis-v"></i></button>
             </div>
             <div className="pr-date">
-              <i class="fas fa-calendar-alt"></i>
+              <i className="fas fa-calendar-alt"></i>
               <div>{startDate}</div>
             </div>
         </div>

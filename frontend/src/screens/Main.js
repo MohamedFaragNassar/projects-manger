@@ -52,13 +52,13 @@ const Main = () => {
     return <>
         <div className="main-page">
            <div className="add-new-project" >
-                <button onClick={()=>setIsOpen(true)}><i class="fas fa-plus"></i>Add new project</button>
+                <button onClick={()=>setIsOpen(true)}><i className="fas fa-plus"></i>Add new project</button>
             </div>
            {data&&data.projects.favorites.length>0 ? <div className="favorites">
                 <div className="fav-header" >Favorites</div>
                 <div ref={domNode} className="fav-body" >
                     {data.projects.favorites.map(project => 
-                        <ProjectCard  project={project} close={()=>hideMenu} />
+                        <ProjectCard key={project._id}  project={project} close={()=>hideMenu} />
                     )}
                 </div>
             </div>: null}

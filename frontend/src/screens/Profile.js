@@ -42,6 +42,15 @@ const Profile = (props) => {
     useEffect(() => {
        
     }, [isUploaded])
+    
+    useEffect(() => {
+        const menu = document.getElementById("user-menu")
+        const usernav = document.querySelector(".nav-user")
+
+        menu.classList.remove("show")
+        usernav.classList.remove("rm-b")
+        
+    }, [])
 
     if(loading){
         return <Spinner/>

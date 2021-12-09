@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import {hideOrShow} from '../helpers/helpers'
 
 
-const SideMenu = (props) => {
+const SideMenu = ({status}) => {
     const client = useApolloClient()
 
   const data = client.readQuery({
@@ -32,14 +32,14 @@ const SideMenu = (props) => {
   })
 
     const handleShowMenu = (e) => {
-        const icon = e.target.firstElementChild
-        const action = icon.classList.contains("fa-chevron-down") ? "show" : "hide"
+        const icon = e.target.lastElementChild
+        const action = icon?.classList.contains("fa-chevron-down") ? "show" : "hide"
         if(action === "show"){
-            icon.classList.remove("fa-chevron-down")
-            icon.classList.add("fa-chevron-up")
+            icon?.classList.remove("fa-chevron-down")
+            icon?.classList.add("fa-chevron-up")
         }else{
-            icon.classList.remove("fa-chevron-up")
-            icon.classList.add("fa-chevron-down")
+            icon?.classList.remove("fa-chevron-up")
+            icon?.classList.add("fa-chevron-down")
        }
         hideOrShow(e.target.parentElement,"projects-menu",action)
     }
@@ -47,38 +47,37 @@ const SideMenu = (props) => {
     console.log(data)
 
 
-    if(!props.isOpen){
-        return null;
-    }
+   
    return (
-        <div className="side-menu">
+        <div className={`side-menu ${status}`}>
            <div>
-               <button onClick={(e)=>handleShowMenu(e)} >My Favorites 
-                    <i class="fas fa-chevron-down"></i>
+               <button onClick={(e)=>handleShowMenu(e)} >
+                    <span>My Favorites</span> 
+                    <i className="fas fa-chevron-down"></i>
                </button>
                <ul id="projects-menu" className="hide projects-menu-items">
                    {data&&data.projects.favorites.map(pr => 
-                    <Link to={`/project/${pr._id}`} >{pr.name}</Link>
+                    <Link key={pr._id} to={`/project/${pr._id}`} >{pr.name}</Link>
                     )}
                </ul>
            </div>
            <div>
                <button onClick={(e)=>handleShowMenu(e)} >My Projects 
-                    <i class="fas fa-chevron-down"></i>
+                    <i className="fas fa-chevron-down"></i>
                </button>
                <ul id="projects-menu" className="hide projects-menu-items">
                    {data&&data.projects.myProjects.map(pr => 
-                    <Link to={`/project/${pr._id}`} >{pr.name}</Link>
+                    <Link key={pr._id} to={`/project/${pr._id}`} >{pr.name}</Link>
                     )}
                </ul>
            </div>
            <div>
                <button onClick={(e)=>handleShowMenu(e)} >Shared Projects 
-                    <i class="fas fa-chevron-down"></i>
+                    <i className="fas fa-chevron-down"></i>
                </button>
                <ul id="projects-menu" className="hide projects-menu-items">
                    {data&&data.projects.sharedProjects.map(pr => 
-                    <Link to={`/project/${pr._id}`} >{pr.name}</Link>
+                    <Link key={pr._id} to={`/project/${pr._id}`} >{pr.name}</Link>
                     )}
                </ul>
            </div>

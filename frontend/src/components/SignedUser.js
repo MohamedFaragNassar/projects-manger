@@ -1,10 +1,9 @@
 import React, { useRef } from "react"
-import {Link, useHistory} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {useClickToClose} from "../components/ClickToClose"
 
 const SignedUser = () => {
-   const history = useHistory()
-
+   
    const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
     
    const  handleShowMenu = () =>{
@@ -16,11 +15,12 @@ const SignedUser = () => {
 
 
     function hideMenu(){
-        const menu = document.querySelector(".nav-user-menu")
+        const menu = document.getElementById("user-menu")
         const usernav = document.querySelector(".nav-user")
 
         menu.classList.remove("show")
         usernav.classList.remove("rm-b")
+        
 
     }
 
@@ -37,12 +37,12 @@ const SignedUser = () => {
     return <>
         {userData&&<div ref={userNav} onClick={()=>handleShowMenu()} className="nav-user">
             <img src={`../${userData.id}.jpg`}  onError={(e)=>e.target.src="../account.jpg"}/>
-            <i class="fas fa-chevron-down"></i>
+            <i className="fas fa-chevron-down"></i>
 
-            <div ref={domNode}  id='user-menu' className="nav-user-menu" >
-                <Link   onClick={()=> hideMenu()} to={`/profile/${userData.id}`}  >Veiw Profile</Link>
-                <button onClick={(e)=>HandleLogout(e)}>Log out</button>
-            </div>
+            <ul ref={domNode}  id='user-menu' className="nav-user-menu" >
+                <li><Link   onClick={()=> hideMenu()} to={`/profile/${userData.id}`}  >Veiw Profile</Link></li>
+                <li><button onClick={(e)=>HandleLogout(e)}>Log out</button></li>
+            </ul>
         </div>
         }
          

@@ -82,18 +82,18 @@ const ShowProjects = (props) => {
                                 <span>{`${proj.group.length} members`}</span>
                                 <div>
                                     {favorites.some(pr => pr._id == proj._id)?
-                                    <button onClick={()=>handleRemoveFromFavorites(proj._id)} ><i class="fas fa-star"></i></button>
-                                    :<button onClick={()=>handleAddFavorites(proj._id)}><i class="far fa-star"></i></button>}
+                                    <button onClick={()=>handleRemoveFromFavorites(proj._id)} ><i className="fas fa-star"></i></button>
+                                    :<button onClick={()=>handleAddFavorites(proj._id)}><i className="far fa-star"></i></button>}
                                    {props.type === "mine" ? <button onClick={()=>handleDeleteProject(proj._id)}>
-                                       <i class="fas fa-trash-alt"></i>
-                                    </button> :<button onClick={()=>handleLeaveProject(proj._id)} ><i class="fas fa-sign-out"></i></button> }
+                                       <i className="fas fa-trash-alt"></i>
+                                    </button> :<button onClick={()=>handleLeaveProject(proj._id)} ><i className="fas fa-sign-out"></i></button> }
                                 </div>
                             </li>
                             )}
                     </ul>
                     <div className="pagination-btns">
                         {pages.map(num => 
-                            <button value={num} onClick={(e)=>setPage(e.target.value)} >{num}</button>    
+                            <button key={num} value={num} onClick={(e)=>setPage(e.target.value)} >{num}</button>    
                         )}
                     </div>
                 </div>
