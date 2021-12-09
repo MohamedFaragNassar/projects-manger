@@ -1,5 +1,5 @@
 .loader {
-  border: 5px solid #16c79a; /* Light grey */
+  border: 5px solid rgb(231, 231, 231); /* Light grey */
   border-top: 5px solid var(--color-d2); /* Blue */
   border-radius: 50%;
   width: 25px;

@@ -24,7 +24,7 @@ const [isOpen,setIsOpen] = useState(false)
   return   <BrowserRouter >
     <div className="container" >
     <header className="navigation">
-          <Link to={userData ? "/" : "/ghuest"} className="logo" >Project Manger</Link>
+          <Link to={userData ? "/" : "/guest"} className="logo" >Project Manger</Link>
           <div className="user">
             {userData ? <SignedUser/> :<UnSignedUser/> }
             
@@ -39,7 +39,7 @@ const [isOpen,setIsOpen] = useState(false)
                     <SideMenu isOpen={isOpen} />
               </div>:<div style={{width:0+"px"}}></div>}
               <div className="main-section">
-                  <Route path="/ghuest" component={SignScreen} />
+                  <Route path="/guest" component={SignScreen} />
                   <Route path="/signin"  component={SignScreen} />
                   <Route path="/signup"  component={SignScreen} />
                   <ProtectedRoute path="/project/:id"  component={ProjectScreen} />

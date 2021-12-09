@@ -7,7 +7,7 @@ import {Route, Redirect, useHistory} from "react-router-dom"
   const history = useHistory()
 
   if(!userInfo){
-      history.push("/ghuest")
+      history.push("/guest")
   }
 
 

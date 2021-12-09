@@ -39,10 +39,10 @@ const SignedUser = () => {
             <img src={`../${userData.id}.jpg`}  onError={(e)=>e.target.src="../account.jpg"}/>
             <i class="fas fa-chevron-down"></i>
 
-            <ul ref={domNode}  id='user-menu' className="nav-user-menu" >
-                <li><Link   onClick={()=> hideMenu()} to={`/profile/${userData.id}`}  >Veiw Profile</Link></li>
-                <li><button onClick={(e)=>HandleLogout(e)}>Log out</button></li>
-            </ul>
+            <div ref={domNode}  id='user-menu' className="nav-user-menu" >
+                <Link   onClick={()=> hideMenu()} to={`/profile/${userData.id}`}  >Veiw Profile</Link>
+                <button onClick={(e)=>HandleLogout(e)}>Log out</button>
+            </div>
         </div>
         }
          

@@ -83,14 +83,14 @@ button {
   display: none;
 }
 
-input {
+/* input {
   padding: 5px;
   border: 2px solid var(--border);
   border-radius: 5px;
-}
+} 
 input:focus {
   border: 2px solid var(--green);
-}
+}*/
 
 @media (max-width: 800px) {
   .new-project {

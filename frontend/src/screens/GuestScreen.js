@@ -27,17 +27,17 @@ const GhuestScreen = () => {
     }
     useEffect(() => {
         if(!userInfo){
-            history.push("/ghuest")
+            history.push("/guest")
         }
     }, [userInfo])
 
     return (
-        <div className="ghuest">
+        <div className="guest">
             <h3>Project Manger</h3>
-            <p>The power to make project management simple</p>
-            <div className="ghuest-links" >
-                <Link className="join-now" to="/signup">Join Now</Link>
-                <Link to="/signin">Already have Account? sign in</Link>
+            <p>Meet the simple, powerful, reimagined Project Mangment Solution for everyone.</p>
+            <div className="guest-links" >
+                <Link className="join-now" to="/signup">Get Started</Link>
+                <Link className="signin" to="/signin">Already have Account? sign in</Link>
             </div>
             <div onClick={()=>handlSignin()} className="pre-made">
                 <img src="account.png" />

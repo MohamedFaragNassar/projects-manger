@@ -39,7 +39,8 @@ if (process.env.NODE_ENV === "production"){
     })
 }
 
-const mongoDB_URl = "mongodb+srv://mnassar:nassar5050@tu-blogs.7sokl.mongodb.net/projectmanger?retryWrites=true&w=majority";
+//const mongoDB_URl = "mongodb+srv://mnassar:nassar5050@tu-blogs.7sokl.mongodb.net/projectmanger?retryWrites=true&w=majority";
+const mongoDB_URl = "mongodb://127.0.0.1:27017/projectmanger";
 const port = process.env.PORT || 5000;
 
 mongoose.connect(mongoDB_URl,{useNewUrlParser:true,useUnifiedTopology:true,useCreateIndex:true},) 
