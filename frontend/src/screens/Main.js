@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import NewProject from '../components/NewProject'
 import ProjectCard from '../components/ProjectCard'
 import {useQuery} from '@apollo/client'
@@ -6,13 +6,9 @@ import {getProjectsQuery} from '../queries/projectQueries'
 import ShowProjects from '../components/ShowProjects'
 import {useClickToClose} from '../helpers/CTC'
 import Status from '../components/Status'
-import { useHistory } from 'react-router-dom'
 import Spinner from '../components/Spinner'
 
 const Main = () => {
-    const userInfo =localStorage.getItem("userInfo")
-    const history = useHistory()
-
     const [isOpen,setIsOpen] = useState(false)
     const [projectstype,setProjectsType] = useState("mine")
     
@@ -24,8 +20,7 @@ const Main = () => {
             menu.classList.add("hide")
         }
     }
-    console.log("mainnnnnnnnnn")
- 
+    
     const domNode = useClickToClose(hideMenu,".project-menu:not(.hide)")
 
     const changeProjectshandler = (type)=>{

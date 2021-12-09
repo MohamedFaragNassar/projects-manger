@@ -13,7 +13,7 @@ const Filters = (props) => {
         <div className="filters-body" >
             <div className="filter-options">
                 <label>Filter by</label>
-                <select onChange={(e)=>setFilter(e.target.value)} >
+                <select id="filter-select" onChange={(e)=>setFilter(e.target.value)} >
                     <option value={null} >-</option>
                     {options.map(opt => 
                         <option>{opt}</option>    

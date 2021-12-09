@@ -1,16 +1,15 @@
 .user {
-  width: 25%;
+  width: 10em;
+  margin-right: 2em;
 }
 .nav-user {
-  width: 150px;
+  width: 100%;
   background: #e7e7de;
   padding: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  margin-left: auto;
-  margin-right: 25px;
   border-radius: 10px;
   position: relative;
 }
@@ -91,7 +90,7 @@
 }
 
 .nav-user i {
-  margin-right: 30px;
+  margin-right: .5rem;
   font-size: 15px;
   color: var(--color-d2);
   opacity: 0.6;

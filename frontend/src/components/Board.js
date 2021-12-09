@@ -6,9 +6,7 @@ import {addBucketMutation,addTaskToBucketMutation
 import {getDragAfterElement} from '../helpers/dragAndDrop'
 import {useClickToClose} from '../helpers/CTC'
 
-const Board = (props) => {
-    const project = props.project;
-    const filter = props.filter
+const Board = ({filter,project}) => {
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
     let userID 
     if(userData){
@@ -28,18 +26,20 @@ const Board = (props) => {
     const handleAddBucket = (e)=>{
         e.preventDefault()
         addBucket({variables:{
-            id:project._id,
-            bucket
-        },
-        refetchQueries:[{query:getProjectDetailsQuery,variables:{
-            id:project._id
-        }}]
-    })
+                id:project._id,
+                bucket
+            },
+            refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                id:project._id
+            }}]
+        })
         const bucketInput = document.querySelector("#bucket-input")
         bucketInput.value = null
         bucketInput.classList.add("hide")
     }
 
+    
+    
     const showInput = () =>{
        setShowForm(true)
         
@@ -115,7 +115,7 @@ const Board = (props) => {
 
     return (
         <div className="board" >
-            <div className="board-body">
+            <div className={`board-body ${filter==="bucket"?"board-bk":"board-pg"}`}>
                 { filter==="bucket" && project ? 
                     project.buckets.map(bucket => 
                     <div id={bucket}  bucket={bucket}  onDragOver={(e)=>handledragOver(e,bucket)}

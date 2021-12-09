@@ -2,8 +2,12 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 60%;
+  justify-content: flex-end;
+  width: 40%;
+}
+
+.users i {
+  font-size: 1.3em;
 }
 
 .group-search-container {

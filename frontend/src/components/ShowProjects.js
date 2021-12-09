@@ -7,7 +7,7 @@ import {modifyDate} from '../helpers/helpers'
 
 
 const ShowProjects = (props) => {
-    const {data,type,favorites} = props
+    const {data,favorites} = props
 
     const [page,setPage] = useState(1)
     const limit = 10
@@ -60,16 +60,14 @@ const ShowProjects = (props) => {
             pages.push(i)
         }
     
-        console.log(page)
-
     return (
         <div className="show-projects">
                     <ul>
                         <li>
-                            <img src="./share.svg"/>
-                            <img src="calendar.svg"/>
-                            <img src="checklist.svg"/>
-                            <img src="user.svg"/>
+                            <img src="./share.svg" alt="share"/>
+                            <img src="calendar.svg" alt="date"/>
+                            <img src="checklist.svg" alt="list"/>
+                            <img src="user.svg" alt="user"/>
                             <span></span>
                         </li>
                         {data.slice(startIndex,endIndex).map(proj => 

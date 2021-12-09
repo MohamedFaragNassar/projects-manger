@@ -6,43 +6,54 @@
   margin-bottom: 50px;
 }
 
-.proj-header h1 {
+.proj-header span {
   color: var(--color-d2);
-  margin-left: 15px;
+  width: 50%;
+  margin: 0 .3em;
+  font-size: 2em;
+  font-weight: 2em;
 }
 
-.proj-header div {
+.main-links {
+  width: 50%;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  padding-right: 2em;
 }
 
-.view-links {
-  margin-left: 100px;
-  margin-top: 10px;
+.header-links{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
-.view-links button {
-  margin-left: 10px;
-  font-size: 15px;
-  font-weight: 550;
+.main-links button {
+  margin-right: 2em;
+  font-size: 1em;
+  font-weight: 2em;
 }
 
-.filter,
-.group {
-  margin-right: 60px;
-}
 .manage {
   width: 50%;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
 
 .group-members {
   position: relative;
+
 }
-.group-members button,
+.group-members button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.group-members,
 .group {
-  font-size: 15px;
-  font-weight: 550;
+  margin-right: 2em;
 }
 
 .group-members button:hover,
@@ -58,6 +69,10 @@
   left: -50px;
   width: 200px;
   pointer-events: none;
+}
+
+.filter{
+  width: 50%;
 }
 
 .filters {
@@ -78,18 +93,20 @@
 }
 
 .filter select {
-  padding: 5px 15px;
+  padding: .5rem .2rem;
   border: 2px solid var(--border);
   border-radius: 5px;
   font-size: 18px;
   font-weight: 550;
-  width: 150px;
+  width: 10em;
 
-  text-align: center;
+  text-align: left;
 }
 
-.users i {
-  margin-left: 10px;
+.users  {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 /*filter panel */
