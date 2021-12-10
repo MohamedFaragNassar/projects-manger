@@ -20,15 +20,15 @@ const AdditionalColumns = ({columns,task}) => {
 
     
     return <>
-        {columns && columns.map(col => 
+        {columns && columns.map((col,index) => 
             col ==="dependsOn" || col ==="dependants"? 
-            <div  className="dependacy-row">
+            <div key={index} className="dependacy-row">
                 {col==="dependsOn"&&task.dependsOn.length >0 ?<button className="dependacy-btn"
                  onClick={(e)=>handleShowDependacy(e)}>
                     ({task.dependsOn.length}) tasks
                     <div ref={dependacynode} id="dependacy-container" className="grid-dependacy-container hide">
                         {task.dependsOn.map(item => 
-                            <ShowDependacy id={task._id} task={item} field="dependsOn"/>    
+                            <ShowDependacy key={item._id} id={task._id} task={item} field="dependsOn"/>    
                         )}
                     </div>
                 </button> :null}
@@ -37,7 +37,7 @@ const AdditionalColumns = ({columns,task}) => {
                     ({task.dependants.length}) tasks
                     <div ref={dependacynode} id="dependacy-container" className="grid-dependacy-container hide">
                     {task.dependants.map(item => 
-                        <ShowDependacy id={task._id} task={item} field="dependants"/>    
+                        <ShowDependacy key={item._id} id={task._id} task={item} field="dependants"/>    
                     )}
                 </div>
                 </button>:null}

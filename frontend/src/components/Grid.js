@@ -91,8 +91,6 @@ const Grid = (props) => {
         hideAndShow("add-task-form","add-new-task")
     }
 
-console.log(userData)
-
     const handleTaskDetails = (id)=>{
         setTask( id)
         setIsOpen(true)
@@ -147,8 +145,8 @@ console.log(userData)
                  </span>    
                 )}
                 {options.length > 0 ?<div  className="add-col-container">
-                    <select ref={addColNode} id="select-col" className="hide">{options.map( opt =>
-                    <option onClick={(e)=>handleAddColumn(e.target.value)}>{opt}</option>    
+                    <select ref={addColNode} id="select-col" className="hide">{options.map( (opt,indx) =>
+                    <option key={indx} onClick={(e)=>handleAddColumn(e.target.value)}>{opt}</option>    
                     )}</select>
                     <button id="add-col" onClick={()=>handleShowSelect()}>Add column</button>
                 </div> : null}
@@ -165,7 +163,7 @@ console.log(userData)
                                 <div className="task-icons">
                                     <i onClick={()=>handleTaskDetails(task._id)} id="task-details-icon"
                                          className="fal fa-info-circle"></i>
-                                    <i  onClick={(e)=>handleShowMenu(e)}  class="far fa-ellipsis-v"></i>
+                                    <i  onClick={(e)=>handleShowMenu(e)}  className="far fa-ellipsis-v"></i>
                                     <TaskMenu task={task} handleFinishTask={handleFinishTask} close={()=>hideMenu()}  domNode={taskMenuNode}
                                     handleTaskDetails={handleTaskDetails} projectID={project._id} />
                                 </div>
@@ -182,7 +180,7 @@ console.log(userData)
             </div>
             {userID&&userID==project.owner._id?<div className="add-task-wrapper">
                     <div id="add-new-task">
-                        <i class="fas fa-plus"></i>
+                        <i className="fas fa-plus"></i>
                         <button onClick={()=>handleShowTaskForm()} >Add new task</button>
                     </div>
                     <form ref={addTaskNode} onSubmit={(e)=>handleAddTask(e)} id="add-task-form" className="hide task-form " >

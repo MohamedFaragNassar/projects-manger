@@ -29,14 +29,14 @@
   margin: auto;
 }
 
-.new-project input {
+.new-project input:not(.search-input) {
   width: 75%;
   padding: 10px;
   border-radius: 5px;
   border: 2px solid var(--border);
 }
 
-.new-project input:focus {
+.new-project input:not(.search-input):focus {
   border: 2px solid var(--green);
 }
 
@@ -94,7 +94,7 @@
 }
 
 .confirm:hover {
-  background: #00587a;
+  background: #f86363;
 }
 
 .cancel {

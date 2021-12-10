@@ -49,22 +49,28 @@ const GroupSearch = ({group, taskID, projectID,position,domNode,type}) => {
     
     useEffect(() => {
         
-    }, [group,users])
+    }, [users])
+    
+    useEffect(() => {
+        setUsers(group)
+    }, [group])
+
+  
 
     return (
         <div id="group-search" className={`hide-v ${position}`} >
             <div ref={domNode} className="group-search">
                 <h3>Search Members</h3>
-                <input onChange={(e)=>handleSearchGroup(e.target)} type="text" />
+                <input className='gen-input' onChange={(e)=>handleSearchGroup(e.target)} type="text" />
                 <ul>
                     {type==="show"&&users?users.map(user => 
-                        <li value={user._id}>
+                        <li key={user._id} value={user._id}>
                             <Link to={`/profile/${user._id}`}>{user.userName}</Link>
-                            <button onClick={()=>handleDeleteUser(user._id)}><i class="fas fa-trash-alt"></i></button>
+                            <button onClick={()=>handleDeleteUser(user._id)}><i className="fas fa-trash-alt"></i></button>
                         </li>
                     ):
                     users&& users.map(user =>
-                        <li value={user._id} onClick={(e)=>handleUpdateTask(e.target.attributes.value.value)}>
+                        <li key={user._id} value={user._id} onClick={(e)=>handleUpdateTask(e.target.attributes.value.value)}>
                             {user.userName}
                         </li>
                     )} 

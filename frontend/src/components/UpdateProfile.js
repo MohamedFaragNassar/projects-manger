@@ -73,15 +73,15 @@ const UpdateProfile = ({isOpen,user,node,close}) => {
                 <span className="edit-profile-header" >Update Profile</span>
                 <div>
                     <label>userName</label>
-                    <input onChange={(e)=>setUserName(e.target.value)} defaultValue={user.userName} type="text" />
+                    <input className='gen-input' onChange={(e)=>setUserName(e.target.value)} defaultValue={user.userName} type="text" />
                 </div>
                 <div>
                     <label>Full Name</label>
-                    <input onChange={(e)=>setFullName(e.target.value)} defaultValue={user.fullName} type="text" />
+                    <input className='gen-input' onChange={(e)=>setFullName(e.target.value)} defaultValue={user.fullName} type="text" />
                 </div>
                 <div>
                     <label>Email</label>
-                    <input onChange={(e)=>setEmail(e.target.value)} defaultValue={user.email} type="email" />
+                    <input className='gen-input' onChange={(e)=>setEmail(e.target.value)} defaultValue={user.email} type="email" />
                 </div>
                 <div  className="update-btn"><button onClick={handleUpdateProfile} >Update</button></div>
                 {updateProfileLoading?<Spinner />:null}
@@ -90,15 +90,15 @@ const UpdateProfile = ({isOpen,user,node,close}) => {
                 <span className="edit-profile-header" >change password</span>
                 <div>
                     <label>Current Password</label>
-                    <input onChange={(e)=>setCurrentPassword(e.target.value)} required={true} type="password" />
+                    <input className='gen-input' onChange={(e)=>setCurrentPassword(e.target.value)} required={true} type="password" />
                 </div>
                 <div>
                     <label>New Password</label>
-                    <input onChange={(e)=>setNewPassword(e.target.value)} required={true} type="password" />
+                    <input className='gen-input' onChange={(e)=>setNewPassword(e.target.value)} required={true} type="password" />
                 </div>
                 <div>
                     <label>Confirm Password</label>
-                    <input onChange={(e)=>setConfirmPassword(e.target.value)} required={true} type="password" />
+                    <input className='gen-input' onChange={(e)=>setConfirmPassword(e.target.value)} required={true} type="password" />
                 </div>
                 <div className="update-btn"><button >Update</button></div>
                 {loading?<Spinner /> :null}

@@ -6,7 +6,7 @@
   margin-bottom: 50px;
 }
 
-.proj-header span {
+.proj-name{
   color: var(--color-d2);
   width: 50%;
   margin: 0 .3em;
@@ -94,10 +94,10 @@
 
 .filter select {
   padding: .5rem .2rem;
-  border: 2px solid var(--border);
+  border: 2px solid #d4d3d3;
   border-radius: 5px;
-  font-size: 18px;
-  font-weight: 550;
+  font-size: 15px;
+  font-weight: 500;
   width: 10em;
 
   text-align: left;
@@ -109,6 +109,14 @@
   justify-content: flex-end;
 }
 
+.users span{
+  font-size: 15px;
+  margin: 0 5px;
+}
+
+.users i{
+  font-size: 20px;
+}
 /*filter panel */
 .filters-panel {
   position: absolute;

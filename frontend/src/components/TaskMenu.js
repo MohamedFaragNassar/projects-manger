@@ -22,7 +22,7 @@ const TaskMenu = ({task,handleTaskDetails,handleFinishTask,projectID,domNode,clo
                 <span className="task-menu-item" >Details</span>
             </button>
             <button onClick={()=> handleDelTask()}>
-                <i class="fas fa-trash-alt"></i>
+                <i className="fas fa-trash-alt"></i>
                 <span className="task-menu-item">Delete Task</span>
             </button>
             {task.completion < 100 ?

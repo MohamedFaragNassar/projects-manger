@@ -1,7 +1,7 @@
 import React, {useState } from 'react'
 import {useLazyQuery, useMutation, useQuery} from '@apollo/client'
 import {searchUsersQuery} from '../queries/userQueries'
-import {addUsersGroupMutation} from '../queries/projectQueries'
+import {addUsersGroupMutation, getProjectDetailsQuery} from '../queries/projectQueries'
 import {useClickToClose} from '../helpers/CTC'
 
 const AddUsers = ({isOpen,close,project}) => {
@@ -54,7 +54,7 @@ const AddUsers = ({isOpen,close,project}) => {
 
     const handleAddUser = (e) => {
         setUsers([...new Set([...users,e.target.attributes.value.value])])
-        setShowUsers([...new Set([...showUsers,e.target.attributes.userName.value])])
+        setShowUsers([...new Set([...showUsers,e.target.attributes.username.value])])
     }
 
     const handleDelUser = (e)=>{
@@ -63,16 +63,21 @@ const AddUsers = ({isOpen,close,project}) => {
         setShowUsers(showUsers.filter(name => {return name != user}))
     }
 
+    console.log(data?.setShowUsers)
     
     const handleAddGroup = ()=>{
         addUsers({variables:{
             id:project._id,
             users
-        }})
+        }, refetchQueries:[{query:getProjectDetailsQuery,variables:{
+            id:project._id
+        }}]})
 
         close()
         
     }
+
+    console.log(data)
 
     if(!isOpen){
         return null
@@ -83,25 +88,27 @@ const AddUsers = ({isOpen,close,project}) => {
         <div className="stages show-users" >
             <div>
                 <label>Users</label>
-                    <div ref={domNode} className="add-stages users-add">
-                        <input ref={domNode} className="search-input"
-                         onChange={(e)=>searchResult(e.target.value)} type="text" placeholder="Search for users with email" >
-                        </input>
-                        <div  className="search-result hide-search">
-                                <ul>
-                                    {data&&data.searchUsers.map(user => 
-                                        <li value={user._id} userName={user.userName}
-                                        onClick={(e)=> handleAddUser(e)}>
-                                            <span>{user.userName}</span>
-                                            <div>{user.email}</div>
-                                        </li>    
-                                    )}
-                                </ul>
-                            </div>
+                    <div ref={domNode} className="users-add">
+                        <div className='add-users-form'>
+                            <input ref={domNode} className={`search-input ${data?.searchUsers?.length > 0 ?"show-res":null}`}
+                            onChange={(e)=>searchResult(e.target.value)} type="text" placeholder="Search by username" >
+                            </input>
+                            {data?.searchUsers?.length > 0 &&<div  className="search-result hide-search">
+                                    <ul>
+                                        {data?.searchUsers.map(user => 
+                                            <li key={user._id} value={user._id} username={user.userName}
+                                            onClick={(e)=> handleAddUser(e)}>
+                                                <i className="fas fa-user"></i>
+                                                <span>{user.userName}</span>
+                                            </li>    
+                                        )}
+                                    </ul>
+                            </div>}
+                        </div>
                     </div>
                     <div className="list-users list-stages">
-                        {showUsers.map(user => 
-                            <div>
+                        {showUsers.map((user,index) => 
+                            <div key={index}>
                                 <span className="stage">{user}</span>
                                 <button onClick={(e)=>handleDelUser(e)} >-</button>
                             </div>

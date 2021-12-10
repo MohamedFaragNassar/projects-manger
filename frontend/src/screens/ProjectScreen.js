@@ -70,21 +70,28 @@ const ProjectScreen = (props) => {
     const filterByUser = (element) => {
         setTasks( tasks.filter(task =>{return task.assignedTo.some(user => user._id === element.value)}))
         setFilters([...filters,{filter:"Group Member",value:element.attributes.name.value}])
+        document.getElementById("filter-select").value = null
+
     }
     
     const filterByBucket =(bucket) =>{
         setTasks(tasks.filter(task => {return task.bucket === bucket}))
         setFilters([...filters,{filter:"Bucket",value:bucket}])
+        document.getElementById("filter-select").value = null
     }
 
     const filterByCompletion = () =>{
         setTasks(tasks.filter(task => {return task.completion >= from && task.completion <= to }))
         setFilters([...filters,{filter:"Completion",value:`from : ${from} to : ${to}`}])
+        document.getElementById("filter-select").value = null
+
     }
 
     const filterByDuration = () => {
         setTasks(tasks.filter(task => {return task.duration >= from && task.completion <= to }))
         setFilters([...filters,{filter:"Duration",value:`from : ${from} to : ${to}`}])
+        document.getElementById("filter-select").value = null
+
     }
 
     const clearFilters = ()=>{
@@ -102,6 +109,7 @@ const ProjectScreen = (props) => {
            setTasks(project.tasks)
        }
     }, [data,props])
+   
     
     return <>
        { loading ? 
@@ -112,7 +120,7 @@ const ProjectScreen = (props) => {
        <div className="project-page" >
            <div className="proj-header">
                 <div className="main-links">
-                    <span>{project.name}</span>
+                    <span className='proj-name'>{project.name}</span>
                     <div className='header-links'>
                         <button onClick={()=>setView("grid")} >Grid</button>
                         <button onClick={()=>setView("board")} >Board</button>
@@ -149,10 +157,10 @@ const ProjectScreen = (props) => {
                         <div className="group-members" >
                             <button onClick={()=> showGroupSearch()} className="group-members-btn" >
                                 <div>
-                                    <i className="fas fa-users"></i>
+                                    <i className="fas fa-users group-icon"></i>
                                     <span>({project.group.length}) </span>
                                 </div>
-                                <i className="fas fa-chevron-down"></i>
+                                <i className="fas fa-chevron-down "></i>
                             </button>
                             
                         </div>

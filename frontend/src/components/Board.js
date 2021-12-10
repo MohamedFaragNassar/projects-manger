@@ -36,6 +36,7 @@ const Board = ({filter,project}) => {
         const bucketInput = document.querySelector("#bucket-input")
         bucketInput.value = null
         bucketInput.classList.add("hide")
+        setShowForm(false)
     }
 
     
@@ -159,7 +160,8 @@ const Board = ({filter,project}) => {
                 }
             </div>
            {filter==="bucket" && project.owner._id==userID ?
-                <form ref={bucketNode} id="add-bucket-form" onSubmit={showForm?(e)=>handleAddBucket(e):()=>showInput()} className="add-new-bucket">
+                <form ref={bucketNode} id="add-bucket-form" 
+                onSubmit={showForm?(e)=>handleAddBucket(e):()=>showInput()} className="add-new-bucket">
                     {showForm&&<input  id="bucket-input" required={true} type="text" onChange={(e)=>setBucket(e.target.value)} />}
                     <button onClick={(e)=>showInput(e)}>+ New Bucket</button>
                 </form>

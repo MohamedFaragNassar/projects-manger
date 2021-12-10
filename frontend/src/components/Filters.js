@@ -15,16 +15,16 @@ const Filters = (props) => {
                 <label>Filter by</label>
                 <select id="filter-select" onChange={(e)=>setFilter(e.target.value)} >
                     <option value={null} >-</option>
-                    {options.map(opt => 
-                        <option>{opt}</option>    
+                    {options.map((opt,index) => 
+                        <option key={index}>{opt}</option>    
                     )}
                 </select>
             </div>
                 {filter==="Bucket" ? 
                     <select onChange={(e)=> filterByBucket(e.target.value)} >
                         <option value={null} >-</option>
-                        {project.buckets.map(bucket => 
-                            <option>{bucket}</option>
+                        {project.buckets.map((bucket,index) => 
+                            <option key={index}>{bucket}</option>
                         )}
                     </select>  :
                     filter === "Completion" ?
@@ -57,7 +57,7 @@ const Filters = (props) => {
                     filter === "Group member" ?
                     <select >
                         {project.group.map(user => 
-                            <option onClickCapture={(e)=>filterByUser(e.target)} value={user._id} name={user.userName}>
+                            <option key={user._id} onClickCapture={(e)=>filterByUser(e.target)} value={user._id} name={user.userName}>
                                 {user.userName}
                             </option>
                         )}
@@ -65,8 +65,8 @@ const Filters = (props) => {
                     :null}
                 <div>
                     {filters.length > 0 ? <>
-                        {filters.map(filt => 
-                            <div className="applied-filter">
+                        {filters.map((filt,index) => 
+                            <div key={index} className="applied-filter">
                                 <span className="added-filter" >{filt.filter}</span>
                                 <span>{filt.value}</span>
                             </div>    
