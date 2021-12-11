@@ -1,12 +1,11 @@
 const jwt = require("jsonwebtoken")
-const  config =  require("./config")
 
 
 const getToken = (user) =>{
    return jwt.sign({
         _id : user._id,
         userName: user.userName,
-    }, config.JWT_SECRET,)
+    }, process.env.JWT_SECRET,)
 }
 
 const isAuth = (req,res,next)=>{
@@ -17,7 +16,7 @@ const isAuth = (req,res,next)=>{
     }
     
     if(token){
-            jwt.verify(token, config.JWT_SECRET,(err, decodedToken)=>{
+            jwt.verify(token, process.env.JWT_SECRET,(err, decodedToken)=>{
             if(err){
                 res.status(401).send({message:"Invalid Token"})
             }
