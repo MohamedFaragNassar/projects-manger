@@ -31,11 +31,11 @@ const Filters = (props) => {
                     <div>
                         <section>
                             <label>from</label>
-                            <input type="number" min={0} max={100} onChange={(e)=>setFrom(e.target.value)} />
+                            <input className='gen-input' type="number" min={0} max={100} onChange={(e)=>setFrom(e.target.value)} />
                         </section>
                         <section>
                              <label>to</label>
-                            <input type="number" min={1} max={100} onChange={(e)=>setTo(e.target.value)} />
+                            <input className='gen-input' type="number" min={1} max={100} onChange={(e)=>setTo(e.target.value)} />
                         </section>
                        
                         <button onClick={()=>filterByCompletion()} >
@@ -46,11 +46,11 @@ const Filters = (props) => {
                     <div>
                         <section>
                             <label>from</label>
-                            <input type="number" min={0} onChange={(e)=>setFrom(e.target.value)} />
+                            <input className='gen-input' type="number" min={0} onChange={(e)=>setFrom(e.target.value)} />
                         </section>
                         <section>
                             <label>to</label>
-                            <input type="number" min={1} onChange={(e)=>setTo(e.target.value)} />
+                            <input className='gen-input' type="number" min={1} onChange={(e)=>setTo(e.target.value)} />
                         </section>
                         <button  onClick={()=>filterByDuration()} >Add</button>
                     </div>  :

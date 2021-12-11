@@ -42,7 +42,7 @@ const AdditionalColumns = ({columns,task}) => {
                 </div>
                 </button>:null}
             </div>
-            : <span >{task[col]}</span>    
+            : <span key={index} >{task[col]}</span>    
         )}
     </>
 }

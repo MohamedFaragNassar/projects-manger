@@ -13,15 +13,14 @@ import ShowAssghnedTo from '../components/ShowAssghnedTo'
 import Assigh from '../components/Assigh'
 
 
-const Grid = (props) => {
+const Grid = ({project,tasks}) => {
     
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
-    let userID 
-    if(userData){
-        userID = userData.id
-    }
+    let userID = userData?.id
+    const isAllowed = project?.owner?._id === userID
+
+    
     const storedColumns  =localStorage.getItem("columns") ? JSON.parse(localStorage.getItem("columns"))  : []
-    const {project,tasks} = props;
     const [columns,setColumns] = useState(storedColumns)
     const options = ["bucket","start","end", "dependsOn","dependants"].filter(opt => {return !columns.includes(opt) })
     const [task,setTask] = useState()
@@ -74,6 +73,9 @@ const Grid = (props) => {
 
     const handleShowTaskForm = () =>{
         hideAndShow("add-new-task","add-task-form")
+        document.getElementById("task-input").focus()
+      
+
     }
 
     const handleAddTask = (e) =>{
@@ -87,7 +89,7 @@ const Grid = (props) => {
             id:project._id
         }}]
     })
-
+        document.getElementById("add-task-form").reset()
         hideAndShow("add-task-form","add-new-task")
     }
 
@@ -163,13 +165,17 @@ const Grid = (props) => {
                                 <div className="task-icons">
                                     <i onClick={()=>handleTaskDetails(task._id)} id="task-details-icon"
                                          className="fal fa-info-circle"></i>
-                                    <i  onClick={(e)=>handleShowMenu(e)}  className="far fa-ellipsis-v"></i>
-                                    <TaskMenu task={task} handleFinishTask={handleFinishTask} close={()=>hideMenu()}  domNode={taskMenuNode}
-                                    handleTaskDetails={handleTaskDetails} projectID={project._id} />
+                                    {/* {isAllowed ? <>  */}
+                                        <i  onClick={(e)=>handleShowMenu(e)}  className="far fa-ellipsis-v"></i>
+                                        <TaskMenu task={task} handleFinishTask={handleFinishTask} 
+                                        close={()=>hideMenu()}  domNode={taskMenuNode}
+                                        handleTaskDetails={handleTaskDetails} projectID={project._id} /> 
+                                    {/* </> : null} */}
                                 </div>
                             </span>
                             <div  className="dependacy-row">
-                                <Assigh users={task.assignedTo} taskID={task._id} projectID={project._id} type="grid"/>
+                                <Assigh users={task.assignedTo} taskID={task._id} 
+                                projectID={project._id} type="grid" isAllowed={isAllowed}/>
                             </div>
                             <span>{task.start&&task.end ? getDuration(task.start,task.end):null}</span>
                             <span>{task.completion} %</span>
@@ -178,16 +184,16 @@ const Grid = (props) => {
                     </div>
                 )}
             </div>
-            {userID&&userID==project.owner._id?<div className="add-task-wrapper">
+            {isAllowed&&<div className="add-task-wrapper">
                     <div id="add-new-task">
                         <i className="fas fa-plus"></i>
                         <button onClick={()=>handleShowTaskForm()} >Add new task</button>
                     </div>
                     <form ref={addTaskNode} onSubmit={(e)=>handleAddTask(e)} id="add-task-form" className="hide task-form " >
-                        <input onChange={(e)=>setTask(e.target.value)} required={true} type="text" />
+                        <input id="task-input" onChange={(e)=>setTask(e.target.value)} required={true} type="text" />
                         <button><i className="fas fa-plus-circle"></i></button>
                     </form>
-            </div>:null}
+            </div>}
         </div>
         
     </>

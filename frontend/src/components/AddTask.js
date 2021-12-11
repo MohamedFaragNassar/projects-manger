@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import {useMutation} from '@apollo/client'
 import {updateTaskMutation,getProjectDetailsQuery
-        ,addDependaciesForTaskMutation} from '../queries/projectQueries'
+        ,addDependaciesForTaskMutation
+        ,editEndDateMutation,editStartDateMutation} from '../queries/projectQueries'
 import {debounce} from '../helpers/helpers'
 import GroupSearch from '../components/GroupSearch'
 import ShowDependacy from '../components/ShowDependacy'
@@ -12,23 +13,17 @@ import Assigh from './Assigh'
 
 const AddTask = (props) => {
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
-    let userID 
-    if(userData){
-        userID = userData.id
-    }
-
+    let userID = userData?.id
+    
     const project = props.project
     const taskID = props.task
     const task =project.tasks.find(item => {return item._id == taskID})
     
     const node = props.domNode
-    let isAllowed
+    const  isAllowed = project?.owner?._id == userID || task?.assignedTo?.some(user => user._id == userID)
    
-if(task){
-    if(project.owner._id == userID || task.assignedTo.some(user => user._id == userID) ){
-        isAllowed = true
-    }
-}
+    const isAllowedGeneral =  project?.owner?._id == userID
+
 
 const hideGroupSearch = ()=>{
     const menu = document.querySelector(".group-search-containerv2")
@@ -42,11 +37,14 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
     const projectStart = modifyDate(project.createdAt)
 
     const [updateTask] = useMutation(updateTaskMutation)
+    const [editStart] = useMutation(editStartDateMutation)
+    const [editEnd] = useMutation(editEndDateMutation)
     const [addDependacy] = useMutation(addDependaciesForTaskMutation)
 
 
 
     const updateTaskHandler = debounce((item)=>{
+      try{
         updateTask({variables:{
             id:task._id,
             updatedFields: item,
@@ -54,7 +52,37 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
         refetchQueries:[{query:getProjectDetailsQuery,variables:{
             id:project._id
         }}]})
+      }catch(err){
+          console.log(err)
+      }
     },2000)
+    
+    const updateStartDate = date =>{
+      try{
+        editStart({variables:{
+            id:task._id,
+            date: date,
+        },
+        refetchQueries:[{query:getProjectDetailsQuery,variables:{
+            id:project._id
+        }}]})
+      }catch(err){
+          console.log(err)
+      }
+    }
+    const updateEndDate = date =>{
+      try{
+        editEnd({variables:{
+            id:task._id,
+            date: date,
+        },
+        refetchQueries:[{query:getProjectDetailsQuery,variables:{
+            id:project._id
+        }}]})
+      }catch(err){
+          console.log(err)
+      }
+    }
 
     const addDependacyHandler = (taskID,field) => {
         addDependacy({
@@ -90,7 +118,7 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
     }
     return <>
         <div ref={node}  className="add-task">
-            <div className="single assign-users">
+           {isAllowedGeneral && <div className="single assign-users">
                 <button onClick={(e)=>showGroupSearch(e)}><i className="fas fa-user-plus"></i></button>
                <div style={{position:"relative"}}>
                     <Assigh users={task.assignedTo} taskID={taskID} projectID={project._id} type="grid" />
@@ -98,7 +126,7 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
                 <GroupSearch group={filterGroup(project.group,task.assignedTo)} type="add" 
                  position={"group-search-containerv2"} domNode={domNode} taskID={taskID} projectID={project._id} />
                 
-            </div>
+            </div>}
             <div className="single">
                 <label>Name</label>
                 <input onChange={(e)=>updateTaskHandler({name:e.target.value})} defaultValue={task.name} readOnly={!isAllowed} type="text"/>
@@ -107,13 +135,13 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
                 <div>
                     <label>Start</label>
                     <input min={projectStart} max={task.end?removeDays(task.end,1).toISOString().split('T')[0]:null}
-                    onChange={(e)=>updateTaskHandler({start:e.target.value})} readOnly={!isAllowed} defaultValue={task.start} 
+                    onChange={(e)=>updateStartDate(e.target.value)} readOnly={!isAllowed} defaultValue={task.start} 
                      type="date"/>
                 </div>
                 <div>
                     <label>End</label>
                     <input min={task.start?addDays(task.start,1).toISOString().split('T')[0]:null}
-                    onChange={(e)=>updateTaskHandler({end:e.target.value})} readOnly={!isAllowed} defaultValue={task.end} 
+                    onChange={(e)=>updateEndDate(e.target.value)} readOnly={!isAllowed} defaultValue={task.end} 
                      type="date"/>
                 </div>
             </div>

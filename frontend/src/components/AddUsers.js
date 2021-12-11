@@ -59,11 +59,9 @@ const AddUsers = ({isOpen,close,project}) => {
 
     const handleDelUser = (e)=>{
         const user = e.target.previousElementSibling.textContent
-        console.log(user)
         setShowUsers(showUsers.filter(name => {return name != user}))
     }
 
-    console.log(data?.setShowUsers)
     
     const handleAddGroup = ()=>{
         addUsers({variables:{
@@ -77,7 +75,6 @@ const AddUsers = ({isOpen,close,project}) => {
         
     }
 
-    console.log(data)
 
     if(!isOpen){
         return null

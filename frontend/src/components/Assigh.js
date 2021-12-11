@@ -5,7 +5,7 @@ import {useClickToClose} from '../helpers/CTC'
 import {useMutation} from '@apollo/client'
 import {getProjectDetailsQuery,removeTaskFromUserMutation} from '../queries/projectQueries'
 
-const Assigh = ({users,taskID,projectID,type}) => {
+const Assigh = ({users,taskID,projectID,type,isAllowed}) => {
     const [isOpen,setIsOpen] = useState(false)
 
     const node = useClickToClose(()=>setIsOpen(false),"#usrmenu")
@@ -26,7 +26,9 @@ const Assigh = ({users,taskID,projectID,type}) => {
         <div className="assign">
            {type=="grid" && <div className="assign-top">
                 {users.slice(0,2).map(user => 
-                    <Link ><img className="user-img" src={`../${user._id}.jpg`} onError={(e)=>e.target.src="../account.jpg"} /></Link>    
+                    <Link key={user._id} to={`/profile/${user._id}`} >
+                        <img className="user-img" src={`../${user._id}.jpg`} onError={(e)=>e.target.src="../account.jpg"} />
+                    </Link>    
                 )}
             </div>}
             <div className="assign-bottom">
@@ -36,13 +38,13 @@ const Assigh = ({users,taskID,projectID,type}) => {
                 </button>
                 {isOpen&&<div ref={node} id="usrmenu" className="assign-model">
                     {users.map(user => <div>
-                        <Link to={`/profile/${user._id}`}>
+                        <Link key={user._id} to={`/profile/${user._id}`}>
                             <img className="user-img" src={`../${user._id}.jpg`}  onError={(e)=>e.target.src="../account.jpg"} />
                             <span className="user-name ">{user.userName}</span>
                         </Link>
-                        <button onClick={()=>handleDelUserFromTask(user._id)}>
+                        {isAllowed&&<button onClick={()=>handleDelUserFromTask(user._id)}>
                             <i className="fas fa-trash-alt"></i>
-                        </button>   
+                        </button>}   
                         </div>
                     )}
                 </div>}

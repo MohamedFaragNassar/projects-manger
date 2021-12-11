@@ -124,7 +124,7 @@ const ProjectScreen = (props) => {
                     <div className='header-links'>
                         <button onClick={()=>setView("grid")} >Grid</button>
                         <button onClick={()=>setView("board")} >Board</button>
-                        <button className="timline-btn" onClick={()=>setView("timline")} >Timeline</button>
+                        {/* <button className="timline-btn" onClick={()=>setView("timline")} >Timeline</button> */}
                     </div>
                 </div>
                 <div className="manage" >
@@ -178,12 +178,12 @@ const ProjectScreen = (props) => {
             <div className="proj-body" >
                 {view==="grid"?
                     <Grid  tasks={tasks} project={project}/>:view==="board"?
-                    <Board filter={boardfilter} project={project}/>: window.screen.width > 800 ?
-                    <Timline project={project} zoom={zoom}/> : null
+                    <Board filter={boardfilter} project={project}/> : null
                 }
             </div>
         </div>:null}
-
+        {/* window.screen.width > 800 ?
+                    <Timline project={project} zoom={zoom}/> */}
         <AddUsers isOpen={addUserOpen} close={()=>setAddUserOpen(false)} project={project} />
         <svg className="draw" ></svg>
    </>

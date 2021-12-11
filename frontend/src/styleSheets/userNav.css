@@ -1,5 +1,5 @@
 .user {
-  width: 10em;
+  width: 12em;
   margin-right: 2em;
 }
 .nav-user {
@@ -94,4 +94,13 @@
   font-size: 15px;
   color: var(--color-d2);
   opacity: 0.6;
+}
+
+.user-name-nav{
+  width: 50%;
+  font-size: 15px;
+  color: #0f3057;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

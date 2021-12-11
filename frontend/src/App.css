@@ -336,4 +336,12 @@ button {
   .view-links{
     margin-left: 50px;
   } */
+
+  .user{
+    width: 40%;
+    margin-right: 20px;
+  }
+  .nav-user{
+    width: 100%;
+  }
 }

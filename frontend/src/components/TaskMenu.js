@@ -4,14 +4,19 @@ import {deleteeTaskMutation,getProjectDetailsQuery} from '../queries/projectQuer
 const TaskMenu = ({task,handleTaskDetails,handleFinishTask,projectID,domNode,close}) => {
 
     const [deleteTask] = useMutation(deleteeTaskMutation)
+   
+    const handleDelTask = async ()=>{
+        try{
+            await deleteTask({
+                variables:{
+                    id:task._id
+                },
+                refetchQueries:[{query:getProjectDetailsQuery,variables:{id:projectID}}]
+            })
+        }catch(err){
+            console.log(err)
+        }
 
-    const handleDelTask = ()=>{
-        deleteTask({
-            variables:{
-                id:task._id
-            },
-            refetchQueries:[{query:getProjectDetailsQuery,variables:{id:projectID}}]
-        })
         close()
     }
 

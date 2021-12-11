@@ -37,6 +37,7 @@ const SignedUser = () => {
     return <>
         {userData&&<div ref={userNav} onClick={()=>handleShowMenu()} className="nav-user">
             <img src={`../${userData.id}.jpg`}  onError={(e)=>e.target.src="../account.jpg"}/>
+            <span className="user-name-nav">{userData?.fullName}</span>
             <i className="fas fa-chevron-down"></i>
 
             <ul ref={domNode}  id='user-menu' className="nav-user-menu" >
