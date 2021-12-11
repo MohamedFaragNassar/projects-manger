@@ -13,13 +13,12 @@ import ShowAssghnedTo from '../components/ShowAssghnedTo'
 import Assigh from '../components/Assigh'
 
 
-const Grid = ({project,tasks}) => {
+const Grid = ({project,tasks,errorHandler}) => {
     
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
     let userID = userData?.id
     const isAllowed = project?.owner?._id === userID
 
-    
     const storedColumns  =localStorage.getItem("columns") ? JSON.parse(localStorage.getItem("columns"))  : []
     const [columns,setColumns] = useState(storedColumns)
     const options = ["bucket","start","end", "dependsOn","dependants"].filter(opt => {return !columns.includes(opt) })
@@ -32,14 +31,18 @@ const Grid = ({project,tasks}) => {
     const domNode = useClickToClose(()=>setIsOpen(false),".add-task")
     const addTaskNode = useClickToClose(()=> hideAndShow("add-task-form","add-new-task"),"#add-task-form")
     
-    const handleFinishTask = (id)=>{
-        finishTask({variables:{
-            id,
-            updatedFields:{completion:100}
-        },
-        refetchQueries:[{query:getProjectDetailsQuery,variables:{
-            id:project._id
-        }}]})
+    const handleFinishTask = async(id)=>{
+       try{
+            await finishTask({variables:{
+                id,
+                updatedFields:{completion:100}
+            },
+            refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                id:project._id
+            }}]})
+       }catch(err){
+           errorHandler(err.message)
+       }
         hideMenu()
 
     }
@@ -78,17 +81,21 @@ const Grid = ({project,tasks}) => {
 
     }
 
-    const handleAddTask = (e) =>{
+    const handleAddTask = async(e) =>{
         e.preventDefault()
 
-        addNewTask({variables:{
-            id:project._id,
-            taskName:task
-        },
-        refetchQueries:[{query:getProjectDetailsQuery,variables:{
-            id:project._id
-        }}]
-    })
+        try{
+            await addNewTask({variables:{
+                id:project._id,
+                taskName:task
+            },
+                refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                    id:project._id
+                }}]
+            })
+        }catch(err){
+            errorHandler(err.message)
+        }
         document.getElementById("add-task-form").reset()
         hideAndShow("add-task-form","add-new-task")
     }
@@ -132,7 +139,8 @@ const Grid = ({project,tasks}) => {
   
     return <>
         <div className="add-task-panel" >
-            <AddTask method="add" isOpen ={isOpen} close={()=>setIsOpen(false)} task={task} project={project} domNode={domNode} />
+            <AddTask method="add" isOpen ={isOpen} close={()=>setIsOpen(false)}
+             task={task} project={project} domNode={domNode} errorHandler={errorHandler} />
         </div>
         <div className="grid-main" >
             <div className="grid-header">
@@ -165,12 +173,12 @@ const Grid = ({project,tasks}) => {
                                 <div className="task-icons">
                                     <i onClick={()=>handleTaskDetails(task._id)} id="task-details-icon"
                                          className="fal fa-info-circle"></i>
-                                    {/* {isAllowed ? <>  */}
+                                    {isAllowed ? <>  
                                         <i  onClick={(e)=>handleShowMenu(e)}  className="far fa-ellipsis-v"></i>
                                         <TaskMenu task={task} handleFinishTask={handleFinishTask} 
-                                        close={()=>hideMenu()}  domNode={taskMenuNode}
+                                        close={()=>hideMenu()}  domNode={taskMenuNode} errorHandler={errorHandler}
                                         handleTaskDetails={handleTaskDetails} projectID={project._id} /> 
-                                    {/* </> : null} */}
+                                    </> : null} 
                                 </div>
                             </span>
                             <div  className="dependacy-row">

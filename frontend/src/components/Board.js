@@ -6,7 +6,7 @@ import {addBucketMutation,addTaskToBucketMutation
 import {getDragAfterElement} from '../helpers/dragAndDrop'
 import {useClickToClose} from '../helpers/CTC'
 
-const Board = ({filter,project}) => {
+const Board = ({filter,project,errorHandler}) => {
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
     let userID 
     if(userData){
@@ -23,16 +23,22 @@ const Board = ({filter,project}) => {
     const domNode = useClickToClose()
    
    
-    const handleAddBucket = (e)=>{
+    const handleAddBucket = async(e)=>{
         e.preventDefault()
-        addBucket({variables:{
-                id:project._id,
-                bucket
-            },
-            refetchQueries:[{query:getProjectDetailsQuery,variables:{
-                id:project._id
-            }}]
-        })
+        
+        try{
+            await addBucket({variables:{
+                    id:project._id,
+                    bucket
+                },
+                refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                    id:project._id
+                }}]
+            })
+        }catch(err){
+            errorHandler(err.message)
+        }
+
         const bucketInput = document.querySelector("#bucket-input")
         bucketInput.value = null
         bucketInput.classList.add("hide")
@@ -54,20 +60,25 @@ const Board = ({filter,project}) => {
         e.target.classList.add("hide")
     }
 
-    const handleAddTaskToBucket = (e)=>{
+    const handleAddTaskToBucket = async(e)=>{
         const taskID = e.target.value
         const bucket = e.target.attributes.bucket.value
         const select = e.target.parentElement
         const btn = select.nextElementSibling
-        addTaskToBucket({variables:{
-            projectID:project._id,
-            taskID,
-            bucket
-        },
-        refetchQueries:[{query:getProjectDetailsQuery,variables:{
-            id:project._id
-        }}]
-    })
+        
+        try{
+            await addTaskToBucket({variables:{
+                    projectID:project._id,
+                    taskID,
+                    bucket
+                },
+                refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                    id:project._id
+                }}]
+            })
+        }catch(err){
+            errorHandler(err.message)
+        }
 
         select.classList.add("hide")
         btn.classList.remove("hide")
@@ -102,14 +113,18 @@ const Board = ({filter,project}) => {
     }
 
     
-    const handleDeleteBucket = (bucket)=>{
-       deleteBucket({
-           variables:{
-               id:project._id,
-               bucket
-           },
-           refetchQueries:[{query:getProjectDetailsQuery,variables:{id:project._id}}]
-       })
+    const handleDeleteBucket = async(bucket)=>{
+      try{
+        await deleteBucket({
+            variables:{
+                id:project._id,
+                bucket
+            },
+            refetchQueries:[{query:getProjectDetailsQuery,variables:{id:project._id}}]
+        })
+      }catch(err){
+          errorHandler(err.message)
+      }
     }
 
 
@@ -133,7 +148,7 @@ const Board = ({filter,project}) => {
                             add task
                         </button> :null}
                         {project.tasks.filter(task => task.bucket === bucket).map(task => 
-                            <TaskCard task = {task} project={project} />
+                            <TaskCard task = {task} project={project} errorHandler={errorHandler} />
                             )}
                     </div>)
                     :

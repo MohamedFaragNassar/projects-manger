@@ -5,21 +5,25 @@ import {debounce} from '../helpers/helpers'
 import {Link} from 'react-router-dom'
 
 
-const GroupSearch = ({group, taskID, projectID,position,domNode,type}) => {
+const GroupSearch = ({group, taskID, projectID,position,domNode,type,errorHandler}) => {
     const [users,setUsers] = useState(group)
     const [updateTask] = useMutation(assignTaskToUserMutation)
     const [deleteUserFromProject] = useMutation(deleteUserFromProjectMutation)
 
-    const handleUpdateTask = (userID) => {
-         updateTask({
-            variables:{
-                taskID,
-                userID
-            },
-            refetchQueries:[{query:getProjectDetailsQuery,variables:{
-                id:projectID
-            }}]
-        })  
+    const handleUpdateTask = async(userID) => {
+        try{
+            await updateTask({
+                variables:{
+                    taskID,
+                    userID
+                },
+                refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                    id:projectID
+                }}]
+            })
+        }catch(err){
+            errorHandler(err.message)
+        }  
     }
 
     const handleSearchGroup = debounce((element)=>{
@@ -33,16 +37,20 @@ const GroupSearch = ({group, taskID, projectID,position,domNode,type}) => {
          } 
         },100)
 
-    const handleDeleteUser = (userID)=>{
-        deleteUserFromProject({
-            variables:{
-                projectID,
-                userID
-            },
-            refetchQueries:[{query:getProjectDetailsQuery,variables:{
-                id:projectID
-            }}]
-        })
+    const handleDeleteUser = async(userID)=>{
+        try{
+            await deleteUserFromProject({
+                variables:{
+                    projectID,
+                    userID
+                },
+                refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                    id:projectID
+                }}]
+            })
+        }catch(err){
+            errorHandler(err.message)
+        } 
 
         setUsers(users.filter(user => user._id != userID))
     }

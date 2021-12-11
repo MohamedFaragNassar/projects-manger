@@ -1,7 +1,7 @@
 import React from 'react'
 import {useMutation} from '@apollo/client'
 import {deleteeTaskMutation,getProjectDetailsQuery} from '../queries/projectQueries'
-const TaskMenu = ({task,handleTaskDetails,handleFinishTask,projectID,domNode,close}) => {
+const TaskMenu = ({task,handleTaskDetails,handleFinishTask,projectID,domNode,close,errorHandler}) => {
 
     const [deleteTask] = useMutation(deleteeTaskMutation)
    
@@ -14,7 +14,7 @@ const TaskMenu = ({task,handleTaskDetails,handleFinishTask,projectID,domNode,clo
                 refetchQueries:[{query:getProjectDetailsQuery,variables:{id:projectID}}]
             })
         }catch(err){
-            console.log(err)
+            errorHandler(err.message)
         }
 
         close()

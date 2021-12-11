@@ -4,7 +4,7 @@ import {searchUsersQuery} from '../queries/userQueries'
 import {addUsersGroupMutation, getProjectDetailsQuery} from '../queries/projectQueries'
 import {useClickToClose} from '../helpers/CTC'
 
-const AddUsers = ({isOpen,close,project}) => {
+const AddUsers = ({isOpen,close,project,errorHandler}) => {
     const [users,setUsers] = useState([])
     const [showUsers,setShowUsers] = useState([])
     
@@ -46,9 +46,10 @@ const AddUsers = ({isOpen,close,project}) => {
           searchRes.classList.remove("hide-search")
           }
          if(keyword){
-             searchUsers({variables:{
+            searchUsers({variables:{
                 keyword
             }})
+             
          } 
         },200)
 

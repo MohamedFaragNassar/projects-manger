@@ -5,21 +5,26 @@ import {useClickToClose} from '../helpers/CTC'
 import {useMutation} from '@apollo/client'
 import {getProjectDetailsQuery,removeTaskFromUserMutation} from '../queries/projectQueries'
 
-const Assigh = ({users,taskID,projectID,type,isAllowed}) => {
+const Assigh = ({users,taskID,projectID,type,isAllowed,errorHandler}) => {
+    
     const [isOpen,setIsOpen] = useState(false)
 
     const node = useClickToClose(()=>setIsOpen(false),"#usrmenu")
 
     const [removeUser] = useMutation(removeTaskFromUserMutation)
 
-    const handleDelUserFromTask = (id) =>{
-        removeUser({
-            variables:{
-                userID:id,
-                taskID
-            },
-            refetchQueries:[{query:getProjectDetailsQuery,variables:{id:projectID}}]
-        })
+    const handleDelUserFromTask = async(id) =>{
+        try{
+            removeUser({
+                variables:{
+                    userID:id,
+                    taskID
+                },
+                refetchQueries:[{query:getProjectDetailsQuery,variables:{id:projectID}}]
+            })
+        }catch(err){
+            errorHandler(err.message)
+        }
     }
 
     return <>

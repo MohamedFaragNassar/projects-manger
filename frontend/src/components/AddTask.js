@@ -18,7 +18,8 @@ const AddTask = (props) => {
     const project = props.project
     const taskID = props.task
     const task =project.tasks.find(item => {return item._id == taskID})
-    
+    const errorHandler = props.errorHandler
+    console.log(errorHandler)
     const node = props.domNode
     const  isAllowed = project?.owner?._id == userID || task?.assignedTo?.some(user => user._id == userID)
    
@@ -43,9 +44,9 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
 
 
 
-    const updateTaskHandler = debounce((item)=>{
+    const updateTaskHandler = debounce(async(item)=>{
       try{
-        updateTask({variables:{
+        await updateTask({variables:{
             id:task._id,
             updatedFields: item,
         },
@@ -53,13 +54,13 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
             id:project._id
         }}]})
       }catch(err){
-          console.log(err)
+          errorHandler(err.message)
       }
     },2000)
     
-    const updateStartDate = date =>{
+    const updateStartDate = async date =>{
       try{
-        editStart({variables:{
+        await editStart({variables:{
             id:task._id,
             date: date,
         },
@@ -67,12 +68,12 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
             id:project._id
         }}]})
       }catch(err){
-          console.log(err)
+        errorHandler(err.message)
       }
     }
-    const updateEndDate = date =>{
+    const updateEndDate = async date =>{
       try{
-        editEnd({variables:{
+        await editEnd({variables:{
             id:task._id,
             date: date,
         },
@@ -80,21 +81,25 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
             id:project._id
         }}]})
       }catch(err){
-          console.log(err)
+        errorHandler(err.message)
       }
     }
 
-    const addDependacyHandler = (taskID,field) => {
-        addDependacy({
-            variables:{
-                id:task._id,
-                taskID,
-                field
-            },
-            refetchQueries:[{query:getProjectDetailsQuery,variables:{
-                id:project._id
-            }}]
-        })
+    const addDependacyHandler = async(taskID,field) => {
+        try{
+            await addDependacy({
+                variables:{
+                    id:task._id,
+                    taskID,
+                    field
+                },
+                refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                    id:project._id
+                }}]
+            })
+        }catch(err){
+            errorHandler(err.message)
+        }
     }
 
     
@@ -161,8 +166,8 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
                 <label>Bucket</label>
                 <select disabled={!isAllowed} defaultValue={task.bucket}  >
                     <option value={null} >-</option>
-                    {project.buckets.map(bucket => 
-                        <option onClickCapture={(e)=>updateTaskHandler({bucket:e.target.value})}>{bucket}</option>
+                    {project.buckets.map((bucket,index) => 
+                        <option key={index} onClickCapture={(e)=>updateTaskHandler({bucket:e.target.value})}>{bucket}</option>
                     )
                 }</select>
             </div>
@@ -185,7 +190,7 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
                     <label>Depends On</label>
                     <select defaultValue={task.dependsOn[0]}  >{
                         project.tasks.map(task => 
-                            <option onClickCapture={(e)=>addDependacyHandler(task._id,"dependsOn")}>
+                            <option key={task._id} onClickCapture={(e)=>addDependacyHandler(task._id,"dependsOn")}>
                                 {task.name}
                             </option>
                         )    
@@ -193,7 +198,7 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
                 </div> :null }
                 <div className="show-dependacy-container" >
                     {task.dependsOn.map(task =>
-                       <ShowDependacy task={task} id={taskID} projectID={project._id} field="dependsOn" isAllowed={isAllowed} />
+                       <ShowDependacy key={task._id} task={task} id={taskID} projectID={project._id} field="dependsOn" isAllowed={isAllowed} />
                     )}
                 </div>
                
@@ -204,7 +209,7 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
                     <select defaultValue={task.dependants[0]}  >
                     {
                         project.tasks.map(task => 
-                            <option onClickCapture={(e)=>addDependacyHandler(task._id,"dependants")} >
+                            <option key={task._id} onClickCapture={(e)=>addDependacyHandler(task._id,"dependants")} >
                                 {task.name}
                             </option>
                         )    
@@ -213,7 +218,7 @@ const domNode = useClickToClose(hideGroupSearch,".group-search-containerv2")
                 </div>:null}
                 <div className="show-dependacy-container" >
                     {task.dependants.map(task =>
-                        <ShowDependacy task={task} id={taskID} projectID={project._id} field="dependants" isAllowed={isAllowed}/>
+                        <ShowDependacy key={task._id} task={task} id={taskID} projectID={project._id} field="dependants" isAllowed={isAllowed}/>
                     )}
                 </div>
                 

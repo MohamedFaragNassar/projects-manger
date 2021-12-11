@@ -29,6 +29,7 @@ const ProjectScreen = (props) => {
     const [to,setTo] = useState(0)
     const [zoom,setZoom] = useState(1)
     const [filters,setFilters] = useState([])
+    const [Error,setError] = useState()
     const [boardfilter,setBoardFilter] = useState("bucket")
 
 
@@ -97,6 +98,10 @@ const ProjectScreen = (props) => {
     const clearFilters = ()=>{
         setTasks(project.tasks)
         setFilters([])
+    }
+
+    const errorHandler = (err) => {
+        setError(err)
     }
 
     
@@ -169,16 +174,20 @@ const ProjectScreen = (props) => {
                         </button>:null}
                         
                         <GroupSearch  group={project.group} projectID={project._id} type="show"
-                         domNode={domNode} position={"group-search-container"} />
+                         domNode={domNode} position={"group-search-container"} errorHandler={errorHandler}/>
                         
                     </div>
                     
                 </div>
             </div>
+            {Error&&<div className='status-wrapper'>
+                <Status status="fail" message={Error} 
+                close={()=>setError(null)} />
+            </div>}
             <div className="proj-body" >
                 {view==="grid"?
-                    <Grid  tasks={tasks} project={project}/>:view==="board"?
-                    <Board filter={boardfilter} project={project}/> : null
+                    <Grid  tasks={tasks} project={project} errorHandler={errorHandler}/>:view==="board"?
+                    <Board filter={boardfilter} project={project}  errorHandler={errorHandler}/> : null
                 }
             </div>
         </div>:null}
