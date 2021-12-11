@@ -46,7 +46,7 @@
 .my-project {
   margin-top: 50px;
   width: 100%;
-  min-width: 650px;
+  overflow-x: auto;
 }
 .my-projects-btns {
   width: fit-content;
@@ -65,6 +65,7 @@
 
 .show-projects {
   width: 98.5%;
+  min-width: 900px;
   background: white;
   padding: 10px;
   margin-bottom: 50px;

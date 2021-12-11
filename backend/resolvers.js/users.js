@@ -7,7 +7,7 @@ const {getToken} = require("../Authentication")
 const searchUsers = async(args,{user}) => {
     try{
        const users = await User.find({
-            email:{
+            userName:{
                 $regex: new RegExp(args.keyword)
                 }
             },{

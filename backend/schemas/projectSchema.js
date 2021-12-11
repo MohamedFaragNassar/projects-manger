@@ -180,7 +180,7 @@ const RootQuery = new GraphQLObjectType({
             async resolve(parent,args,{user}){
                 try{
                     const users = await User.find({
-                         email:{
+                         userName:{
                              $regex: new RegExp(args.keyword)
                              }
                          },{
@@ -304,7 +304,6 @@ const Mutation = new GraphQLObjectType({
                                 return valid = false;
                             }
                         })
-                        console.log(valid)
                         if(newDate.getTime() < proJectDate.getTime()){
                             throw new Error("Task start date can not be before project start date")
                         }else if(!valid){
@@ -580,9 +579,14 @@ const Mutation = new GraphQLObjectType({
             args:{id:{type:GraphQLString}},
             async resolve(parent,{id},{user}){
                 try{
-                    return Task.findByIdAndDelete(id)
+                    const task = await Task.findById(id)
+                    const project = await Project.findById(task.project)
+                    if(project.owner == user._id){
+                        return task.delete()
+                    }else{
+                        throw new Error("You are not allowed to perform this action")
+                    }
                 }catch(error){
-                    console.log(error)
                     throw new Error(error)
                 }
             }

@@ -1,18 +1,16 @@
 .user {
-  width: 25%;
+  width: 12em;
+  margin-right: 2em;
 }
 .nav-user {
-  width: 150px;
+  width: 100%;
   background: #e7e7de;
   padding: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  margin-left: auto;
-  margin-right: 25px;
-  border-radius: 25px;
-
+  border-radius: 10px;
   position: relative;
 }
 .rm-b {
@@ -44,15 +42,16 @@
   right: 30px;
   margin-top: 5px;
   z-index: 3;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   width: 100%;
   left: 0;
   top: 50px;
   opacity: 0;
   height: 0;
-  transition: all .2s ease;
   pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
 }
 
 .show {
@@ -91,8 +90,17 @@
 }
 
 .nav-user i {
-  margin-right: 30px;
+  margin-right: .5rem;
   font-size: 15px;
   color: var(--color-d2);
   opacity: 0.6;
+}
+
+.user-name-nav{
+  width: 50%;
+  font-size: 15px;
+  color: #0f3057;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

@@ -3,22 +3,28 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 5px;
-  margin: 5px auto;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.1), 0 3px 5px 0 rgba(0, 0, 0, 0.04);
-  width: 90%;
+  width: fit-content;
+  max-width: 90%;
   padding: 5px;
   max-height: 120px;
   font-size: 18px;
   font-weight: 550;
   background: #fc9d9d;
   color: #cf1b1b;
+  margin-top: 5px;
 }
-
+#status div{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
 .status-message {
   margin: auto;
   font-size: 18px;
   font-weight: 600;
   color: #0f3057;
+  margin-right: 15px;
 }
 
 #status i {

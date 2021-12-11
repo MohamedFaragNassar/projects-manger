@@ -4,8 +4,7 @@ import {getProjectDetailsQuery,updateTaskMutation} from '../queries/projectQueri
 import {getDuration} from '../helpers/helpers'
 import Assigh from '../components/Assigh'
 
-const TaskCard = (props) => {
-    const {task,project} = props;
+const TaskCard = ({task,project,errorHandler}) => {
     const [finishTask] = useMutation(updateTaskMutation)
     
 
@@ -19,14 +18,18 @@ const TaskCard = (props) => {
         e.target.classList.add("dragging")
     }
   
-    const handleFinishTask = (id)=>{
-        finishTask({variables:{
-            id,
-            updatedFields:{completion:100}
-        },
-        refetchQueries:[{query:getProjectDetailsQuery,variables:{
-            id:project._id
-        }}]})
+    const handleFinishTask = async(id)=>{
+        try{
+            finishTask({variables:{
+                id,
+                updatedFields:{completion:100}
+            },
+            refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                id:project._id
+            }}]})
+        }catch(err){
+            errorHandler(err.message)
+        }
     }
     const now  =  Date.now()
     const isOverDue =  now > new Date(task.end).getTime() 
@@ -49,7 +52,7 @@ const TaskCard = (props) => {
                         {task.end}
                     </div>:null}
                     <div className="people">
-                        <Assigh users={task.assignedTo} type="board" />
+                        <Assigh users={task.assignedTo} type="board" errorHandler={errorHandler} />
                     </div>
             </div>
             

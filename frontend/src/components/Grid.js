@@ -13,15 +13,13 @@ import ShowAssghnedTo from '../components/ShowAssghnedTo'
 import Assigh from '../components/Assigh'
 
 
-const Grid = (props) => {
+const Grid = ({project,tasks,errorHandler}) => {
     
     const userData = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null 
-    let userID 
-    if(userData){
-        userID = userData.id
-    }
+    let userID = userData?.id
+    const isAllowed = project?.owner?._id === userID
+
     const storedColumns  =localStorage.getItem("columns") ? JSON.parse(localStorage.getItem("columns"))  : []
-    const {project,tasks} = props;
     const [columns,setColumns] = useState(storedColumns)
     const options = ["bucket","start","end", "dependsOn","dependants"].filter(opt => {return !columns.includes(opt) })
     const [task,setTask] = useState()
@@ -33,14 +31,18 @@ const Grid = (props) => {
     const domNode = useClickToClose(()=>setIsOpen(false),".add-task")
     const addTaskNode = useClickToClose(()=> hideAndShow("add-task-form","add-new-task"),"#add-task-form")
     
-    const handleFinishTask = (id)=>{
-        finishTask({variables:{
-            id,
-            updatedFields:{completion:100}
-        },
-        refetchQueries:[{query:getProjectDetailsQuery,variables:{
-            id:project._id
-        }}]})
+    const handleFinishTask = async(id)=>{
+       try{
+            await finishTask({variables:{
+                id,
+                updatedFields:{completion:100}
+            },
+            refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                id:project._id
+            }}]})
+       }catch(err){
+           errorHandler(err.message)
+       }
         hideMenu()
 
     }
@@ -74,24 +76,29 @@ const Grid = (props) => {
 
     const handleShowTaskForm = () =>{
         hideAndShow("add-new-task","add-task-form")
+        document.getElementById("task-input").focus()
+      
+
     }
 
-    const handleAddTask = (e) =>{
+    const handleAddTask = async(e) =>{
         e.preventDefault()
 
-        addNewTask({variables:{
-            id:project._id,
-            taskName:task
-        },
-        refetchQueries:[{query:getProjectDetailsQuery,variables:{
-            id:project._id
-        }}]
-    })
-
+        try{
+            await addNewTask({variables:{
+                id:project._id,
+                taskName:task
+            },
+                refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                    id:project._id
+                }}]
+            })
+        }catch(err){
+            errorHandler(err.message)
+        }
+        document.getElementById("add-task-form").reset()
         hideAndShow("add-task-form","add-new-task")
     }
-
-console.log(userData)
 
     const handleTaskDetails = (id)=>{
         setTask( id)
@@ -132,7 +139,8 @@ console.log(userData)
   
     return <>
         <div className="add-task-panel" >
-            <AddTask method="add" isOpen ={isOpen} close={()=>setIsOpen(false)} task={task} project={project} domNode={domNode} />
+            <AddTask method="add" isOpen ={isOpen} close={()=>setIsOpen(false)}
+             task={task} project={project} domNode={domNode} errorHandler={errorHandler} />
         </div>
         <div className="grid-main" >
             <div className="grid-header">
@@ -147,8 +155,8 @@ console.log(userData)
                  </span>    
                 )}
                 {options.length > 0 ?<div  className="add-col-container">
-                    <select ref={addColNode} id="select-col" className="hide">{options.map( opt =>
-                    <option onClick={(e)=>handleAddColumn(e.target.value)}>{opt}</option>    
+                    <select ref={addColNode} id="select-col" className="hide">{options.map( (opt,indx) =>
+                    <option key={indx} onClick={(e)=>handleAddColumn(e.target.value)}>{opt}</option>    
                     )}</select>
                     <button id="add-col" onClick={()=>handleShowSelect()}>Add column</button>
                 </div> : null}
@@ -165,13 +173,17 @@ console.log(userData)
                                 <div className="task-icons">
                                     <i onClick={()=>handleTaskDetails(task._id)} id="task-details-icon"
                                          className="fal fa-info-circle"></i>
-                                    <i  onClick={(e)=>handleShowMenu(e)}  class="far fa-ellipsis-v"></i>
-                                    <TaskMenu task={task} handleFinishTask={handleFinishTask} close={()=>hideMenu()}  domNode={taskMenuNode}
-                                    handleTaskDetails={handleTaskDetails} projectID={project._id} />
+                                    {isAllowed ? <>  
+                                        <i  onClick={(e)=>handleShowMenu(e)}  className="far fa-ellipsis-v"></i>
+                                        <TaskMenu task={task} handleFinishTask={handleFinishTask} 
+                                        close={()=>hideMenu()}  domNode={taskMenuNode} errorHandler={errorHandler}
+                                        handleTaskDetails={handleTaskDetails} projectID={project._id} /> 
+                                    </> : null} 
                                 </div>
                             </span>
                             <div  className="dependacy-row">
-                                <Assigh users={task.assignedTo} taskID={task._id} projectID={project._id} type="grid"/>
+                                <Assigh users={task.assignedTo} taskID={task._id} 
+                                projectID={project._id} type="grid" isAllowed={isAllowed}/>
                             </div>
                             <span>{task.start&&task.end ? getDuration(task.start,task.end):null}</span>
                             <span>{task.completion} %</span>
@@ -180,16 +192,16 @@ console.log(userData)
                     </div>
                 )}
             </div>
-            {userID&&userID==project.owner._id?<div className="add-task-wrapper">
+            {isAllowed&&<div className="add-task-wrapper">
                     <div id="add-new-task">
-                        <i class="fas fa-plus"></i>
+                        <i className="fas fa-plus"></i>
                         <button onClick={()=>handleShowTaskForm()} >Add new task</button>
                     </div>
                     <form ref={addTaskNode} onSubmit={(e)=>handleAddTask(e)} id="add-task-form" className="hide task-form " >
-                        <input onChange={(e)=>setTask(e.target.value)} required={true} type="text" />
+                        <input id="task-input" onChange={(e)=>setTask(e.target.value)} required={true} type="text" />
                         <button><i className="fas fa-plus-circle"></i></button>
                     </form>
-            </div>:null}
+            </div>}
         </div>
         
     </>

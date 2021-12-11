@@ -68,7 +68,7 @@ const debounce = (func, wait, immediate)=> {
   const getDuration = (start,end)=>{
     const date1 = new Date(start).getTime()
     const date2 = new Date(end).getTime()
-      console.log(start)
+     
     return (date2-date1)/86400000
   }
 

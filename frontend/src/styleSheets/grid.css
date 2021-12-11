@@ -12,7 +12,8 @@
   padding: 10px 10px;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  overflow-y: auto;
+  min-height: 60vh;
 }
 
 #table-body {

@@ -7,7 +7,7 @@ import {modifyDate} from '../helpers/helpers'
 
 
 const ShowProjects = (props) => {
-    const {data,type,favorites} = props
+    const {data,favorites} = props
 
     const [page,setPage] = useState(1)
     const limit = 10
@@ -60,16 +60,14 @@ const ShowProjects = (props) => {
             pages.push(i)
         }
     
-        console.log(page)
-
     return (
         <div className="show-projects">
                     <ul>
                         <li>
-                            <img src="./share.svg"/>
-                            <img src="calendar.svg"/>
-                            <img src="checklist.svg"/>
-                            <img src="user.svg"/>
+                            <img src="./share.svg" alt="share"/>
+                            <img src="calendar.svg" alt="date"/>
+                            <img src="checklist.svg" alt="list"/>
+                            <img src="user.svg" alt="user"/>
                             <span></span>
                         </li>
                         {data.slice(startIndex,endIndex).map(proj => 
@@ -82,18 +80,18 @@ const ShowProjects = (props) => {
                                 <span>{`${proj.group.length} members`}</span>
                                 <div>
                                     {favorites.some(pr => pr._id == proj._id)?
-                                    <button onClick={()=>handleRemoveFromFavorites(proj._id)} ><i class="fas fa-star"></i></button>
-                                    :<button onClick={()=>handleAddFavorites(proj._id)}><i class="far fa-star"></i></button>}
+                                    <button onClick={()=>handleRemoveFromFavorites(proj._id)} ><i className="fas fa-star"></i></button>
+                                    :<button onClick={()=>handleAddFavorites(proj._id)}><i className="far fa-star"></i></button>}
                                    {props.type === "mine" ? <button onClick={()=>handleDeleteProject(proj._id)}>
-                                       <i class="fas fa-trash-alt"></i>
-                                    </button> :<button onClick={()=>handleLeaveProject(proj._id)} ><i class="fas fa-sign-out"></i></button> }
+                                       <i className="fas fa-trash-alt"></i>
+                                    </button> :<button onClick={()=>handleLeaveProject(proj._id)} ><i className="fas fa-sign-out"></i></button> }
                                 </div>
                             </li>
                             )}
                     </ul>
                     <div className="pagination-btns">
                         {pages.map(num => 
-                            <button value={num} onClick={(e)=>setPage(e.target.value)} >{num}</button>    
+                            <button key={num} value={num} onClick={(e)=>setPage(e.target.value)} >{num}</button>    
                         )}
                     </div>
                 </div>

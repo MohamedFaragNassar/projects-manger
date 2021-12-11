@@ -50,41 +50,42 @@ const RegisterScreen = () => {
         }
 
     }
+
+  
     
     return <>
         <form className="register-form">
-            <h3>Sign Up</h3>
-                <div>
-                    <label>User Name  </label>
-                    <input onChange={(e)=>setUserName(e.target.value)} type="text" required={true} />
-                </div>
-                <div>
-                    <label>First Name  </label>
-                    <input onChange={(e)=>setFirsName(e.target.value)} type="text" required={true} />
-                </div>
-                <div>
-                    <label>Last Name </label>
-                    <input onChange={(e)=>setLastName(e.target.value)} type="text" required={true} />
-                </div>
-                <div>
-                    <label>Email </label>
-                    <input onChange={(e)=>setEmail(e.target.value)} type="email" required={true} />
-                </div>
-                <div>
-                    <label>Password </label>
-                    <input onChange={(e)=>setPassword(e.target.value)} type="password" required={true} />
-                </div>
-                <div>
-                    <label>Confirm Password </label>
-                    <input className="confirm-pass" onChange={(e)=>setConfirmPassword(e.target.value)} type="password" required={true} />
-                   
-                </div>
-                <section>
-                    <button onClick={(e)=>handlRegister(e)} >Sign up</button>
-                    <Link to="/signin" >Already have Account? sign in </Link>
-                </section>
-            {error?<Status message={error} isOpen={true} />:null}
-                {loading?<Spinner/>:null}
+            
+            <h2 class="form-title">Create account</h2>
+            <div class="form-group names">
+                <input type="text" className="form-input" name="name" id="firstName" placeholder="First Name"
+                onChange={(e)=>setFirsName(e.target.value)} required={true}/>
+                <input type="text" className="form-input" name="name" id="secondName" placeholder="Last Name"
+                onChange={(e)=>setLastName(e.target.value)} required={true}/>
+            </div>
+            <div className="form-group">
+                <input type="text" className="form-input" name="username" id="username" placeholder="Username"
+                onChange={(e)=>setUserName(e.target.value)} required={true}/>
+            </div>
+            <div className="form-group">
+                <input type="email" className="form-input" name="email" id="email" placeholder="Your Email"
+                onChange={(e)=>setEmail(e.target.value)} required={true}/>
+            </div>
+            <div className="form-group">
+                <input type="password" className="form-input" name="password" id="password" placeholder="Password"
+                onChange={(e)=>setPassword(e.target.value)} required={true}/>
+            </div>
+            <div className="form-group">
+                <input type="password" className="form-input" name="re_password" id="re_password"
+                 placeholder="Repeat your password" onChange={(e)=>setConfirmPassword(e.target.value)} required={true}/>
+            </div>
+            <section>
+                <input type="submit" className="form-btn" onClick={(e)=>handlRegister(e)} value="Sign Up" />
+                <Link to="/signin" >Already have Account? sign in </Link>
+            </section>
+            {error?<Status message={error} close={()=>setError(null)} />:null}
+                {loading?<div style={{width:70+"%"}}><Spinner/></div>:null}
+               
             </form>
      </>
 }

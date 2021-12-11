@@ -1,17 +1,22 @@
 import React from 'react'
 import {useMutation} from '@apollo/client'
 import {deleteeTaskMutation,getProjectDetailsQuery} from '../queries/projectQueries'
-const TaskMenu = ({task,handleTaskDetails,handleFinishTask,projectID,domNode,close}) => {
+const TaskMenu = ({task,handleTaskDetails,handleFinishTask,projectID,domNode,close,errorHandler}) => {
 
     const [deleteTask] = useMutation(deleteeTaskMutation)
+   
+    const handleDelTask = async ()=>{
+        try{
+            await deleteTask({
+                variables:{
+                    id:task._id
+                },
+                refetchQueries:[{query:getProjectDetailsQuery,variables:{id:projectID}}]
+            })
+        }catch(err){
+            errorHandler(err.message)
+        }
 
-    const handleDelTask = ()=>{
-        deleteTask({
-            variables:{
-                id:task._id
-            },
-            refetchQueries:[{query:getProjectDetailsQuery,variables:{id:projectID}}]
-        })
         close()
     }
 
@@ -22,7 +27,7 @@ const TaskMenu = ({task,handleTaskDetails,handleFinishTask,projectID,domNode,clo
                 <span className="task-menu-item" >Details</span>
             </button>
             <button onClick={()=> handleDelTask()}>
-                <i class="fas fa-trash-alt"></i>
+                <i className="fas fa-trash-alt"></i>
                 <span className="task-menu-item">Delete Task</span>
             </button>
             {task.completion < 100 ?

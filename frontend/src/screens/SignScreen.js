@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {Redirect, Route, useHistory } from 'react-router-dom'
 import Login from '../components/Login'
 import RegisterScreen from '../screens/RegisterScreen'
-import GhuestScreen from './GhuestScreen'
+import GuestScreen from './GuestScreen'
 
 const SignScreen = () => {
     const userInfo = localStorage.getItem("userInfo")
@@ -13,12 +13,10 @@ const SignScreen = () => {
     else{
     return (
         <div className="register" >
-            <section className="img-container" >
-                <img src="./Business_SVG.svg" />
-            </section>
+            <img className="welcome-img" src="./Business_SVG.svg" />
             <Route path="/signup" component={RegisterScreen} />
             <Route path="/signin" component={Login} />
-            <Route path="/ghuest" component={GhuestScreen} />
+            <Route path="/guest" component={GuestScreen} />
         </div>
     )
     }

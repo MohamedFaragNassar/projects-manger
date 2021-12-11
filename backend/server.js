@@ -3,13 +3,13 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const {graphqlHTTP} = require('express-graphql');
 const schema= require("./schemas/projectSchema")
-const RootResolver = require("./resolvers.js/rootResolver")
 const RigsterResolver = require("./resolvers.js/register")
 const {userSchema} = require("./schemas/userSchema")
 const cors = require('cors');
 const {isAuth} = require("./Authentication")
 const uploadRoute = require("./resolvers.js/uploadImages")
 const path = require("path")
+require('dotenv').config()
 
 const app = express("")
 app.use(bodyParser.json());
@@ -39,9 +39,8 @@ if (process.env.NODE_ENV === "production"){
     })
 }
 
-const mongoDB_URl = "mongodb+srv://mnassar:nassar5050@tu-blogs.7sokl.mongodb.net/projectmanger?retryWrites=true&w=majority";
 const port = process.env.PORT || 5000;
 
-mongoose.connect(mongoDB_URl,{useNewUrlParser:true,useUnifiedTopology:true,useCreateIndex:true},) 
+mongoose.connect(process.env.MONGODB_URl,{useNewUrlParser:true,useUnifiedTopology:true,useCreateIndex:true},) 
         .then(app.listen(port,()=>{console.log("server connected")}))
         .catch(err => console.log(err))

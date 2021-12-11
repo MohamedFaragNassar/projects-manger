@@ -5,21 +5,25 @@ import {debounce} from '../helpers/helpers'
 import {Link} from 'react-router-dom'
 
 
-const GroupSearch = ({group, taskID, projectID,position,domNode,type}) => {
+const GroupSearch = ({group, taskID, projectID,position,domNode,type,errorHandler}) => {
     const [users,setUsers] = useState(group)
     const [updateTask] = useMutation(assignTaskToUserMutation)
     const [deleteUserFromProject] = useMutation(deleteUserFromProjectMutation)
 
-    const handleUpdateTask = (userID) => {
-         updateTask({
-            variables:{
-                taskID,
-                userID
-            },
-            refetchQueries:[{query:getProjectDetailsQuery,variables:{
-                id:projectID
-            }}]
-        })  
+    const handleUpdateTask = async(userID) => {
+        try{
+            await updateTask({
+                variables:{
+                    taskID,
+                    userID
+                },
+                refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                    id:projectID
+                }}]
+            })
+        }catch(err){
+            errorHandler(err.message)
+        }  
     }
 
     const handleSearchGroup = debounce((element)=>{
@@ -33,38 +37,48 @@ const GroupSearch = ({group, taskID, projectID,position,domNode,type}) => {
          } 
         },100)
 
-    const handleDeleteUser = (userID)=>{
-        deleteUserFromProject({
-            variables:{
-                projectID,
-                userID
-            },
-            refetchQueries:[{query:getProjectDetailsQuery,variables:{
-                id:projectID
-            }}]
-        })
+    const handleDeleteUser = async(userID)=>{
+        try{
+            await deleteUserFromProject({
+                variables:{
+                    projectID,
+                    userID
+                },
+                refetchQueries:[{query:getProjectDetailsQuery,variables:{
+                    id:projectID
+                }}]
+            })
+        }catch(err){
+            errorHandler(err.message)
+        } 
 
         setUsers(users.filter(user => user._id != userID))
     }
     
     useEffect(() => {
         
-    }, [group,users])
+    }, [users])
+    
+    useEffect(() => {
+        setUsers(group)
+    }, [group])
+
+  
 
     return (
         <div id="group-search" className={`hide-v ${position}`} >
             <div ref={domNode} className="group-search">
                 <h3>Search Members</h3>
-                <input onChange={(e)=>handleSearchGroup(e.target)} type="text" />
+                <input className='gen-input' onChange={(e)=>handleSearchGroup(e.target)} type="text" />
                 <ul>
                     {type==="show"&&users?users.map(user => 
-                        <li value={user._id}>
+                        <li key={user._id} value={user._id}>
                             <Link to={`/profile/${user._id}`}>{user.userName}</Link>
-                            <button onClick={()=>handleDeleteUser(user._id)}><i class="fas fa-trash-alt"></i></button>
+                            <button onClick={()=>handleDeleteUser(user._id)}><i className="fas fa-trash-alt"></i></button>
                         </li>
                     ):
                     users&& users.map(user =>
-                        <li value={user._id} onClick={(e)=>handleUpdateTask(e.target.attributes.value.value)}>
+                        <li key={user._id} value={user._id} onClick={(e)=>handleUpdateTask(e.target.attributes.value.value)}>
                             {user.userName}
                         </li>
                     )} 

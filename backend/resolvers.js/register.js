@@ -4,10 +4,12 @@ const {getToken} = require("../Authentication")
 
 
 const login = async (args) => {
-   
-        const signedUser = await User.findOne({email:args.email})
+        const isReady = args.email === "ready"
+        const email = isReady ? process.env.EMAIL : args.email
+        const password = isReady ? process.env.PASSWORD : args.password
+        const signedUser = await User.findOne({email})
         if(signedUser){
-            const auth = await bcrypt.compare(args.password, signedUser.password)
+            const auth = await bcrypt.compare(password, signedUser.password)
             if(auth){
                return{
                     id: signedUser._id,

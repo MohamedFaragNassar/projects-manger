@@ -13,18 +13,19 @@ import Profile from './screens/Profile';
 function App() {
 
 const userData =localStorage.getItem("userInfo")?JSON.parse(localStorage.getItem("userInfo")):null
-const [isOpen,setIsOpen] = useState(false)
+const [status,setStatus] = useState("hide-menu")
 
  const sideMenuHandler = ()=>{
    const main = document.getElementById("main")
    main.classList.toggle("main-v2")
-   setIsOpen(!isOpen)
+   const newState = status === "hide-menu" ? "show-menu" : "hide-menu"
+   setStatus(newState)
  } 
 
   return   <BrowserRouter >
     <div className="container" >
     <header className="navigation">
-          <Link to={userData ? "/" : "/ghuest"} className="logo" >Project Manger</Link>
+          <Link to={userData ? "/" : "/guest"} className="logo" >Project Manger</Link>
           <div className="user">
             {userData ? <SignedUser/> :<UnSignedUser/> }
             
@@ -33,13 +34,15 @@ const [isOpen,setIsOpen] = useState(false)
       <div  id="main"  className="main">
               {userData?<div className="sidebar">
                     <div className="side-nav">
-                      <button className="home-btn" to="/" onClick={()=>sideMenuHandler()} ><i className="far fa-bars"></i></button>
+                      <button className="home-btn" to="/" onClick={()=>sideMenuHandler()} >
+                        <i className="far fa-bars"></i>
+                      </button>
                       <Link className="home-btn" to="/"><i className="far fa-home-lg-alt"></i></Link>
                     </div>
-                    <SideMenu isOpen={isOpen} />
+                    <SideMenu status={status} />
               </div>:<div style={{width:0+"px"}}></div>}
               <div className="main-section">
-                  <Route path="/ghuest" component={SignScreen} />
+                  <Route path="/guest" component={SignScreen} />
                   <Route path="/signin"  component={SignScreen} />
                   <Route path="/signup"  component={SignScreen} />
                   <ProtectedRoute path="/project/:id"  component={ProjectScreen} />

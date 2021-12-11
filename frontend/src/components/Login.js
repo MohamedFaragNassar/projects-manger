@@ -40,21 +40,23 @@ const Login = () => {
     },[data])
     
     return <>
-        <form onSubmit={(e)=>handlSignin(e)} className="login-form">
-                <h3>Welcome</h3>
-                <div>
-                    <label>Email </label>
-                    <input onChange={(e)=>setEmail(e.target.value)} type="email" required={true} />
-                </div>
-                <div>
-                    <label>Password </label>
-                    <input onChange={(e)=>setPassword(e.target.value)} type="password" required={true} />
-                </div>
-                <section>
-                    <button type="submit">Sign in</button>
-                    <Link to="/signup" >create new account </Link>
-                </section>
-                {loading?<Spinner/>:error?<Status isOpen={true} message={error.message} />:null}
+        <form onSubmit={(e)=>handlSignin(e)} className="register-form">
+            <h2 class="form-title">Welcome Back</h2>
+            <div className="form-group">
+                <input type="email" className="form-input" name="email" id="emailSignin" placeholder="Your Email"
+                onChange={(e)=>setEmail(e.target.value)} required={true}/>
+            </div>
+            <div className="form-group">
+                <input type="password" className="form-input" name="password" id="passwordSignin" placeholder="Password"
+                onChange={(e)=>setPassword(e.target.value)} required={true}/>
+            </div>
+            <section>
+                <input className="form-btn" type="submit" value="Sign In" />
+                <Link to="/signup" >create new account </Link>
+            </section>
+            {loading?<div style={{width:70+"%"}}><Spinner/></div>
+            :error?<Status close={()=>setError(null)} message={error.message}  />:null}
+            
         </form>
             
     </>

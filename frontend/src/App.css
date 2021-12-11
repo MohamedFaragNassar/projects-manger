@@ -63,6 +63,7 @@ button {
 .main {
   display: grid;
   grid-template-columns: 60px auto;
+  transition: all 150ms ease-in-out;
 }
 .main-v2 {
   grid-template-columns: 300px auto;
@@ -83,14 +84,15 @@ button {
   display: none;
 }
 
-input {
+.gen-input {
   padding: 5px;
   border: 2px solid var(--border);
   border-radius: 5px;
-}
-input:focus {
+} 
+.gen-input:focus {
   border: 2px solid var(--green);
 }
+
 
 @media (max-width: 800px) {
   .new-project {
@@ -111,9 +113,7 @@ input:focus {
   .register{
     width: 100%;
   }
-  .user{
-    width: 40%;
-  }
+  
   .unsigned-user a{
     font-size: 15px;
     padding: 10px;
@@ -128,33 +128,41 @@ input:focus {
     width: 80%;
     transform: translate(-50%,-80%);
   }
-  .proj-header h1{
+  /* .proj-header h1{
     font-size: 25px;
     font-weight: 600;
-  }
+  } */
+  /* .proj-header{
+    margin-bottom: 25px;
+  } */
   .timline-btn{
     display: none;
   }
-  .manage{
-    width: 60%;
-    padding-right: 10px;
-  }
-  .main-links{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 30%;
-  }
-
-  .view-links{
-    margin-left: 0;
+ 
+  .filter{
+    width: 35%;
   }
 
   .users{
-    width: 70%;
+    width: 65%;
   }
-  .filter,.group{
-    margin-right: 0;
+
+  .filter select:not(#filter-select){
+    font-size: 15px;
+    width: fit-content;
+    margin-top: 4px;
+  }
+
+  .main-links{
+    height: 60%;
+    padding-right: 10px;
+  }
+
+  .header-links{
+    flex-direction: column;
+    width: 25%;
+    height: 100%;
+    justify-content: space-between;
   }
 
   .board{
@@ -162,6 +170,16 @@ input:focus {
   }
   .board-body{
     width: 98%;
+    max-width: 98%;
+    
+  }
+  .board-bk{
+    border-right: none;
+    border-top: 2px solid rgb(230, 224, 224);
+    padding-top: 10px;
+  }
+  .add-new-bucket{
+    padding-bottom: 10px;
   }
   .task-icons i:not(.task-menu i){
     display: block;
@@ -216,9 +234,7 @@ input:focus {
   .ghuest p{
     width: 100%;
   }
-  .user{
-    width: 50%;
-  }
+  
   .unsigned-user a{
     font-size: 15px;
     padding: 10px;
@@ -226,22 +242,40 @@ input:focus {
   .sidebar{
     visibility: hidden;
   }
-  .proj-header h1{
-    font-size: 20px;
-  }
-  .proj-header div:not(.view-links , .manage){
-    display: flex;
-  }
-  .view-links{
-    display: none;
-  }
-  .manage{
-    display: none;
-  }
-
+  
+ 
   .edit-profile{
     width: 90%;
     transform: translate(-50%,-60%);
+  }
+
+  .proj-header{
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .main-links{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .header-links{
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 50%;
+  }
+
+  .manage{
+    width: 100%;
+
+  }
+
+  .filters-panel{
+    left: 5px;
   }
  
 }
@@ -290,16 +324,24 @@ input:focus {
   .edit-profile input{
     max-width: 60%;
   }
-  .manage{
+  /* .manage{
     visibility: hidden;
-  }
+  } */
   .add-new-bucket button{
     padding: 10px 0;
   }
-  .main-links {
+ /*  .main-links {
     width: 100%;
   }
   .view-links{
     margin-left: 50px;
+  } */
+
+  .user{
+    width: 40%;
+    margin-right: 20px;
+  }
+  .nav-user{
+    width: 100%;
   }
 }

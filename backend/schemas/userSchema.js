@@ -39,7 +39,7 @@ type RootQuery {
 }
 
 type Mutation {
-    login(email:String!,password:String!): loginType
+    login(email:String,password:String): loginType
     register(user:userInput!):userType
 }
 

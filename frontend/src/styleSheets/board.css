@@ -2,18 +2,31 @@
 
 .board {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
+  width: 99%;
 }
 
 .board-body {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
-  width: 90%;
   overflow: auto;
   padding: 10px;
 }
+
+.board-bk{
+  justify-content: flex-start;
+  width: fit-content;
+  max-width: 80%;
+  border-right: 2px solid rgb(230, 224, 224);
+  
+}
+
+.board-pg{
+  justify-content: space-between;
+  width: 100%;
+}
+
 .board-bucket {
   min-width: 250px;
   display: flex;
@@ -22,7 +35,8 @@
   height: 80vh;
 }
 .board-bucket h4 {
-  text-align: center;
+  width: 70%;
+  text-align: left;
 }
 .board-bucket select {
   width: 75%;
@@ -32,18 +46,21 @@
   margin-top: 15px;
 }
 .board-bucket button:not(.check, .users-btn) {
-  padding: 10px 20px;
+  width: 70%;
+  text-align: left;
+  padding: 10px 7px;
   font-size: 15px;
   margin-top: 15px;
 }
 .add-new-bucket {
-  width: 200px;
+  width: 20rem;
+  margin-left: 10px;
 }
 .add-new-bucket button {
   width: 100%;
   background: var(--color-d3);
   padding: 15px 0px;
-  font-size: 20px;
+  font-size: .8rem;
   font-weight: 500;
   border-style: none;
   border-radius: 5px;
