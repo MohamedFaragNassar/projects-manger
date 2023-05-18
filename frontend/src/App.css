@@ -88,11 +88,10 @@ button {
   padding: 5px;
   border: 2px solid var(--border);
   border-radius: 5px;
-} 
+}
 .gen-input:focus {
   border: 2px solid var(--green);
 }
-
 
 @media (max-width: 800px) {
   .new-project {
@@ -110,23 +109,23 @@ button {
   .profile {
     width: 80%;
   }
-  .register{
+  .register {
     width: 100%;
   }
-  
-  .unsigned-user a{
+
+  .unsigned-user a {
     font-size: 15px;
     padding: 10px;
   }
   .main {
     grid-template-columns: 0px auto;
   }
-  .sidebar{
+  .sidebar {
     visibility: hidden;
   }
-  .edit-profile{
+  .edit-profile {
     width: 80%;
-    transform: translate(-50%,-80%);
+    transform: translate(-50%, -80%);
   }
   /* .proj-header h1{
     font-size: 25px;
@@ -135,63 +134,62 @@ button {
   /* .proj-header{
     margin-bottom: 25px;
   } */
-  .timline-btn{
+  .timline-btn {
     display: none;
   }
- 
-  .filter{
+
+  .filter {
     width: 35%;
   }
 
-  .users{
+  .users {
     width: 65%;
   }
 
-  .filter select:not(#filter-select){
+  .filter select:not(#filter-select) {
     font-size: 15px;
     width: fit-content;
     margin-top: 4px;
   }
 
-  .main-links{
+  .main-links {
     height: 60%;
     padding-right: 10px;
   }
 
-  .header-links{
+  .header-links {
     flex-direction: column;
     width: 25%;
     height: 100%;
     justify-content: space-between;
   }
 
-  .board{
+  .board {
     flex-direction: column-reverse;
   }
-  .board-body{
+  .board-body {
     width: 98%;
     max-width: 98%;
-    
   }
-  .board-bk{
+  .board-bk {
     border-right: none;
     border-top: 2px solid rgb(230, 224, 224);
     padding-top: 10px;
   }
-  .add-new-bucket{
+  .add-new-bucket {
     padding-bottom: 10px;
   }
-  .task-icons i:not(.task-menu i){
+  .task-icons i:not(.task-menu i) {
     display: block;
   }
 
-  .ghuest h3{
+  .ghuest h3 {
     font-size: 30px;
   }
-  .pre-made{
+  .pre-made {
     width: 80%;
   }
-  .register-form input{
+  .register-form input {
     width: 50%;
   }
 }
@@ -200,56 +198,55 @@ button {
   .add-new-project {
     width: 90%;
   }
-  .img-container{
+  .img-container {
     display: none;
   }
-  .register-form{
+  .register-form {
     width: 100%;
   }
-  .login-form{
+  .login-form {
     width: 100%;
   }
-  .register form{
+  .register form {
     width: 100%;
   }
-  .pre-made{
+  .pre-made {
     width: 80%;
   }
   .main {
     grid-template-columns: 0px auto;
   }
-  .register-form input{
-    width:50% ;
+  .register-form input {
+    width: 50%;
   }
-  .register-form label{
+  .register-form label {
     font-size: 15px;
   }
-  .logo{
+  .logo {
     font-size: 18px;
     font-weight: 600;
   }
-  .ghuest h3{
+  .ghuest h3 {
     font-size: 25px;
   }
-  .ghuest p{
+  .ghuest p {
     width: 100%;
   }
-  
-  .unsigned-user a{
+
+  .unsigned-user a {
     font-size: 15px;
     padding: 10px;
   }
-  .sidebar{
+  .sidebar {
     visibility: hidden;
   }
-  
- 
-  .edit-profile{
+
+  .edit-profile {
     width: 90%;
-    transform: translate(-50%,-60%);
+    transform: translate(-50%, -60%);
   }
 
-  .proj-header{
+  .proj-header {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
@@ -257,27 +254,25 @@ button {
     margin-bottom: 20px;
   }
 
-  .main-links{
+  .main-links {
     width: 100%;
     margin-bottom: 10px;
   }
 
-  .header-links{
+  .header-links {
     flex-direction: row;
     align-items: flex-end;
     justify-content: flex-end;
     width: 50%;
   }
 
-  .manage{
+  .manage {
     width: 100%;
-
   }
 
-  .filters-panel{
+  .filters-panel {
     left: 5px;
   }
- 
 }
 
 @media (max-width: 400px) {
@@ -307,41 +302,41 @@ button {
     font-weight: 500;
   }
 
-  .edit-profile{
+  .edit-profile {
     width: 90%;
-    transform: translate(-50%,-60%);
+    transform: translate(-50%, -60%);
   }
 
-  .profile{
+  .profile {
     width: 90%;
   }
-  .profile-info div span{
+  .profile-info div span {
     font-size: 15px;
   }
-  .profile-info div span{
+  .profile-info div span {
     width: 40%;
   }
-  .edit-profile input{
+  .edit-profile input {
     max-width: 60%;
   }
   /* .manage{
     visibility: hidden;
   } */
-  .add-new-bucket button{
+  .add-new-bucket button {
     padding: 10px 0;
   }
- /*  .main-links {
+  /*  .main-links {
     width: 100%;
   }
   .view-links{
     margin-left: 50px;
   } */
 
-  .user{
+  .user {
     width: 40%;
     margin-right: 20px;
   }
-  .nav-user{
+  .nav-user {
     width: 100%;
   }
 }
