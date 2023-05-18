@@ -6,7 +6,7 @@ const getToken = (user) => {
       _id: user._id,
       userName: user.userName,
     },
-    "secret"
+    process.env.JWT_SECRET
   );
 };
 
@@ -21,7 +21,7 @@ const isAuth = (req, res, next) => {
   }
 
   if (token) {
-    jwt.verify(token, "secret", (err, decodedToken) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
       if (err) {
         res.status(401).send({ message: "Invalid Token" });
       }
